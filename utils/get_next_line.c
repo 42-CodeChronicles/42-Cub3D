@@ -6,13 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:15:23 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/04 13:21:40 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:29:37 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-
 
 static char	*read_line(int fd, char *buffer, char *remainder)
 {

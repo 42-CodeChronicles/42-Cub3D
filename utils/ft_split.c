@@ -6,92 +6,73 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:28:42 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/04 12:28:56 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:30:02 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-static int	count_word(const char *str, char c)
+int	count_word(char *str)
 {
 	int	i;
-	int	res;
+	int	c;
 
 	i = 0;
-	res = 0;
-	while (str && str[i])
+	c = 0;
+	while (str[i])
 	{
-		while (str[i] == c)
+		while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t')
 			i++;
 		if (str[i])
-			res++;
-		while (str[i] && str[i] != c)
+			c++;
+		while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t')
 			i++;
 	}
-	return (res);
+	return (c);
 }
 
-static int	len(const char *str, char c, int i)
-{
-	int	j;
-
-	j = 0;
-	while (str[i] && str[i] != c)
-	{
-		j++;
-		i++;
-	}
-	return (j);
-}
-
-static char	*ft_strncpy(char *dest, const char *src, int n)
+static char	*ft_strcpy1(char *dest, char *src, int index)
 {
 	int	i;
 
 	i = 0;
-	while (i < n)
+	while (src[index] && src[index] != ' ' && src[index] != '\n'
+		&& src[index] != '\t')
 	{
-		dest[i] = src[i];
+		dest[i] = src[index];
+		index++;
 		i++;
 	}
 	dest[i] = '\0';
 	return (dest);
 }
 
-static void	free_2d_arr(char **ptr)
+char	**ft_split(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (ptr[i])
-		free(ptr[i++]);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**ptr;
-	int		l;
 	int		i;
 	int		j;
+	int		w;
+	int		c;
+	char	**ptr;
 
 	i = 0;
-	l = 0;
-	j = 0;
-	if (!s)
-		return (NULL);
-	ptr = malloc((count_word(s, c) + 1) * sizeof(char *));
-	if (!ptr)
-		return (NULL);
-	while (ptr && i < count_word(s, c))
+	w = 0;
+	c = count_word(str);
+	ptr = malloc((c + 1) * sizeof(char *));
+	while (str[i])
 	{
-		j += l;
-		while (s[j] == c)
+		j = 0;
+		while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t')
+			i++;
+		while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t')
+		{
 			j++;
-		l = len(s, c, j);
-		ptr[i] = malloc((l + 1) * sizeof(char));
-		if (!ptr[i])
-			return (free_2d_arr(ptr), free(ptr), NULL);
-		ft_strncpy(ptr[i++], s + j, l);
+			i++;
+		}
+		ptr[w] = malloc((j + 1));
+		ptr[w] = ft_strcpy1(ptr[w], str, i - j);
+		w++;
 	}
-	return (ptr[i] = NULL, ptr);
+	ptr[c] = NULL;
+	return (ptr);
 }
