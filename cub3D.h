@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 14:47:43 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:20:55 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,32 @@
 
 typedef struct s_flags
 {
-	int		NO;
-	int		SO;
-	int		WE;
-	int		EA;
-	int		F;
-	int		C;
+	int		no;
+	int		so;
+	int		we;
+	int		ea;
+	int		f;
+	int		c;
 }			t_flags;
 
-typedef struct s_game
+typedef struct s_config
 {
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
-	int		F[3];
-	int		C[3];
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		f[3];
+	int		c[3];
 	char	**map;
-}			t_game;
+}			t_config;
 
 int			ft_isspace(int c);
 void		print_error(void);
 int			ft_isdigit(int c);
 long		ft_atoi(char *str);
 char		**ft_split(char *s);
+int			check_num(char *ptr);
+int			array_len(char **tab);
 void		check_line(char *str);
 char		*get_next_line(int fd);
 int			check_spaces(char *str);
@@ -56,10 +58,12 @@ size_t		ft_strlen(const char *str);
 char		*ft_strjoin(char *s1, char *s2);
 char		*ft_strchr(const char *s, int c);
 char		**ft_split2(char const *s, char c);
+void		*ft_memset(void *ptr, int x, size_t n);
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 void		ft_strcpy(char *dest, const char *src, size_t len);
-void		handle_texture(char *str, t_game *data, t_flags *flags);
+void		handle_rgb(char *str, t_config *data, t_flags *flags);
+void		handle_texture(char *str, t_config *data, t_flags *flags);
 char		*ft_substr(const char *s, unsigned int start, size_t len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:28:42 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 14:30:02 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:09:10 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,32 +47,47 @@ static char	*ft_strcpy1(char *dest, char *src, int index)
 	return (dest);
 }
 
+static int	skip_spaces(char *str, int i)
+{
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t')
+		i++;
+	return (i);
+}
+
+static int	get_word_len(char *str, int i)
+{
+	int	len;
+
+	len = 0;
+	while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t')
+	{
+		len++;
+		i++;
+	}
+	return (len);
+}
+
 char	**ft_split(char *str)
 {
 	int		i;
-	int		j;
 	int		w;
-	int		c;
+	int		word_len;
 	char	**ptr;
 
 	i = 0;
 	w = 0;
-	c = count_word(str);
-	ptr = malloc((c + 1) * sizeof(char *));
+	ptr = malloc((count_word(str) + 1) * sizeof(char *));
 	while (str[i])
 	{
-		j = 0;
-		while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t')
-			i++;
-		while (str[i] && str[i] != ' ' && str[i] != '\n' && str[i] != '\t')
-		{
-			j++;
-			i++;
-		}
-		ptr[w] = malloc((j + 1));
-		ptr[w] = ft_strcpy1(ptr[w], str, i - j);
+		i = skip_spaces(str, i);
+		if (!str[i])
+			break ;
+		word_len = get_word_len(str, i);
+		ptr[w] = malloc(word_len + 1);
+		ptr[w] = ft_strcpy1(ptr[w], str, i);
+		i += word_len;
 		w++;
 	}
-	ptr[c] = NULL;
+	ptr[w] = NULL;
 	return (ptr);
 }
