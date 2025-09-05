@@ -6,11 +6,31 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:23:52 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 15:44:53 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 18:30:43 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+
+void	free_config(t_config *data)
+{
+	int	i;
+
+	free(data->no);
+	free(data->so);
+	free(data->we);
+	free(data->ea);
+	if (data->map)
+	{
+		i = 0;
+		while (data->map[i])
+		{
+			free(data->map[i]);
+			i++;
+		}
+		free(data->map);
+	}
+}
 
 static void	set_texture(char **texture, int *flag, char *path)
 {
@@ -53,6 +73,7 @@ void	handle_texture(char *str, t_config *data, t_flags *flags)
 		handle_north_south(array, data, flags, array[0]);
 	else if (!ft_strcmp(array[0], "WE") || !ft_strcmp(array[0], "EA"))
 		handle_west_east(array, data, flags, array[0]);
+	free_array(array);
 }
 
 // void	handle_texture(char *str, t_config *data, t_flags *flags)

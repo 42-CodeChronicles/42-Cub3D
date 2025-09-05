@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 16:22:08 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 18:30:58 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ int			check_num(char *ptr);
 int			array_len(char **tab);
 char		*get_next_line(int fd);
 int			check_spaces(char *str);
+void		free_array(char **array);
 char		*ft_strdup(const char *s1);
 size_t		ft_strlen(const char *str);
+void		free_config(t_config *data);
 char		*ft_strjoin(char *s1, char *s2);
 char		*ft_strchr(const char *s, int c);
 char		**ft_split2(char const *s, char c);

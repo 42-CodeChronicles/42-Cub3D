@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:11:26 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 15:44:46 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 18:30:53 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@ void	print_error(void)
 {
 	printf("Invalid Control\n");
 	exit(1);
+}
+
+void	free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }
 
 int	array_len(char **tab)

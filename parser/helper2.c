@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:15:22 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 17:38:44 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 18:22:55 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	process_floor_color(char *str, int *i, t_config *data,
 	ft_edit_array(array);
 	validate_and_set_rgb(array, data->f);
 	flags->f = 1;
+	free_array(array);
 }
 
 static void	process_ceiling_color(char *str, int *i, t_config *data,
@@ -72,6 +73,7 @@ static void	process_ceiling_color(char *str, int *i, t_config *data,
 	ft_edit_array(array);
 	validate_and_set_rgb(array, data->c);
 	flags->c = 1;
+	free_array(array);
 }
 
 void	handle_rgb(char *str, t_config *data, t_flags *flags)
