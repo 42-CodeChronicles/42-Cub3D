@@ -6,11 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:11:26 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 15:22:55 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:44:46 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../cub3D.h"
 
 void	print_error(void)
 {

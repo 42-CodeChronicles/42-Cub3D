@@ -6,11 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:15:22 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 15:21:59 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:44:50 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../cub3D.h"
 
 static void	ft_edit_array(char **array)
 {

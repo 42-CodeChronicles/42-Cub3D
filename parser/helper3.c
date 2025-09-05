@@ -6,11 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:23:52 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 15:41:45 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:44:53 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../cub3D.h"
 
 static void	set_texture(char **texture, int *flag, char *path)
 {
