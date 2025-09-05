@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 15:20:55 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:40:36 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ long		ft_atoi(char *str);
 char		**ft_split(char *s);
 int			check_num(char *ptr);
 int			array_len(char **tab);
-void		check_line(char *str);
 char		*get_next_line(int fd);
 int			check_spaces(char *str);
 char		*ft_strdup(const char *s1);
@@ -63,6 +62,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 void		ft_strcpy(char *dest, const char *src, size_t len);
 void		handle_rgb(char *str, t_config *data, t_flags *flags);
+void		check_line(char *str, t_config *data, t_flags *flags);
 void		handle_texture(char *str, t_config *data, t_flags *flags);
 char		*ft_substr(const char *s, unsigned int start, size_t len);
 
