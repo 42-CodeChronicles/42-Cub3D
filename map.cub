@@ -1,7 +1,17 @@
-WE ./texture/siryakari-furnace2.png    	    	   		
-SO ./texture/siryakari-furnace.png
-EA ./texture/siryakari-furnace2.png
-NO ./texture/siryakari-furnace1.png
+NO     ./north_texture.png             
 
-F	220, 100,0
-C	225,30,255
+
+
+          SO    ./south_texture.png    
+
+
+
+
+F  123,232,32
+
+EA    ./east_texture.png
+
+C   221,98,10
+   
+
+WE    ./west_texture.png     

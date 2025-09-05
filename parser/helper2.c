@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:15:22 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 15:44:50 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:38:44 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	handle_rgb(char *str, t_config *data, t_flags *flags)
 // 		i++;
 // 	}
 // }
-
+//
 // void	handle_rgb(char *str, t_config *data, t_flags *flags)
 // {
 // 	char	**array;

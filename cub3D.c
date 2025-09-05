@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:10:02 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 15:40:04 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:37:55 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ void	check_line(char *str, t_config *data, t_flags *flags)
 	free(array);
 }
 
+void	print_array(t_config data)
+{
+	int	i;
+
+	printf("EA : [%s]\n", data.ea);
+	printf("WE : [%s]\n", data.we);
+	printf("SO : [%s]\n", data.so);
+	printf("NO : [%s]\n", data.no);
+	i = 0;
+	while (i < 6)
+	{
+		printf("[%d]\n", data.f[i]);
+		i++;
+	}
+}
+
 void	cube(char *str)
 {
 	int			fd;
@@ -45,7 +61,10 @@ void	cube(char *str)
 	{
 		str = get_next_line(fd);
 		if (!str)
+		{
+			print_array(data);
 			return ;
+		}
 		if (check_spaces(str))
 		{
 			check_line(str, &data, &flags);
