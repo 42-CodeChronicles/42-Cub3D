@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/06 15:41:24 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/06 18:19:35 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_map
 {
 	char			**array_map;
 	int				height;
-	int				weight;
+	int				widght;
 	t_point			player_pos;
 	char			player_dir;
 }					t_map;
@@ -88,12 +88,16 @@ void				free_map_list(t_list **map);
 size_t				ft_strlen(const char *str);
 int					check_config(t_flags flags);
 void				free_config(t_config *data);
+int					validate_map(t_config *data);
 int					check_line_is_valide(char *str);
 char				*ft_strjoin(char *s1, char *s2);
 char				*ft_strchr(const char *s, int c);
+void				parse_map(int fd, t_config *data);
 char				**ft_split2(char const *s, char c);
+int					parse_config(int fd, t_config *data);
 void				check_line(char *str, t_config *data);
 void				handle_rgb(char *str, t_config *data);
+void				free_map_copy(char **map, int height);
 void				*ft_memset(void *ptr, int x, size_t n);
 void				lst_to_2d(t_config **data, t_list *map);
 void				ft_lstadd_back(t_list **lst, t_list *new);
@@ -102,6 +106,7 @@ void				handle_texture(char *str, t_config *data);
 char				*ft_strtrim(char const *s1, char const *set);
 void				check_map(char *str, t_config *data, t_list **map);
 void				ft_strcpy(char *dest, const char *src, size_t len);
+void				flood_fill(char **map, int x, int y, t_map *map_data);
 char				*ft_substr(const char *s, unsigned int start, size_t len);
 
 #endif
