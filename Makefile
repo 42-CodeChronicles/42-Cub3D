@@ -2,9 +2,10 @@ NAME = cub3D
 CC = gcc
 CFLAGS =  -Wall -Wextra -Werror -g -fsanitize=address
 
-SRCS = cub3D.c ./parser/helper.c ./parser/helper1.c ./parser/helper2.c ./parser/helper3.c ./parser/helper4.c ./utils/ft_split.c ./utils/ft_strcpy.c ./utils/ft_strdup.c\
-	./utils/ft_strcmp.c ./utils/ft_strtrim.c ./utils/ft_isspace.c ./utils/ft_split2.c ./utils/ft_isdigit.c ./utils/ft_atoi.c ./utils/get_next_line.c\
-	./utils/ft_memset.c ./utils/ft_strchr.c ./utils/ft_lstnew.c ./utils/ft_lstaddback.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/ft_substr.c\
+SRCS = cub3D.c ./parser/helper.c ./parser/helper1.c ./parser/helper2.c ./parser/helper3.c ./parser/helper4.c ./parser/helper5.c ./utils/ft_split.c ./utils/ft_strcpy.c \
+	./utils/ft_strdup.c ./utils/ft_strcmp.c ./utils/ft_strtrim.c ./utils/ft_isspace.c ./utils/ft_split2.c ./utils/ft_isdigit.c ./utils/ft_atoi.c ./utils/get_next_line.c\
+	./utils/ft_memset.c ./utils/ft_strchr.c ./utils/ft_lstnew.c ./utils/ft_lstaddback.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/ft_substr.c  ./utils/ft_lstsize.c\
+	
 
 OBJS = $(SRCS:.c=.o)
 

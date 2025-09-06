@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:19:33 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/06 12:19:51 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:40:05 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,53 @@ static int	parse_config(int fd, t_config *data)
 static void	parse_map(int fd, t_config *data)
 {
 	char	*str;
+	t_list	*map;
 
+	map = NULL;
 	while (1)
 	{
 		str = get_next_line(fd);
 		if (!str)
 			break ;
-		check_map(str, data);
+		check_map(str, data, &map);
 		free(str);
 	}
+	if (ft_lstsize(map) == 0)
+		print_error_map();
+	lst_to_2d(&data, map);
+	free_map_list(&map);
 }
 
+// void	print_array(t_config data)
+// {
+// 	int	i;
+// 	printf("=== CONFIGURATION DATA ===\n");
+// 	printf("NO: [%s]\n", data.no ? data.no : "NULL");
+// 	printf("SO: [%s]\n", data.so ? data.so : "NULL");
+// 	printf("WE: [%s]\n", data.we ? data.we : "NULL");
+// 	printf("EA: [%s]\n", data.ea ? data.ea : "NULL");
+// 	printf("F: [%d, %d, %d]\n", data.f[0], data.f[1], data.f[2]);
+// 	printf("C: [%d, %d, %d]\n", data.c[0], data.c[1], data.c[2]);
+// 	printf("Flags - no:%d so:%d we:%d ea:%d f:%d c:%d in_map:%d\n",
+// 		data.flags.no, data.flags.so, data.flags.we, data.flags.ea,
+// 		data.flags.f, data.flags.c, data.flags.in_map);
+// 	printf("Map dimensions: %dx%d\n", data.map.weight, data.map.height);
+// 	printf("Player: pos(%d,%d) dir:%c flag:%d\n", data.map.player_pos.x,
+// 		data.map.player_pos.y, data.map.player_dir, data.map.player_pos.flag);
+// 	printf("Map:\n");
+// 	if (data.map.array_map)
+// 	{
+// 		i = 0;
+// 		while (i < data.map.height && data.map.array_map[i])
+// 		{
+// 			printf("[%d] {%s}\n", i, data.map.array_map[i]);
+// 			i++;
+// 		}
+// 	}
+// 	else
+// 		printf("Map is NULL\n");
+// 	printf("=== END ===\n");
+// }
 void	cube(char *str)
 {
 	int			fd;
@@ -87,3 +123,4 @@ void	cube(char *str)
 	close(fd);
 	free_config(&data);
 }
+// print_array(data);

@@ -6,11 +6,17 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:23:52 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/06 12:16:45 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/06 13:07:51 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+
+void	print_error_map(void)
+{
+	printf("Invalid Map\n");
+	exit(1);
+}
 
 static void	set_texture(char **texture, int *flag, char *path)
 {
