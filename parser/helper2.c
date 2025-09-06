@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:15:22 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 18:22:55 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/06 11:01:26 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ static void	validate_and_set_rgb(char **array, int *rgb_values)
 	}
 }
 
-static void	process_floor_color(char *str, int *i, t_config *data,
-		t_flags *flags)
+static void	process_floor_color(char *str, int *i, t_config *data)
 {
 	char	**array;
 
-	if (flags->f)
+	if (data->flags.f)
 		print_error();
 	(*i)++;
 	array = ft_split2(str + *i, ',');
@@ -55,16 +54,15 @@ static void	process_floor_color(char *str, int *i, t_config *data,
 		print_error();
 	ft_edit_array(array);
 	validate_and_set_rgb(array, data->f);
-	flags->f = 1;
+	data->flags.f = 1;
 	free_array(array);
 }
 
-static void	process_ceiling_color(char *str, int *i, t_config *data,
-		t_flags *flags)
+static void	process_ceiling_color(char *str, int *i, t_config *data)
 {
 	char	**array;
 
-	if (flags->c)
+	if (data->flags.c)
 		print_error();
 	(*i)++;
 	array = ft_split2(str + *i, ',');
@@ -72,11 +70,11 @@ static void	process_ceiling_color(char *str, int *i, t_config *data,
 		print_error();
 	ft_edit_array(array);
 	validate_and_set_rgb(array, data->c);
-	flags->c = 1;
+	data->flags.c = 1;
 	free_array(array);
 }
 
-void	handle_rgb(char *str, t_config *data, t_flags *flags)
+void	handle_rgb(char *str, t_config *data)
 {
 	int	i;
 
@@ -84,9 +82,9 @@ void	handle_rgb(char *str, t_config *data, t_flags *flags)
 	while (str[i])
 	{
 		if (str[i] == 'F' && ft_isspace(str[i + 1]))
-			process_floor_color(str, &i, data, flags);
+			process_floor_color(str, &i, data);
 		else if (str[i] == 'C' && ft_isspace(str[i + 1]))
-			process_ceiling_color(str, &i, data, flags);
+			process_ceiling_color(str, &i, data);
 		i++;
 	}
 }

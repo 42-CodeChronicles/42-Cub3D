@@ -6,31 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:23:52 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/05 18:30:43 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/06 12:16:45 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-void	free_config(t_config *data)
-{
-	int	i;
-
-	free(data->no);
-	free(data->so);
-	free(data->we);
-	free(data->ea);
-	if (data->map)
-	{
-		i = 0;
-		while (data->map[i])
-		{
-			free(data->map[i]);
-			i++;
-		}
-		free(data->map);
-	}
-}
 
 static void	set_texture(char **texture, int *flag, char *path)
 {
@@ -40,29 +20,27 @@ static void	set_texture(char **texture, int *flag, char *path)
 	*flag = 1;
 }
 
-static void	handle_north_south(char **array, t_config *data, t_flags *flags,
-		char *direction)
+static void	handle_north_south(char **array, t_config *data, char *direction)
 {
 	if (array_len(array) != 2)
 		print_error();
 	if (!ft_strcmp(direction, "NO"))
-		set_texture(&data->no, &flags->no, array[1]);
+		set_texture(&data->no, &data->flags.no, array[1]);
 	else if (!ft_strcmp(direction, "SO"))
-		set_texture(&data->so, &flags->so, array[1]);
+		set_texture(&data->so, &data->flags.so, array[1]);
 }
 
-static void	handle_west_east(char **array, t_config *data, t_flags *flags,
-		char *direction)
+static void	handle_west_east(char **array, t_config *data, char *direction)
 {
 	if (array_len(array) != 2)
 		print_error();
 	if (!ft_strcmp(direction, "WE"))
-		set_texture(&data->we, &flags->we, array[1]);
+		set_texture(&data->we, &data->flags.we, array[1]);
 	else if (!ft_strcmp(direction, "EA"))
-		set_texture(&data->ea, &flags->ea, array[1]);
+		set_texture(&data->ea, &data->flags.ea, array[1]);
 }
 
-void	handle_texture(char *str, t_config *data, t_flags *flags)
+void	handle_texture(char *str, t_config *data)
 {
 	char	**array;
 
@@ -70,9 +48,9 @@ void	handle_texture(char *str, t_config *data, t_flags *flags)
 	if (array_len(array) != 2)
 		print_error();
 	if (!ft_strcmp(array[0], "NO") || !ft_strcmp(array[0], "SO"))
-		handle_north_south(array, data, flags, array[0]);
+		handle_north_south(array, data, array[0]);
 	else if (!ft_strcmp(array[0], "WE") || !ft_strcmp(array[0], "EA"))
-		handle_west_east(array, data, flags, array[0]);
+		handle_west_east(array, data, array[0]);
 	free_array(array);
 }
 
