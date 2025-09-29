@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:10:02 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/06 18:25:16 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/29 22:54:48 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
 
 int	main(int ac, char **av)
 {
+
 	if (ac != 2)
 		return (1);
-	cube(av[1]);
+	if (!cube(av[1]))
+		return (1);
+	init_minimap();
 	return (0);
 }

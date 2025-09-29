@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/06 18:19:35 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/29 23:27:58 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,20 @@
 #  define BUFFER_SIZE 3
 # endif
 
-# include "./MLX/include/MLX42/MLX42.h"
+#define W_WIDTH 800
+#define W_HEIGHT 600
+
+# include "./MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+typedef struct s_mlx
+{
+	void			*mlx;
+	void			*win;
+}					t_mlx;
 
 typedef struct s_flags
 {
@@ -68,7 +77,7 @@ typedef struct s_config
 	t_map			map;
 }					t_config;
 
-void				cube(char *str);
+int				cube(char *str);
 int					ft_isspace(int c);
 void				print_error(void);
 int					is_valide(char c);
@@ -108,5 +117,10 @@ void				check_map(char *str, t_config *data, t_list **map);
 void				ft_strcpy(char *dest, const char *src, size_t len);
 void				flood_fill(char **map, int x, int y, t_map *map_data);
 char				*ft_substr(const char *s, unsigned int start, size_t len);
+
+
+//ayaarab's functions
+
+void init_minimap(void);
 
 #endif

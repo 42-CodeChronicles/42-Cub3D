@@ -6,39 +6,39 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:19:33 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/28 16:27:07 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/29 16:17:54 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-void	print_array(t_config data)
-{
-	int	i;
-	printf("=== CONFIGURATION DATA ===\n");
-	printf("NO: [%s]\n", data.no ? data.no : "NULL");
-	printf("SO: [%s]\n", data.so ? data.so : "NULL");
-	printf("WE: [%s]\n", data.we ? data.we : "NULL");
-	printf("EA: [%s]\n", data.ea ? data.ea : "NULL");
-	printf("F: [%d, %d, %d]\n", data.f[0], data.f[1], data.f[2]);
-	printf("C: [%d, %d, %d]\n", data.c[0], data.c[1], data.c[2]);
-	printf("Map dimensions: %dx%d\n", data.map.widght, data.map.height);
-	printf("Player: pos(%d,%d) dir:%c flag:%d\n", data.map.player_pos.x,
-		data.map.player_pos.y, data.map.player_dir, data.map.player_pos.flag);
-	printf("Map:\n");
-	if (data.map.array_map)
-	{
-		i = 0;
-		while (i < data.map.height && data.map.array_map[i])
-		{
-			printf("{%s}\n",data.map.array_map[i]);
-			i++;
-		}
-	}
-	else
-		printf("Map is NULL\n");
-	printf("=== END ===\n");
-}
+// void	print_array(t_config data)
+// {
+// 	int	i;
+// 	printf("=== CONFIGURATION DATA ===\n");
+// 	printf("NO: [%s]\n", data.no ? data.no : "NULL");
+// 	printf("SO: [%s]\n", data.so ? data.so : "NULL");
+// 	printf("WE: [%s]\n", data.we ? data.we : "NULL");
+// 	printf("EA: [%s]\n", data.ea ? data.ea : "NULL");
+// 	printf("F: [%d, %d, %d]\n", data.f[0], data.f[1], data.f[2]);
+// 	printf("C: [%d, %d, %d]\n", data.c[0], data.c[1], data.c[2]);
+// 	printf("Map dimensions: %dx%d\n", data.map.widght, data.map.height);
+// 	printf("Player: pos(%d,%d) dir:%c flag:%d\n", data.map.player_pos.x,
+// 		data.map.player_pos.y, data.map.player_dir, data.map.player_pos.flag);
+// 	printf("Map:\n");
+// 	if (data.map.array_map)
+// 	{
+// 		i = 0;
+// 		while (i < data.map.height && data.map.array_map[i])
+// 		{
+// 			printf("{%s}\n",data.map.array_map[i]);
+// 			i++;
+// 		}
+// 	}
+// 	else
+// 		printf("Map is NULL\n");
+// 	printf("=== END ===\n");
+// }
 static char	**create_map_copy(t_config *data)
 {
 	char	**copy;
@@ -77,7 +77,7 @@ static void	process_map_validation(t_config *data)
 	free_map_copy(map_copy, data->map.height);
 }
 
-void	cube(char *str)
+int	cube(char *str)
 {
 	int			fd;
 	t_config	data;
@@ -85,22 +85,23 @@ void	cube(char *str)
 	if (!validate_file_extension(str))
 	{
 		printf("Error: File must have .cub extension\n");
-		return ;
+		return 0;
 	}
 	ft_memset(&data, 0, sizeof(t_config));
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
-		return ;
+		return 0;
 	}
 	if (!parse_config(fd, &data))
-		return ;
+		return 0;
 	parse_map(fd, &data);
 	process_map_validation(&data);
-	print_array(data);
+	// print_array(data);
 	close(fd);
 	free_config(&data);
+	return 1;
 }
 
 // void	cube(char *str)
