@@ -18,6 +18,14 @@ void init_minimap(void)
 		mlx_terminate(mlx_ptr);
 		exit(1);
 	}
+	for (int i = 0; i < W_WIDTH; i++)
+	{
+		for (int j = 0; j < W_HEIGHT; j++)
+		{
+			mlx_put_pixel(minimap_image, i, j, 0x00FF00FF);
+		}
+	}
+	mlx_image_to_window(mlx_ptr, minimap_image, 0, 0);
 	mlx_loop(mlx_ptr);
 	mlx_terminate(mlx_ptr);
 }
