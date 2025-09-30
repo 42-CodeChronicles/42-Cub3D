@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:10:02 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/30 00:19:53 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/30 15:53:11 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int	main(int ac, char **av)
 		return (1);
 	if (!cube(av[1]))
 		return (1);
-	init_minimap();
 	return (0);
 }

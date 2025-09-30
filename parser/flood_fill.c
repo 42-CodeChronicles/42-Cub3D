@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:55:22 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/06 18:23:12 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/30 15:58:31 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	validate_map(t_config *data)
 	int	i;
 
 	i = 0;
-	while (i < data->map.widght)
+	while (i < data->map.width)
 	{
 		if (data->map.array_map[0][i] != '1'
 			&& data->map.array_map[0][i] != ' ')
@@ -33,8 +33,8 @@ int	validate_map(t_config *data)
 		if (data->map.array_map[i][0] != '1'
 			&& data->map.array_map[i][0] != ' ')
 			return (0);
-		if (data->map.array_map[i][data->map.widght - 1] != '1'
-			&& data->map.array_map[i][data->map.widght - 1] != ' ')
+		if (data->map.array_map[i][data->map.width - 1] != '1'
+			&& data->map.array_map[i][data->map.width - 1] != ' ')
 			return (0);
 		i++;
 	}
@@ -43,7 +43,7 @@ int	validate_map(t_config *data)
 
 void	flood_fill(char **map, int x, int y, t_map *map_data)
 {
-	if (x < 0 || y < 0 || x >= map_data->widght || y >= map_data->height)
+	if (x < 0 || y < 0 || x >= map_data->width || y >= map_data->height)
 		print_error_map();
 	if (map[y][x] == '1' || map[y][x] == 'V')
 		return ;

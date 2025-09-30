@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/30 00:20:29 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/30 15:59:04 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_map
 {
 	char			**array_map;
 	int				height;
-	int				widght;
+	int				width;
 	t_point			player_pos;
 	char			player_dir;
 }					t_map;
@@ -121,6 +121,6 @@ char				*ft_substr(const char *s, unsigned int start, size_t len);
 
 //ayaarab's functions
 
-void init_minimap(void);
+void init_minimap(t_config data);
 
 #endif

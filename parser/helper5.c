@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:20 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/06 18:16:32 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/09/30 15:58:31 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	finish_map(t_config **data)
 	char	*tmp;
 
 	i = 0;
-	max = (*data)->map.widght;
+	max = (*data)->map.width;
 	while ((*data)->map.array_map[i])
 	{
 		if (ft_strlen((*data)->map.array_map[i]) < (size_t)max)
@@ -113,8 +113,8 @@ void	lst_to_2d(t_config **data, t_list *map)
 	while (i < len)
 	{
 		(*data)->map.array_map[i] = ft_strdup(map->str);
-		if (ft_strlen(map->str) > (size_t)(*data)->map.widght)
-			(*data)->map.widght = ft_strlen(map->str);
+		if (ft_strlen(map->str) > (size_t)(*data)->map.width)
+			(*data)->map.width = ft_strlen(map->str);
 		map = map->next;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:19:33 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/29 16:17:54 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/30 15:58:31 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // 	printf("EA: [%s]\n", data.ea ? data.ea : "NULL");
 // 	printf("F: [%d, %d, %d]\n", data.f[0], data.f[1], data.f[2]);
 // 	printf("C: [%d, %d, %d]\n", data.c[0], data.c[1], data.c[2]);
-// 	printf("Map dimensions: %dx%d\n", data.map.widght, data.map.height);
+// 	printf("Map dimensions: %dx%d\n", data.map.width, data.map.height);
 // 	printf("Player: pos(%d,%d) dir:%c flag:%d\n", data.map.player_pos.x,
 // 		data.map.player_pos.y, data.map.player_dir, data.map.player_pos.flag);
 // 	printf("Map:\n");
@@ -98,6 +98,7 @@ int	cube(char *str)
 		return 0;
 	parse_map(fd, &data);
 	process_map_validation(&data);
+	init_minimap(data);
 	// print_array(data);
 	close(fd);
 	free_config(&data);
@@ -130,7 +131,7 @@ int	cube(char *str)
 // 		print_error();
 // 	map_copy = create_map_copy(&data);
 // 	flood_fill(map_copy, data.map.player_pos.x, data.map.player_pos.y,
-// 		data.map.height, data.map.widght);
+// 		data.map.height, data.map.width);
 // 	free_map_copy(map_copy, data.map.height);
 // 	close(fd);
 // 	free_config(&data);
