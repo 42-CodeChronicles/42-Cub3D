@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/30 15:59:04 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/30 18:27:10 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_config
 	int				c[3];
 	t_flags			flags;
 	t_map			map;
+	mlx_image_t		*minimap_image;
 }					t_config;
 
 int				cube(char *str);

@@ -2,16 +2,16 @@
 
 static void draw_square( mlx_image_t *minimap_image , t_config data)
 {
-	printf("%s\n" , data.map.array_map[0]);
-	printf("%d\n" , data.map.height);
-	printf("%d\n" , data.map.width);
-	printf("%d\n" , data.map.player_pos.x);
-	printf("%d\n" , data.map.player_pos.y);
-	printf("%c\n" , data.map.player_dir);
+	// printf("%s\n" , data.map.array_map[0]);
+	// printf("%d\n" , data.map.height);
+	// printf("%d\n" , data.map.width);
+	// printf("%d\n" , data.map.player_pos.x);
+	// printf("%d\n" , data.map.player_pos.y);
+	// printf("%c\n" , data.map.player_dir);
 
-	for (int y = 0; y < data.map.height * 10; y++)
+	for (int x = 0; x < data.map.width * 10; x++)
 	{
-		for (int x = 0; x < data.map.width * 10; x++)
+		for (int y = 0; y < data.map.height * 10; y++)
 		{
 			int map_x = x / 10;
 			int map_y = y / 10;
@@ -26,26 +26,55 @@ static void draw_square( mlx_image_t *minimap_image , t_config data)
 		}
 	}
 }
+
+static void handle_key(mlx_key_data_t keydata, void *param)
+{
+    t_config *data = (t_config *)param;
+    int new_x ;
+    int new_y ;
+
+	new_x = data->map.player_pos.x;
+	new_y = data->map.player_pos.y;
+	
+    if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+        exit(0);
+    if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+        new_y -= 1;
+    if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
+        new_y += 1;
+    if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+        new_x -= 1;
+    if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
+        new_x += 1;
+
+    if (data->map.array_map[new_y][new_x] != '1') {
+        data->map.player_pos.x = new_x;
+        data->map.player_pos.y = new_y;
+    }
+    draw_square(data->minimap_image, *data);
+}
 void init_minimap(t_config data)
 {
-	mlx_t *mlx_ptr;
-	mlx_image_t *minimap_image;
+    mlx_t *mlx_ptr;
+    mlx_image_t *minimap_image;
 
-	mlx_ptr = mlx_init(data.map.width *10, data.map.height * 10, "Cub3D", true);
-	if (!mlx_ptr)
-	{
-		printf("Error initializing MLX\n");
-		exit(1);
-	}
-	minimap_image = mlx_new_image(mlx_ptr, data.map.width *10, data.map.height * 10);
-	if (!minimap_image)
-	{
-		printf("Error creating minimap image\n");
-		mlx_terminate(mlx_ptr);
-		exit(1);
-	}
-	draw_square(minimap_image , data);
-	mlx_image_to_window(mlx_ptr, minimap_image, 0, 0);
-	mlx_loop(mlx_ptr);
-	mlx_terminate(mlx_ptr);
+    mlx_ptr = mlx_init(W_WIDTH ,W_HEIGHT, "Cub3D", true);
+    if (!mlx_ptr)
+    {
+        printf("Error initializing MLX\n");
+        exit(1);
+    }
+    minimap_image = mlx_new_image(mlx_ptr, W_WIDTH ,W_HEIGHT);
+    if (!minimap_image)
+    {
+        printf("Error creating minimap image\n");
+        mlx_terminate(mlx_ptr);
+        exit(1);
+    }
+    data.minimap_image = minimap_image;
+    draw_square(minimap_image , data);
+    mlx_image_to_window(mlx_ptr, minimap_image, 0, 0);
+    mlx_key_hook(mlx_ptr, &handle_key, &data);
+    mlx_loop(mlx_ptr);
+    mlx_terminate(mlx_ptr);
 }
