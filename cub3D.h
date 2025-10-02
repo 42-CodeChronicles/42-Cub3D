@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/30 18:27:10 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/10/02 16:42:17 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,18 @@
 #  define BUFFER_SIZE 3
 # endif
 
+//#### WINDOW DIMENSIONS ###
 #define W_WIDTH 800
 #define W_HEIGHT 600
+
+#define TILE_SIZE 10
+#define MINIMAP_TILES 17
+#define MINIMAP_SIZE (MINIMAP_TILES * TILE_SIZE)
+// #define TILE_SIZE 10
+// #define DOT_SIZE 4
+// #define MINIMAP_TILES 9
+//##########################
+
 
 # include "./MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
@@ -51,8 +61,9 @@ typedef struct s_list
 
 typedef struct s_point
 {
-	int				x;
-	int				y;
+	float			x;
+	float			y;
+	float			angle;
 	int				flag;
 }					t_point;
 
@@ -120,8 +131,9 @@ void				flood_fill(char **map, int x, int y, t_map *map_data);
 char				*ft_substr(const char *s, unsigned int start, size_t len);
 
 
-//ayaarab's functions
+//### ayaarab's functions ###
 
 void init_minimap(t_config data);
 
+//##########################
 #endif
