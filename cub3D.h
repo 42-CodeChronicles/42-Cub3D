@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/10/02 16:42:17 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/10/03 12:48:48 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #define W_WIDTH 800
 #define W_HEIGHT 600
 
-#define TILE_SIZE 10
+#define TILE_SIZE 32
 #define MINIMAP_TILES 17
 #define MINIMAP_SIZE (MINIMAP_TILES * TILE_SIZE)
 // #define TILE_SIZE 10
@@ -61,8 +61,8 @@ typedef struct s_list
 
 typedef struct s_point
 {
-	float			x;
-	float			y;
+	int			x;
+	int			y;
 	float			angle;
 	int				flag;
 }					t_point;
@@ -87,6 +87,7 @@ typedef struct s_config
 	t_flags			flags;
 	t_map			map;
 	mlx_image_t		*minimap_image;
+	mlx_t			*mlx_ptr;
 }					t_config;
 
 int				cube(char *str);

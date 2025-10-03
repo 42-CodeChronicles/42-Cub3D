@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:20 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/10/02 16:42:33 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:08:58 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	check_dir(char *str, char *player_dir, t_point *player_pos)
 			if (*player_dir != '\0')
 				print_error_map();
 			*player_dir = str[i];
-			player_pos->x = (float)i;
+			player_pos->x = i;
 			player_pos->flag = 1;
 			j++;
 		}
@@ -88,7 +88,7 @@ static void	get_dir(t_list *map, t_point *player_pos, char *player_dir)
 			print_error_map();
 		if (player_pos->flag)
 		{
-			player_pos->y = (float)i;
+			player_pos->y = i;
 			player_pos->flag = 0;
 		}
 		i++;
