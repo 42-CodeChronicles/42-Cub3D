@@ -10,7 +10,6 @@ static void draw_tile(mlx_image_t *img, int x, int y, uint32_t color)
         }
 }
 
-
 static void draw_player_dot(mlx_image_t *img, int x, int y)
 {
     int dot_size = TILE_SIZE / 4;
@@ -18,12 +17,11 @@ static void draw_player_dot(mlx_image_t *img, int x, int y)
     for (int i = 0; i < dot_size; i++)
         for (int j = 0; j < dot_size; j++)
         {
-            printf("Drawing player dot at (%d, %d)\n", x + i, y + j);
-            mlx_put_pixel(img, x + i - dot_size / 2, y + j - dot_size / 2, 0xFF0000FF); // Red color
+            // printf("Drawing player dot at (%d, %d)\n", x + i, y + j);
+            mlx_put_pixel(img, x + i - dot_size / 2, y + j - dot_size / 2, 0xFF0000FF);
         }
     
 }
-
 
 static int is_valid_pos(t_config *data, int x, int y)
 {
@@ -32,15 +30,6 @@ static int is_valid_pos(t_config *data, int x, int y)
         return 1;
     return 0;
 }
-
-
-// static void clear_minimap(mlx_image_t *img)
-// {
-//     for (int x = 0; x < MINIMAP_SIZE; x++)
-//         for (int y = 0; y < MINIMAP_SIZE; y++)
-//             mlx_put_pixel(img, x, y, 0xFFFFFFFF);
-// }
-
 
 static void draw_minimap(mlx_image_t *minimap_image, t_config *data)
 {
@@ -58,6 +47,34 @@ static void draw_minimap(mlx_image_t *minimap_image, t_config *data)
     }
 
     draw_player_dot(minimap_image, data->map.player_pos.x, data->map.player_pos.y);
+}
+
+static int check_collision(t_config *data, int new_x, int new_y)
+{
+    int dot_size = TILE_SIZE / 8;
+    
+    int t_l_x = (new_x - dot_size) / TILE_SIZE;
+    int t_l_y = (new_y - dot_size) / TILE_SIZE;
+
+    int t_r_x = (new_x + dot_size) / TILE_SIZE;
+    int t_r_y = (new_y - dot_size) / TILE_SIZE;
+
+    int b_l_x = (new_x - dot_size) / TILE_SIZE;
+    int b_l_y = (new_y + dot_size) / TILE_SIZE;
+
+    int b_r_x = (new_x + dot_size) / TILE_SIZE;
+    int b_r_y = (new_y + dot_size) / TILE_SIZE;
+
+    if (data->map.array_map[t_l_y][t_l_x] == '1')
+        return 1;
+    if (data->map.array_map[t_r_y][t_r_x] == '1')
+        return 1;
+    if (data->map.array_map[b_l_y][b_l_x] == '1')
+        return 1;
+    if (data->map.array_map[b_r_y][b_r_x] == '1')
+        return 1;
+    
+    return 0;
 }
 
 static void handle_key(void *param)
@@ -81,7 +98,8 @@ static void handle_key(void *param)
     if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_D))
         new_x += move_speed;
 
-    if (data->map.array_map[new_y / TILE_SIZE][new_x / TILE_SIZE] != '1')
+    // if (data->map.array_map[new_y / TILE_SIZE][new_x / TILE_SIZE] != '1')
+    if (!check_collision(data, new_x, new_y))
     {
         data->map.player_pos.x = new_x;
         data->map.player_pos.y = new_y;
@@ -119,13 +137,10 @@ void init_minimap(t_config data)
     }
     data.minimap_image = minimap_image;
     data.mlx_ptr = mlx_ptr;
-
     init_values(&data);
     draw_minimap(minimap_image, &data);
     mlx_image_to_window(mlx_ptr, minimap_image, 0, 0);
-
     mlx_loop_hook(mlx_ptr, &handle_key, &data);
-    // mlx_key_hook(mlx_ptr, &handle_key, &data);
     mlx_loop(mlx_ptr);
     mlx_terminate(mlx_ptr);
 }
