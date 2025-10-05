@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/10/03 12:48:48 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/10/05 17:17:59 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <math.h>
 
 typedef struct s_mlx
 {
@@ -61,9 +62,9 @@ typedef struct s_list
 
 typedef struct s_point
 {
-	int			x;
-	int			y;
-	float			angle;
+	double			x;
+	double			y;
+	double			angle;
 	int				flag;
 }					t_point;
 
@@ -134,7 +135,24 @@ char				*ft_substr(const char *s, unsigned int start, size_t len);
 
 //### ayaarab's functions ###
 
+// Minimap core
 void init_minimap(t_config data);
+void handle_key(void *param);
+
+// Minimap utils
+void draw_tile(mlx_image_t *img, int x, int y, int color);
+int is_valid_pos(t_config *data, int x, int y);
+int check_collision(t_config *data, int new_x, int new_y);
+void normalize_angle(double *angle);
+
+// Minimap draw
+void draw_player_dot(mlx_image_t *img, int x, int y);
+void draw_direction_line(mlx_image_t *img, t_config *data);
+void draw_minimap(mlx_image_t *minimap_image, t_config *data);
+
+// Minimap init
+void init_angle(t_config *data);
+void init_values(t_config *data);
 
 //##########################
 #endif

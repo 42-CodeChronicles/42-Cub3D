@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:20 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/10/02 17:08:58 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/10/05 16:55:05 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,6 @@ void	lst_to_2d(t_config **data, t_list *map)
 		i++;
 	}
 	(*data)->map.array_map[i] = NULL;
+	(*data)->map.player_pos.angle = 0.05;
 	finish_map(data);
-	(*data)->map.player_pos.angle = 0.0f;
 }
