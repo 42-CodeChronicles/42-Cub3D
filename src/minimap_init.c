@@ -1,6 +1,6 @@
 #include "../cub3D.h"
 
-void init_angle(t_config *data)
+void	init_angle(t_config *data)
 {
 	if (data->map.player_dir == 'N')
 		data->map.player_pos.angle = 3 * M_PI / 2.0;
@@ -14,7 +14,7 @@ void init_angle(t_config *data)
 		data->map.player_pos.angle = 0.0;
 }
 
-void init_values(t_config *data)
+void	init_values(t_config *data)
 {
 	data->map.player_pos.x *= TILE_SIZE;
 	data->map.player_pos.y *= TILE_SIZE;

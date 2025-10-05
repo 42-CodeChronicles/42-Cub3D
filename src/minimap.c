@@ -1,19 +1,18 @@
 #include "../cub3D.h"
 
-void handle_key(void *param)
+void	handle_key(void *param)
 {
-	t_config *data;
-	double move_speed;
-	double rotation_speed;
-	double new_x;
-	double new_y;
+	t_config	*data;
+	double		move_speed;
+	double		rotation_speed;
+	double		new_x;
+	double		new_y;
 
 	data = (t_config *)param;
 	move_speed = 2.0;
 	rotation_speed = 0.05;
 	new_x = data->map.player_pos.x;
 	new_y = data->map.player_pos.y;
-
 	normalize_angle(&data->map.player_pos.angle);
 	if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_ESCAPE))
 	{
@@ -52,18 +51,20 @@ void handle_key(void *param)
 	draw_minimap(data->minimap_image, data);
 }
 
-void init_minimap(t_config data)
+void	init_minimap(t_config data)
 {
-	mlx_t *mlx_ptr;
-	mlx_image_t *minimap_image;
+	mlx_t		*mlx_ptr;
+	mlx_image_t	*minimap_image;
 
-	mlx_ptr = mlx_init(data.map.width * TILE_SIZE, data.map.height * TILE_SIZE, "Cub3D", true);
+	mlx_ptr = mlx_init(data.map.width * TILE_SIZE, data.map.height * TILE_SIZE,
+			"Cub3D", true);
 	if (!mlx_ptr)
 	{
 		printf("Error initializing MLX\n");
 		exit(1);
 	}
-	minimap_image = mlx_new_image(mlx_ptr, data.map.width * TILE_SIZE, data.map.height * TILE_SIZE);
+	minimap_image = mlx_new_image(mlx_ptr, data.map.width * TILE_SIZE,
+			data.map.height * TILE_SIZE);
 	if (!minimap_image)
 	{
 		printf("Error creating minimap image\n");
