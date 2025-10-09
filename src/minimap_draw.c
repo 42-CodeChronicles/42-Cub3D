@@ -11,9 +11,8 @@ void	draw_player_dot(mlx_image_t *img, int x, int y)
 				0xFF0000FF);
 }
 
-void	draw_direction_line(mlx_image_t *img, t_config *data)
+void	draw_line_dda(mlx_image_t *img, t_config *data, double angle, double distance, int color)
 {
-	int		line_length;
 	int		end_x;
 	int		end_y;
 	int		dx;
@@ -24,14 +23,14 @@ void	draw_direction_line(mlx_image_t *img, t_config *data)
 	double	x;
 	double	y;
 
-	line_length = TILE_SIZE * 2;
-	end_x = data->map.player_pos.x + cos(data->map.player_pos.angle)
-		* line_length;
-	end_y = data->map.player_pos.y + sin(data->map.player_pos.angle)
-		* line_length;
+	end_x = data->map.player_pos.x + cos(angle) * distance;
+	end_y = data->map.player_pos.y + sin(angle) * distance;
 	dx = end_x - data->map.player_pos.x;
 	dy = end_y - data->map.player_pos.y;
-	steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+	if(abs(dx) > abs(dy))
+		steps = abs(dx);
+	else
+		steps = abs(dy);
 	x_inc = dx / (double)steps;
 	y_inc = dy / (double)steps;
 	x = data->map.player_pos.x;
@@ -39,10 +38,15 @@ void	draw_direction_line(mlx_image_t *img, t_config *data)
 	for (int i = 0; i <= steps; i++)
 	{
 		if (x >= 0 && x < img->width && y >= 0 && y < img->height)
-			mlx_put_pixel(img, (int)x, (int)y, 0x00FF00FF);
+			mlx_put_pixel(img, (int)x, (int)y, color);
 		x += x_inc;
 		y += y_inc;
 	}
+}
+
+void	draw_direction_line(mlx_image_t *img, t_config *data)
+{
+	draw_line_dda(img, data, data->map.player_pos.angle, TILE_SIZE * 2, 0x00FF00FF);
 }
 
 void	draw_minimap(mlx_image_t *minimap_image, t_config *data)
@@ -61,6 +65,7 @@ void	draw_minimap(mlx_image_t *minimap_image, t_config *data)
 					0xFFFFFFFF);
 		}
 	}
+	cast_all_rays(minimap_image, data);
 	draw_direction_line(minimap_image, data);
 	draw_player_dot(minimap_image, data->map.player_pos.x,
 		data->map.player_pos.y);

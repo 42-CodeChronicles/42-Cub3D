@@ -12,7 +12,7 @@ SRCS = \
 	./utils/ft_atoi.c ./utils/get_next_line.c ./utils/ft_memset.c ./utils/ft_strchr.c ./utils/ft_lstnew.c ./utils/ft_lstaddback.c \
 	./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/ft_substr.c ./utils/ft_lstsize.c ./utils/ft_strcpy.c \
 	./parser/flood_fill.c \
-	src/minimap.c src/minimap_utils.c src/minimap_draw.c src/minimap_init.c
+	src/minimap.c src/minimap_utils.c src/minimap_draw.c src/minimap_init.c src/rays.c
 
 OBJS = $(SRCS:.c=.o)
 

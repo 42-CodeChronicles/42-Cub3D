@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/10/05 17:17:59 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/10/09 17:00:27 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,27 @@
 #  define BUFFER_SIZE 3
 # endif
 
-//#### WINDOW DIMENSIONS ###
-#define W_WIDTH 800
-#define W_HEIGHT 600
+// #### WINDOW DIMENSIONS ###
+# define W_WIDTH 800
+# define W_HEIGHT 600
 
-#define TILE_SIZE 32
-#define MINIMAP_TILES 17
-#define MINIMAP_SIZE (MINIMAP_TILES * TILE_SIZE)
+# define TILE_SIZE 32
+# define MINIMAP_TILES 17
+# define MINIMAP_SIZE (MINIMAP_TILES * TILE_SIZE)
 // #define TILE_SIZE 10
 // #define DOT_SIZE 4
 // #define MINIMAP_TILES 9
-//##########################
 
+# define FOV 60
+# define NUM_RAYS 320
+// ##########################
 
 # include "./MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
+# include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <math.h>
 
 typedef struct s_mlx
 {
@@ -68,6 +70,13 @@ typedef struct s_point
 	int				flag;
 }					t_point;
 
+typedef struct s_ray
+{
+	double			angle;
+	double			distance;
+	int				hit_vertical;
+}					t_ray;
+
 typedef struct s_map
 {
 	char			**array_map;
@@ -91,7 +100,7 @@ typedef struct s_config
 	mlx_t			*mlx_ptr;
 }					t_config;
 
-int				cube(char *str);
+int					cube(char *str);
 int					ft_isspace(int c);
 void				print_error(void);
 int					is_valide(char c);
@@ -132,27 +141,31 @@ void				ft_strcpy(char *dest, const char *src, size_t len);
 void				flood_fill(char **map, int x, int y, t_map *map_data);
 char				*ft_substr(const char *s, unsigned int start, size_t len);
 
-
-//### ayaarab's functions ###
+// ### ayaarab's functions ###
 
 // Minimap core
-void init_minimap(t_config data);
-void handle_key(void *param);
+void				init_minimap(t_config data);
+void				handle_key(void *param);
 
 // Minimap utils
-void draw_tile(mlx_image_t *img, int x, int y, int color);
-int is_valid_pos(t_config *data, int x, int y);
-int check_collision(t_config *data, int new_x, int new_y);
-void normalize_angle(double *angle);
+void				draw_tile(mlx_image_t *img, int x, int y, int color);
+int					is_valid_pos(t_config *data, int x, int y);
+int					check_collision(t_config *data, int new_x, int new_y);
+void				normalize_angle(double *angle);
 
 // Minimap draw
-void draw_player_dot(mlx_image_t *img, int x, int y);
-void draw_direction_line(mlx_image_t *img, t_config *data);
-void draw_minimap(mlx_image_t *minimap_image, t_config *data);
+void				draw_player_dot(mlx_image_t *img, int x, int y);
+void				draw_line_dda(mlx_image_t *img, t_config *data, double angle, double distance, int color);
+void				draw_direction_line(mlx_image_t *img, t_config *data);
+void				draw_minimap(mlx_image_t *minimap_image, t_config *data);
 
 // Minimap init
-void init_angle(t_config *data);
-void init_values(t_config *data);
+void				init_angle(t_config *data);
+void				init_values(t_config *data);
 
-//##########################
+// Rays - Ray casting functions
+double				cast_ray(t_config *data, double ray_angle, int *hit_vertical);
+void				cast_all_rays(mlx_image_t *img, t_config *data);
+
+// ##########################
 #endif
