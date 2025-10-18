@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/10/09 17:00:27 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/10/18 00:50:18 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,13 @@
 // #define DOT_SIZE 4
 // #define MINIMAP_TILES 9
 
+
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
+#define WALL_HEIGHT 64
+# define NUM_RAYS SCREEN_WIDTH
 # define FOV 60
-# define NUM_RAYS 320
+
 // ##########################
 
 # include "./MLX42/include/MLX42/MLX42.h"
@@ -44,6 +49,15 @@ typedef struct s_mlx
 	void			*mlx;
 	void			*win;
 }					t_mlx;
+
+
+typedef struct s_wall
+{
+    int line_height;
+    int draw_start;
+    int draw_end;
+    int color;
+}   t_wall;
 
 typedef struct s_flags
 {
@@ -97,6 +111,7 @@ typedef struct s_config
 	t_flags			flags;
 	t_map			map;
 	mlx_image_t		*minimap_image;
+	mlx_image_t		*view_3d;
 	mlx_t			*mlx_ptr;
 }					t_config;
 
@@ -166,6 +181,11 @@ void				init_values(t_config *data);
 // Rays - Ray casting functions
 double				cast_ray(t_config *data, double ray_angle, int *hit_vertical);
 void				cast_all_rays(mlx_image_t *img, t_config *data);
+// 3D View
+void render_3d_view(mlx_image_t *img, t_config *data);
+void calculate_wall_height(t_wall *wall, double distance, double ray_angle, t_config *data);
+void draw_wall_slice(mlx_image_t *img, int x, t_wall *wall, int hit_vertical);
+
 
 // ##########################
 #endif

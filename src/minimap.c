@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
+/*   Updated: 2025/10/18 01:36:37 by ayaarab          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3D.h"
 
 void	handle_key(void *param)
@@ -48,19 +60,27 @@ void	handle_key(void *param)
 		data->map.player_pos.x = new_x;
 		data->map.player_pos.y = new_y;
 	}
-	draw_minimap(data->minimap_image, data);
+	render_3d_view(data->view_3d, data);
+	// draw_minimap(data->minimap_image, data);
 }
 
 void	init_minimap(t_config data)
 {
 	mlx_t		*mlx_ptr;
+	mlx_image_t	*view_3d;
 	mlx_image_t	*minimap_image;
 
-	mlx_ptr = mlx_init(data.map.width * TILE_SIZE, data.map.height * TILE_SIZE,
-			"Cub3D", true);
+	mlx_ptr = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D - 3D View", true);
 	if (!mlx_ptr)
 	{
 		printf("Error initializing MLX\n");
+		exit(1);
+	}
+	view_3d = mlx_new_image(mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!view_3d)
+	{
+		printf("Error creating 3D view image\n");
+		mlx_terminate(mlx_ptr);
 		exit(1);
 	}
 	minimap_image = mlx_new_image(mlx_ptr, data.map.width * TILE_SIZE,
@@ -71,12 +91,15 @@ void	init_minimap(t_config data)
 		mlx_terminate(mlx_ptr);
 		exit(1);
 	}
+	data.view_3d = view_3d;
 	data.minimap_image = minimap_image;
 	data.mlx_ptr = mlx_ptr;
 	init_values(&data);
 	init_angle(&data);
-	draw_minimap(minimap_image, &data);
-	mlx_image_to_window(mlx_ptr, minimap_image, 0, 0);
+	render_3d_view(view_3d, &data);
+	// draw_minimap(minimap_image, &data);
+	mlx_image_to_window(mlx_ptr, view_3d, 0, 0);
+	mlx_image_to_window(mlx_ptr, minimap_image, 10, 10);
 	mlx_loop_hook(mlx_ptr, &handle_key, &data);
 	mlx_loop(mlx_ptr);
 	mlx_terminate(mlx_ptr);

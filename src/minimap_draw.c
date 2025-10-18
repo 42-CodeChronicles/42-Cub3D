@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap_draw.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/18 00:42:39 by ayaarab           #+#    #+#             */
+/*   Updated: 2025/10/18 01:36:50 by ayaarab          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3D.h"
 
 void	draw_player_dot(mlx_image_t *img, int x, int y)
@@ -11,7 +23,8 @@ void	draw_player_dot(mlx_image_t *img, int x, int y)
 				0xFF0000FF);
 }
 
-void	draw_line_dda(mlx_image_t *img, t_config *data, double angle, double distance, int color)
+void	draw_line_dda(mlx_image_t *img, t_config *data, double angle,
+		double distance, int color)
 {
 	int		end_x;
 	int		end_y;
@@ -27,7 +40,7 @@ void	draw_line_dda(mlx_image_t *img, t_config *data, double angle, double distan
 	end_y = data->map.player_pos.y + sin(angle) * distance;
 	dx = end_x - data->map.player_pos.x;
 	dy = end_y - data->map.player_pos.y;
-	if(abs(dx) > abs(dy))
+	if (abs(dx) > abs(dy))
 		steps = abs(dx);
 	else
 		steps = abs(dy);
@@ -46,7 +59,8 @@ void	draw_line_dda(mlx_image_t *img, t_config *data, double angle, double distan
 
 void	draw_direction_line(mlx_image_t *img, t_config *data)
 {
-	draw_line_dda(img, data, data->map.player_pos.angle, TILE_SIZE * 2, 0x00FF00FF);
+	draw_line_dda(img, data, data->map.player_pos.angle, TILE_SIZE * 2,
+		0x00FF00FF);
 }
 
 void	draw_minimap(mlx_image_t *minimap_image, t_config *data)
