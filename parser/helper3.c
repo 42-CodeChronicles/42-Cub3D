@@ -1,0 +1,120 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helper3.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/05 15:23:52 by aychikhi          #+#    #+#             */
+/*   Updated: 2025/09/06 18:23:38 by aychikhi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub3D.h"
+
+void	print_error_map(void)
+{
+	printf("Invalid Map\n");
+	exit(1);
+}
+
+// static int check_texture_file(char *path)
+// {
+//     int fd = open(path, O_RDONLY);
+//     if (fd == -1)
+//         return (0);
+//     close(fd);
+//     return (1);
+// }
+
+static void	set_texture(char **texture, int *flag, char *path)
+{
+	if (*flag)
+		print_error();
+	// if (!check_texture_file(path))
+	// {
+	//     printf("Error: Cannot access texture file: %s\n", path);
+	//     exit(1);
+	// }
+	*texture = ft_strdup(path);
+	*flag = 1;
+}
+
+static void	handle_north_south(char **array, t_config *data, char *direction)
+{
+	if (array_len(array) != 2)
+		print_error();
+	if (!ft_strcmp(direction, "NO"))
+		set_texture(&data->no, &data->flags.no, array[1]);
+	else if (!ft_strcmp(direction, "SO"))
+		set_texture(&data->so, &data->flags.so, array[1]);
+}
+
+static void	handle_west_east(char **array, t_config *data, char *direction)
+{
+	if (array_len(array) != 2)
+		print_error();
+	if (!ft_strcmp(direction, "WE"))
+		set_texture(&data->we, &data->flags.we, array[1]);
+	else if (!ft_strcmp(direction, "EA"))
+		set_texture(&data->ea, &data->flags.ea, array[1]);
+}
+
+void	handle_texture(char *str, t_config *data)
+{
+	char	**array;
+
+	array = ft_split(str);
+	if (array_len(array) != 2)
+		print_error();
+	if (!ft_strcmp(array[0], "NO") || !ft_strcmp(array[0], "SO"))
+		handle_north_south(array, data, array[0]);
+	else if (!ft_strcmp(array[0], "WE") || !ft_strcmp(array[0], "EA"))
+		handle_west_east(array, data, array[0]);
+	free_array(array);
+}
+
+// void	handle_texture(char *str, t_config *data, t_flags *flags)
+// {
+// 	char	**array;
+
+// 	array = ft_split(str);
+// 	if (array_len(array) != 2)
+// 		print_error();
+// 	if (!ft_strcmp(array[0], "NO"))
+// 	{
+// 		if (flags->no)
+// 			print_error();
+// 		if (array_len(array) != 2)
+// 			print_error();
+// 		data->no = ft_strdup(array[1]);
+// 		flags->no = 1;
+// 	}
+// 	else if (!ft_strcmp(array[0], "SO"))
+// 	{
+// 		if (flags->so)
+// 			print_error();
+// 		if (array_len(array) != 2)
+// 			print_error();
+// 		data->so = ft_strdup(array[1]);
+// 		flags->so = 1;
+// 	}
+// 	else if (!ft_strcmp(array[0], "WE"))
+// 	{
+// 		if (flags->we)
+// 			print_error();
+// 		if (array_len(array) != 2)
+// 			print_error();
+// 		data->we = ft_strdup(array[1]);
+// 		flags->we = 1;
+// 	}
+// 	else if (!ft_strcmp(array[0], "EA"))
+// 	{
+// 		if (flags->ea)
+// 			print_error();
+// 		if (array_len(array) != 2)
+// 			print_error();
+// 		data->ea = ft_strdup(array[1]);
+// 		flags->ea = 1;
+// 	}
+// }

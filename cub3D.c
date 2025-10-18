@@ -3,10 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:10:02 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/04 12:10:03 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/10/18 00:42:59 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3D.h"
+
+// void ll()
+// {
+// 	system("leaks cub3D");
+// }
+
+int	main(int ac, char **av)
+{
+
+	if (ac != 2)
+		return (1);
+	if (!cube(av[1]))
+		return (1);
+	return (0);
+}
