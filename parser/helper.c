@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:19:33 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/10/04 00:17:31 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/03 09:53:47 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,24 @@ int	cube(char *str)
 	if (!validate_file_extension(str))
 	{
 		printf("Error: File must have .cub extension\n");
-		return 0;
+		return (0);
 	}
 	ft_memset(&data, 0, sizeof(t_config));
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
-		return 0;
+		return (0);
 	}
 	if (!parse_config(fd, &data))
-		return 0;
+		return (0);
 	parse_map(fd, &data);
 	process_map_validation(&data);
 	init_minimap(data);
 	// print_array(data);
 	close(fd);
 	free_config(&data);
-	return 1;
+	return (1);
 }
 
 // void	cube(char *str)

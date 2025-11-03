@@ -1,8 +1,7 @@
-
-WE ./texture/siryakari-furnace2.png    	    	   		
-SO ./texture/siryakari-furnace.png
-EA ./texture/siryakari-furnace2.png
-NO ./texture/siryakari-furnace1.png
+NO ./textures/Bricks.png
+SO ./textures/Stone.png
+WE ./textures/Bark.png
+EA ./textures/Iron.png
 
 
                     F                              220, 100,                         0                    
