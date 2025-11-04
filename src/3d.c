@@ -6,12 +6,32 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:40:10 by ayoub             #+#    #+#             */
-/*   Updated: 2025/10/18 01:35:03 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/04 04:07:56 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
+// void	calculate_wall_height(t_wall *wall, double distance, double ray_angle,
+// 		t_config *data)
+// {
+// 	double	perp_distance;
+// 	double fov_rad;
+// 	double screen_dist;
+	
+// 	perp_distance = distance * cos(ray_angle - data->map.player_pos.angle);
+// 	fov_rad = (FOV * M_PI) / 180;
+// 	screen_dist = (SCREEN_WIDTH / 2.0) / tan(fov_rad / 2.0);
+	
+// 	wall->line_height = (int)((WALL_HEIGHT * screen_dist) / perp_distance);
+	
+// 	wall->draw_start = (SCREEN_HEIGHT / 2) - (wall->line_height / 2);
+// 	if (wall->draw_start < 0)
+// 		wall->draw_start = 0;
+// 	wall->draw_end = (SCREEN_HEIGHT / 2) + (wall->line_height / 2);
+// 	if (wall->draw_end >= SCREEN_HEIGHT)
+// 		wall->draw_end = SCREEN_HEIGHT - 1;
+// }
 void	calculate_wall_height(t_wall *wall, double distance, double ray_angle,
 		t_config *data)
 {
@@ -72,8 +92,9 @@ void	render_3d_view(mlx_image_t *img, t_config *data)
 
 	for (int x = 0; x < SCREEN_WIDTH; x++)
 	{
+		double wall_x;
 		ray_angle = start_angle + (x * angle_step);
-		distance = cast_ray(data, ray_angle, &hit_vertical);
+		distance = cast_ray(data, ray_angle, &hit_vertical, &wall_x);
 
 		calculate_wall_height(&wall, distance, ray_angle, data);
 		draw_wall_slice(img, x, &wall, hit_vertical);

@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:51 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/10/18 01:37:28 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/04 03:44:21 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_rayscast
 	int		map_x;
 	int		map_y;
 	int		step_x;
-	int		step_y;
+	int		step_y;	
 	double	side_dist_x;
 	double	side_dist_y;
 }			t_rayscast;
@@ -111,18 +111,50 @@ double	calculate_distance(t_rayscast *ray, int side)
 	return (distance * TILE_SIZE);
 }
 
-double	cast_ray(t_config *data, double ray_angle, int *hit_vertical)
+int	get_wall_side(t_rayscast *ray, int side)
 {
-	t_rayscast	ray;
-	int			side;
-	double		distance;
+    if (side == 0)
+    {
+        if (ray->step_x > 0)
+            return (2);
+        else
+            return (3);
+    }
+    else
+    {
+        if (ray->step_y > 0)
+            return (1);
+        else
+            return (0);
+    }
+}
 
-	init_ray(&ray, data, ray_angle);
-	setup_ray_steps(&ray);
-	side = perform_dda(&ray, data);
-	distance = calculate_distance(&ray, side);
-	*hit_vertical = (side == 0);
-	return (distance);
+double	cast_ray(t_config *data, double ray_angle, int *hit_vertical, 
+        double *wall_x)
+{
+    t_rayscast	ray;
+    int			side;
+    double		distance;
+    double		hit_pos;
+
+    init_ray(&ray, data, ray_angle);
+    setup_ray_steps(&ray);
+    side = perform_dda(&ray, data);
+    distance = calculate_distance(&ray, side);
+    if (side == 0)
+    {
+        *hit_vertical = 1;
+        hit_pos = ray.y + distance * ray.dir_y;
+    }
+    else
+    {
+        *hit_vertical = 0;
+        hit_pos = ray.x + distance * ray.dir_x;
+    }
+    *wall_x = hit_pos / TILE_SIZE;
+    *wall_x = *wall_x - floor(*wall_x);
+    data->wall_side = get_wall_side(&ray, side);
+    return (distance);
 }
 
 void	cast_all_rays(mlx_image_t *img, t_config *data)
@@ -139,8 +171,9 @@ void	cast_all_rays(mlx_image_t *img, t_config *data)
 	start_angle = data->map.player_pos.angle - (fov_rad / 2);
 	for (int i = 0; i < NUM_RAYS; i++)
 	{
+		double wall_x;
 		ray_angle = start_angle + (i * angle_step);
-		distance = cast_ray(data, ray_angle, &hit_vertical);
+		distance = cast_ray(data, ray_angle, &hit_vertical , &wall_x);
 		draw_line_dda(img, data, ray_angle, distance, 0xF0FF);
 	}
 }

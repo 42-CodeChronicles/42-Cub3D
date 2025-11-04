@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/10/18 00:50:18 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/04 03:45:06 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@
 #define WALL_HEIGHT 64
 # define NUM_RAYS SCREEN_WIDTH
 # define FOV 60
+
+
+#define NORTH 0
+#define SOUTH 1
+#define EAST  2
+#define WEST  3
+
 
 // ##########################
 
@@ -113,6 +120,7 @@ typedef struct s_config
 	mlx_image_t		*minimap_image;
 	mlx_image_t		*view_3d;
 	mlx_t			*mlx_ptr;
+	int				wall_side;
 }					t_config;
 
 int					cube(char *str);
@@ -179,7 +187,7 @@ void				init_angle(t_config *data);
 void				init_values(t_config *data);
 
 // Rays - Ray casting functions
-double				cast_ray(t_config *data, double ray_angle, int *hit_vertical);
+double				cast_ray(t_config *data, double ray_angle, int *hit_vertical, double *wall_x);
 void				cast_all_rays(mlx_image_t *img, t_config *data);
 // 3D View
 void render_3d_view(mlx_image_t *img, t_config *data);
