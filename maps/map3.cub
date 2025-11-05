@@ -1,7 +1,7 @@
-WE ./texture/gang-brick-west.png
-SO ./texture/gang-brick-south.png
-EA ./texture/gang-brick-east.png
-NO ./texture/gang-brick-north.png
+NO ./textures/Ballas.png
+SO ./textures/Ballas.png
+WE ./textures/Ballas.png
+EA ./textures/Ballas.png
 
 F 100, 0, 150
 C 255, 200, 255

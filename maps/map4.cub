@@ -1,0 +1,12 @@
+NO ./textures/Bricks.png
+SO ./textures/Stone.png
+WE ./textures/Bark.png
+EA ./textures/Iron.png
+F 0,+0,0
+C 255,+255,255
+
+
+11111111
+11111111
+10N11111
+11111111
