@@ -92,7 +92,8 @@ int	perform_dda(t_rayscast *ray, t_config *data)
 		if (ray->map_x < 0 || ray->map_x >= data->map.width || ray->map_y < 0
 			|| ray->map_y >= data->map.height)
 			break ;
-		if (data->map.array_map[ray->map_y][ray->map_x] == '1')
+		if (data->map.array_map[ray->map_y][ray->map_x] == '1' ||
+			data->map.array_map[ray->map_y][ray->map_x] == 'D')
 			hit = 1;
 	}
 	return (side);
