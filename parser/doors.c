@@ -34,24 +34,12 @@ static int	count_doors(t_config *data)
 	return (count);
 }
 
-void	init_doors(t_config *data)
+static void	populate_doors(t_config *data)
 {
 	int	door_index;
 	int	x;
 	int	y;
 
-	data->door_count = count_doors(data);
-	if (!data->door_count)
-	{
-		data->doors = NULL;
-		return ;
-	}
-	data->doors = malloc(sizeof(t_door) * data->door_count);
-	if (!data->doors)
-	{
-		printf("Error: Can't allocate memory for doors\n");
-		return ;
-	}
 	door_index = 0;
 	y = 0;
 	while (y < data->map.height)
@@ -71,12 +59,34 @@ void	init_doors(t_config *data)
 		}
 		y++;
 	}
+}
+
+static void	load_door_texture(t_config *data)
+{
 	data->door_texture = mlx_load_png("./textures/door.png");
 	if (!data->door_texture)
 	{
 		printf("Error: Can't load Door texture\n");
 		data->door_texture = data->no_texture;
 	}
+}
+
+void	init_doors(t_config *data)
+{
+	data->door_count = count_doors(data);
+	if (!data->door_count)
+	{
+		data->doors = NULL;
+		return ;
+	}
+	data->doors = malloc(sizeof(t_door) * data->door_count);
+	if (!data->doors)
+	{
+		printf("Error: Can't allocate memory for doors\n");
+		return ;
+	}
+	populate_doors(data);
+	load_door_texture(data);
 }
 
 int	check_door(t_config *data, int x, int y)
