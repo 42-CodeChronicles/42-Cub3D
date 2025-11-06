@@ -130,7 +130,7 @@ int	get_wall_side(t_rayscast *ray, int side)
 }
 
 double	cast_ray(t_config *data, double ray_angle, int *hit_vertical, 
-        double *wall_x)
+        double *wall_x, int *map_x, int *map_y)
 {
     t_rayscast	ray;
     int			side;
@@ -156,6 +156,8 @@ double	cast_ray(t_config *data, double ray_angle, int *hit_vertical,
     data->wall_side = get_wall_side(&ray, side);
     if (data->wall_side == 1 || data->wall_side == 3)
         *wall_x = 1.0 - *wall_x;
+    *map_x = ray.map_x;
+    *map_y = ray.map_y;
     return (distance);
 }
 
@@ -174,8 +176,9 @@ void	cast_all_rays(mlx_image_t *img, t_config *data)
 	for (int i = 0; i < NUM_RAYS; i++)
 	{
 		double wall_x;
+		int map_x, map_y;
 		ray_angle = start_angle + (i * angle_step);
-		distance = cast_ray(data, ray_angle, &hit_vertical , &wall_x);
+		distance = cast_ray(data, ray_angle, &hit_vertical , &wall_x, &map_x, &map_y);
 		draw_line_dda(img, data, ray_angle, distance, 0xF0FF);
 	}
 }

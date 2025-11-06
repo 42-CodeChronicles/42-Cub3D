@@ -156,6 +156,8 @@ void	render_3d_view(mlx_image_t *img, t_config *data)
 	double	distance;
 	t_wall	wall;
 	double	wall_x;
+	int		map_x;
+	int		map_y;
 
 	fov_rad = (FOV * M_PI) / 180.0;
 	angle_step = fov_rad / SCREEN_WIDTH;
@@ -163,8 +165,8 @@ void	render_3d_view(mlx_image_t *img, t_config *data)
 	for (int x = 0; x < SCREEN_WIDTH; x++)
 	{
 		ray_angle = start_angle + (x * angle_step);
-		distance = cast_ray(data, ray_angle, &hit_vertical, &wall_x);
+		distance = cast_ray(data, ray_angle, &hit_vertical, &wall_x, &map_x, &map_y);
 		calculate_wall_height(&wall, distance, ray_angle, data);
-		draw_wall_slice_texture(img, x, &wall, data, wall_x);
+		draw_wall_slice_texture(img, x, &wall, data, wall_x, map_x, map_y);
 	}
 }

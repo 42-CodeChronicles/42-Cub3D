@@ -205,14 +205,16 @@ void				init_values(t_config *data);
 
 // Rays - Ray casting functions
 double				cast_ray(t_config *data, double ray_angle,
-						int *hit_vertical, double *wall_x);
+						int *hit_vertical, double *wall_x,
+						int *map_x, int *map_y);
 void				cast_all_rays(mlx_image_t *img, t_config *data);
 // 3D View
 void				render_3d_view(mlx_image_t *img, t_config *data);
 void				calculate_wall_height(t_wall *wall, double distance,
 						double ray_angle, t_config *data);
 void				draw_wall_slice_texture(mlx_image_t *img, int x,
-						t_wall *wall, t_config *data, double wall_x);
+						t_wall *wall, t_config *data, double wall_x,
+						int map_x, int map_y);
 
 // ##########################
 #endif
