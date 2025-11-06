@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:40:10 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/05 18:41:21 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/06 09:29:47 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,19 @@ void	calculate_wall_height(t_wall *wall, double distance, double ray_angle,
 		t_config *data)
 {
 	double	perp_distance;
+	int		original_start;
 
 	perp_distance = distance * cos(ray_angle - data->map.player_pos.angle);
 	wall->line_height = (int)((WALL_HEIGHT / perp_distance) * (SCREEN_HEIGHT
 				/ 2));
-	wall->draw_start = (SCREEN_HEIGHT / 2) - (wall->line_height / 2);
+	original_start = (SCREEN_HEIGHT / 2) - (wall->line_height / 2);
+	wall->draw_start = original_start;
+	wall->tex_start_offset = 0;
 	if (wall->draw_start < 0)
+	{
+		wall->tex_start_offset = -wall->draw_start;
 		wall->draw_start = 0;
+	}
 	wall->draw_end = (SCREEN_HEIGHT / 2) + (wall->line_height / 2);
 	if (wall->draw_end >= SCREEN_HEIGHT)
 		wall->draw_end = SCREEN_HEIGHT - 1;
@@ -101,7 +107,7 @@ void	draw_wall_slice_texture(mlx_image_t *img, int x, t_wall *wall,
 		mlx_put_pixel(img, x, y, 0x87CEEBFF);
 	for (int y = wall->draw_start; y < wall->draw_end; y++)
 	{
-		tex_pos = (y - wall->draw_start) / (double)wall->line_height;
+		tex_pos = (y - wall->draw_start + wall->tex_start_offset) / (double)wall->line_height;
 		tex_y = (int)(tex_pos * texture->height);
 		color = get_texture_color(texture, tex_x, tex_y);
 		mlx_put_pixel(img, x, y, color);

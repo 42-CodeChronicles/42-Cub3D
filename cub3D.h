@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/05 17:52:53 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/06 09:30:19 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_wall
 	int				draw_start;
 	int				draw_end;
 	int				color;
+	int				tex_start_offset;
 }					t_wall;
 
 typedef struct s_flags
