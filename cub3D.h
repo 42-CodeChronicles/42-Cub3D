@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/06 09:30:19 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:28:05 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define W_WIDTH 800
 # define W_HEIGHT 600
 
-# define TILE_SIZE 32
+# define TILE_SIZE 64
 # define MINIMAP_TILES 17
 # define MINIMAP_SIZE (MINIMAP_TILES * TILE_SIZE)
 // #define TILE_SIZE 10
@@ -62,6 +62,14 @@ typedef struct s_wall
 	int				color;
 	int				tex_start_offset;
 }					t_wall;
+
+typedef struct s_door
+{
+	int		x;
+	int		y;
+	int		is_open;
+	double	open_amount;
+}			t_door;
 
 typedef struct s_flags
 {
@@ -122,6 +130,9 @@ typedef struct s_config
 	mlx_image_t		*view_3d;
 	mlx_t			*mlx_ptr;
 	int				wall_side;
+	t_door			*doors;
+	int				door_count;
+	mlx_texture_t	*door_texture;
 }					t_config;
 
 int					cube(char *str);
@@ -139,9 +150,10 @@ char				*get_next_line(int fd);
 int					ft_lstsize(t_list *lst);
 int					check_spaces(char *str);
 void				free_array(char **array);
+void				init_doors(t_config *data);
 char				*ft_strdup(const char *s1);
-void				free_map_list(t_list **map);
 size_t				ft_strlen(const char *str);
+void				free_map_list(t_list **map);
 int					check_config(t_flags flags);
 void				free_config(t_config *data);
 void				load_texture(t_config *data);
@@ -157,6 +169,8 @@ void				handle_rgb(char *str, t_config *data);
 void				free_map_copy(char **map, int height);
 void				*ft_memset(void *ptr, int x, size_t n);
 void				lst_to_2d(t_config **data, t_list *map);
+int					check_door(t_config *data, int x, int y);
+t_door *get_door_state(t_config *data, int x, int y);
 void				ft_lstadd_back(t_list **lst, t_list *new);
 int					ft_strcmp(const char *s1, const char *s2);
 void				handle_texture(char *str, t_config *data);

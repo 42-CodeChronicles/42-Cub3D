@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:40:10 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/06 09:29:47 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:29:34 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	calculate_wall_height(t_wall *wall, double distance, double ray_angle,
 		wall->draw_end = SCREEN_HEIGHT - 1;
 }
 
-
-
-static mlx_texture_t	*get_texture(t_config *data)
+static mlx_texture_t	*get_texture(t_config *data, int y, int x)
 {
+	if (data->map.array_map[y][x] == 'D')
+		return (data->door_texture);
 	if (data->wall_side == 0)
 		return (data->no_texture);
 	else if (data->wall_side == 1)
@@ -66,6 +66,23 @@ static mlx_texture_t	*get_texture(t_config *data)
 		return (data->ea_texture);
 	else
 		return (data->we_texture);
+}
+
+t_door *get_door_state(t_config *data, int x, int y)
+{
+    int i;
+    
+    if (!data->doors)
+        return (NULL);
+    
+    i = 0;
+    while (i < data->door_count)
+    {
+        if (data->doors[i].x == x && data->doors[i].y == y)
+            return (&data->doors[i]);
+        i++;
+    }
+    return (NULL);
 }
 
 static uint32_t	get_texture_color(mlx_texture_t *texture, int tex_x, int tex_y)
@@ -93,27 +110,40 @@ static uint32_t	get_texture_color(mlx_texture_t *texture, int tex_x, int tex_y)
 }
 
 void	draw_wall_slice_texture(mlx_image_t *img, int x, t_wall *wall,
-		t_config *data, double wall_x)
+		t_config *data, double wall_x, int map_x, int map_y)
 {
 	mlx_texture_t	*texture;
 	int				tex_x;
 	double			tex_pos;
 	int				tex_y;
 	uint32_t		color;
+	t_door			*door;
+	double			door_offset;
 
-	texture = get_texture(data);
+	texture = get_texture(data, map_y, map_x);
+	door_offset = 0.0;
+	if (data->map.array_map[map_y][map_x] == 'D')
+	{
+		door = get_door_state(data, map_x, map_y);
+		if (door)
+			door_offset = door->open_amount;
+	}
+	wall_x += door_offset;
+	if (wall_x > 1.0)
+		wall_x -= 1.0;
 	tex_x = (int)(wall_x * texture->width);
 	for (int y = 0; y < wall->draw_start; y++)
-		mlx_put_pixel(img, x, y, 0x87CEEBFF);
+		mlx_put_pixel(img, x, y, 0x0000ff);
 	for (int y = wall->draw_start; y < wall->draw_end; y++)
 	{
-		tex_pos = (y - wall->draw_start + wall->tex_start_offset) / (double)wall->line_height;
+		tex_pos = (y - wall->draw_start + wall->tex_start_offset)
+			/ (double)wall->line_height;
 		tex_y = (int)(tex_pos * texture->height);
 		color = get_texture_color(texture, tex_x, tex_y);
 		mlx_put_pixel(img, x, y, color);
 	}
 	for (int y = wall->draw_end; y < SCREEN_HEIGHT; y++)
-		mlx_put_pixel(img, x, y, 0x2E8B57FF);
+		mlx_put_pixel(img, x, y, 0x000000);
 }
 
 void	render_3d_view(mlx_image_t *img, t_config *data)
