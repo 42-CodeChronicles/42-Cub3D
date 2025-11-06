@@ -132,8 +132,10 @@ void	draw_wall_slice_texture(mlx_image_t *img, int x, t_wall *wall,
 	if (wall_x > 1.0)
 		wall_x -= 1.0;
 	tex_x = (int)(wall_x * texture->width);
+	uint32_t ceiling_color = (data->c[0] << 24) | (data->c[1] << 16) | (data->c[2] << 8) | 0xFF;
+	uint32_t floor_color = (data->f[0] << 24) | (data->f[1] << 16) | (data->f[2] << 8) | 0xFF;
 	for (int y = 0; y < wall->draw_start; y++)
-		mlx_put_pixel(img, x, y, 0x0000ff);
+		mlx_put_pixel(img, x, y, ceiling_color);
 	for (int y = wall->draw_start; y < wall->draw_end; y++)
 	{
 		tex_pos = (y - wall->draw_start + wall->tex_start_offset)
@@ -143,7 +145,7 @@ void	draw_wall_slice_texture(mlx_image_t *img, int x, t_wall *wall,
 		mlx_put_pixel(img, x, y, color);
 	}
 	for (int y = wall->draw_end; y < SCREEN_HEIGHT; y++)
-		mlx_put_pixel(img, x, y, 0x000000);
+		mlx_put_pixel(img, x, y, floor_color);
 }
 
 void	render_3d_view(mlx_image_t *img, t_config *data)
