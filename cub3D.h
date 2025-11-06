@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/06 18:26:44 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:30:15 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-
 typedef struct s_tex_data
 {
 	mlx_texture_t	*texture;
 	int				tex_x;
 	uint32_t		ceiling_color;
 	uint32_t		floor_color;
-}	t_tex_data;
+}					t_tex_data;
 
 typedef struct s_mlx
 {
@@ -79,21 +78,13 @@ typedef struct s_wall_pos
 	int				map_y;
 }					t_wall_pos;
 
-typedef struct s_draw_params
-{
-	int				x;
-	t_wall			*wall;
-	t_config		*data;
-	t_wall_pos		*pos;
-}					t_draw_params;
-
 typedef struct s_door
 {
-	int		x;
-	int		y;
-	int		is_open;
-	double	open_amount;
-}			t_door;
+	int				x;
+	int				y;
+	int				is_open;
+	double			open_amount;
+}					t_door;
 
 typedef struct s_flags
 {
@@ -159,6 +150,14 @@ typedef struct s_config
 	mlx_texture_t	*door_texture;
 }					t_config;
 
+typedef struct s_draw_params
+{
+	int				x;
+	t_wall			*wall;
+	t_config		*data;
+	t_wall_pos		*pos;
+}					t_draw_params;
+
 int					cube(char *str);
 int					ft_isspace(int c);
 void				print_error(void);
@@ -204,7 +203,8 @@ void				check_map(char *str, t_config *data, t_list **map);
 void				ft_strcpy(char *dest, const char *src, size_t len);
 void				flood_fill(char **map, int x, int y, t_map *map_data);
 char				*ft_substr(const char *s, unsigned int start, size_t len);
-uint32_t			get_texture_color(mlx_texture_t *texture, int tex_x, int tex_y);
+uint32_t			get_texture_color(mlx_texture_t *texture, int tex_x,
+						int tex_y);
 
 // ### ayaarab's functions ###
 
@@ -231,8 +231,8 @@ void				init_values(t_config *data);
 
 // Rays - Ray casting functions
 double				cast_ray(t_config *data, double ray_angle,
-						int *hit_vertical, double *wall_x,
-						int *map_x, int *map_y);
+						int *hit_vertical, double *wall_x, int *map_x,
+						int *map_y);
 void				cast_all_rays(mlx_image_t *img, t_config *data);
 // 3D View
 void				render_3d_view(mlx_image_t *img, t_config *data);
