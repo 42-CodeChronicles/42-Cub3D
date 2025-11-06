@@ -21,7 +21,7 @@
 # define W_WIDTH 800
 # define W_HEIGHT 600
 
-# define TILE_SIZE 64
+# define TILE_SIZE 32
 # define MINIMAP_TILES 17
 # define MINIMAP_SIZE (MINIMAP_TILES * TILE_SIZE)
 // #define TILE_SIZE 10
