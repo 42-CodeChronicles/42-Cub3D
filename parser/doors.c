@@ -71,7 +71,7 @@ void	init_doors(t_config *data)
 		}
 		y++;
 	}
-	data->door_texture = mlx_load_png("./texture/door.png");
+	data->door_texture = mlx_load_png("./textures/door.png");
 	if (!data->door_texture)
 	{
 		printf("Error: Can't load Door texture\n");
