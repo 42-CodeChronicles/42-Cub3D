@@ -63,6 +63,21 @@ typedef struct s_wall
 	int				tex_start_offset;
 }					t_wall;
 
+typedef struct s_wall_pos
+{
+	double			wall_x;
+	int				map_x;
+	int				map_y;
+}					t_wall_pos;
+
+typedef struct s_draw_params
+{
+	int				x;
+	t_wall			*wall;
+	t_config		*data;
+	t_wall_pos		*pos;
+}					t_draw_params;
+
 typedef struct s_door
 {
 	int		x;
@@ -212,9 +227,8 @@ void				cast_all_rays(mlx_image_t *img, t_config *data);
 void				render_3d_view(mlx_image_t *img, t_config *data);
 void				calculate_wall_height(t_wall *wall, double distance,
 						double ray_angle, t_config *data);
-void				draw_wall_slice_texture(mlx_image_t *img, int x,
-						t_wall *wall, t_config *data, double wall_x,
-						int map_x, int map_y);
+void				draw_wall_slice_texture(mlx_image_t *img,
+						t_draw_params *params);
 
 // ##########################
 #endif

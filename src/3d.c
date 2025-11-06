@@ -56,26 +56,32 @@ void	calculate_wall_height(t_wall *wall, double distance, double ray_angle,
 
 void	render_3d_view(mlx_image_t *img, t_config *data)
 {
-	double	fov_rad;
-	double	angle_step;
-	double	start_angle;
-	double	ray_angle;
-	int		hit_vertical;
-	double	distance;
-	t_wall	wall;
-	double	wall_x;
-	int		map_x;
-	int		map_y;
+	double			fov_rad;
+	double			angle_step;
+	double			start_angle;
+	double			ray_angle;
+	int				hit_vertical;
+	double			distance;
+	t_wall			wall;
+	t_wall_pos		pos;
+	t_draw_params	params;
+	int				x;
 
 	fov_rad = (FOV * M_PI) / 180.0;
 	angle_step = fov_rad / SCREEN_WIDTH;
 	start_angle = data->map.player_pos.angle - (fov_rad / 2);
-	for (int x = 0; x < SCREEN_WIDTH; x++)
+	x = 0;
+	while (x < SCREEN_WIDTH)
 	{
 		ray_angle = start_angle + (x * angle_step);
-		distance = cast_ray(data, ray_angle, &hit_vertical, &wall_x, &map_x,
-				&map_y);
+		distance = cast_ray(data, ray_angle, &hit_vertical, &pos.wall_x,
+				&pos.map_x, &pos.map_y);
 		calculate_wall_height(&wall, distance, ray_angle, data);
-		draw_wall_slice_texture(img, x, &wall, data, wall_x, map_x, map_y);
+		params.x = x;
+		params.wall = &wall;
+		params.data = data;
+		params.pos = &pos;
+		draw_wall_slice_texture(img, &params);
+		x++;
 	}
 }
