@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 14:37:17 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/06 16:15:31 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:18:38 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	init_doors(t_config *data)
 
 int	check_door(t_config *data, int x, int y)
 {
-	int i;
+	int	i;
 
 	if (!data->doors)
 		return (0);
