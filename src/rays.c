@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:51 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/06 09:38:26 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/06 09:42:36 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ double	cast_ray(t_config *data, double ray_angle, int *hit_vertical,
     *wall_x = hit_pos / TILE_SIZE;
     *wall_x = *wall_x - floor(*wall_x);
     data->wall_side = get_wall_side(&ray, side);
-    if (data->wall_side == 0 || data->wall_side == 3)
+    if (data->wall_side == 0 || data->wall_side == 3 || data->wall_side == 1 || data->wall_side == 2)
         *wall_x = 1.0 - *wall_x;
     return (distance);
 }
