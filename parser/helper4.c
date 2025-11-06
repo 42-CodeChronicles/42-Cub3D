@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:10:01 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/06 14:02:59 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:13:40 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	free_config(t_config *data)
 
 int	is_valide(char c)
 {
-	if (c != '0' && c != '1' && c != 'D' && c != 'N' && c != 'S' && c != 'E' && c != 'W'
-		&& !ft_isspace(c))
+	if (c != '0' && c != '1' && c != 'D' && c != 'N' && c != 'S' && c != 'E'
+		&& c != 'W' && !ft_isspace(c))
 		return (0);
 	return (1);
 }
