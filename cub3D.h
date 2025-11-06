@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/04 03:45:06 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/05 17:52:53 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,16 @@
 // #define DOT_SIZE 4
 // #define MINIMAP_TILES 9
 
-
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
-#define WALL_HEIGHT 64
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 720
+# define WALL_HEIGHT 64
 # define NUM_RAYS SCREEN_WIDTH
 # define FOV 60
 
-
-#define NORTH 0
-#define SOUTH 1
-#define EAST  2
-#define WEST  3
-
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
 
 // ##########################
 
@@ -57,14 +54,13 @@ typedef struct s_mlx
 	void			*win;
 }					t_mlx;
 
-
 typedef struct s_wall
 {
-    int line_height;
-    int draw_start;
-    int draw_end;
-    int color;
-}   t_wall;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	int				color;
+}					t_wall;
 
 typedef struct s_flags
 {
@@ -113,6 +109,10 @@ typedef struct s_config
 	char			*so;
 	char			*we;
 	char			*ea;
+	mlx_texture_t	*no_texture;
+	mlx_texture_t	*so_texture;
+	mlx_texture_t	*we_texture;
+	mlx_texture_t	*ea_texture;
 	int				f[3];
 	int				c[3];
 	t_flags			flags;
@@ -143,6 +143,7 @@ void				free_map_list(t_list **map);
 size_t				ft_strlen(const char *str);
 int					check_config(t_flags flags);
 void				free_config(t_config *data);
+void				load_texture(t_config *data);
 int					validate_map(t_config *data);
 int					check_line_is_valide(char *str);
 char				*ft_strjoin(char *s1, char *s2);
@@ -178,7 +179,8 @@ void				normalize_angle(double *angle);
 
 // Minimap draw
 void				draw_player_dot(mlx_image_t *img, int x, int y);
-void				draw_line_dda(mlx_image_t *img, t_config *data, double angle, double distance, int color);
+void				draw_line_dda(mlx_image_t *img, t_config *data,
+						double angle, double distance, int color);
 void				draw_direction_line(mlx_image_t *img, t_config *data);
 void				draw_minimap(mlx_image_t *minimap_image, t_config *data);
 
@@ -187,13 +189,15 @@ void				init_angle(t_config *data);
 void				init_values(t_config *data);
 
 // Rays - Ray casting functions
-double				cast_ray(t_config *data, double ray_angle, int *hit_vertical, double *wall_x);
+double				cast_ray(t_config *data, double ray_angle,
+						int *hit_vertical, double *wall_x);
 void				cast_all_rays(mlx_image_t *img, t_config *data);
 // 3D View
-void render_3d_view(mlx_image_t *img, t_config *data);
-void calculate_wall_height(t_wall *wall, double distance, double ray_angle, t_config *data);
-void draw_wall_slice(mlx_image_t *img, int x, t_wall *wall, int hit_vertical);
-
+void				render_3d_view(mlx_image_t *img, t_config *data);
+void				calculate_wall_height(t_wall *wall, double distance,
+						double ray_angle, t_config *data);
+void				draw_wall_slice_texture(mlx_image_t *img, int x,
+						t_wall *wall, t_config *data, double wall_x);
 
 // ##########################
 #endif

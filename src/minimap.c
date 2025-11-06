@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/04 04:12:03 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/05 17:23:15 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,19 @@ void	handle_key(void *param)
 	// draw_minimap(data->minimap_image, data);
 }
 
+void load_texture(t_config *data)
+{
+	data->no_texture = mlx_load_png(data->no);
+	data->so_texture = mlx_load_png(data->so);
+	data->we_texture = mlx_load_png(data->we);
+	data->ea_texture = mlx_load_png(data->ea);
+	if (!data->no_texture || !data->so_texture || !data->we_texture || !data->ea_texture)
+	{
+		printf("Error loading textures!\n");
+		exit(1);
+	}
+}
+
 void	init_minimap(t_config data)
 {
 	mlx_t		*mlx_ptr;
@@ -94,6 +107,7 @@ void	init_minimap(t_config data)
 	data.view_3d = view_3d;
 	data.minimap_image = minimap_image;
 	data.mlx_ptr = mlx_ptr;
+	load_texture(&data);
 	init_values(&data);
 	init_angle(&data);
 	render_3d_view(view_3d, &data);
