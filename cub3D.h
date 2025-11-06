@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/06 16:28:05 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:26:44 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+
+typedef struct s_tex_data
+{
+	mlx_texture_t	*texture;
+	int				tex_x;
+	uint32_t		ceiling_color;
+	uint32_t		floor_color;
+}	t_tex_data;
 
 typedef struct s_mlx
 {
@@ -185,15 +194,17 @@ void				free_map_copy(char **map, int height);
 void				*ft_memset(void *ptr, int x, size_t n);
 void				lst_to_2d(t_config **data, t_list *map);
 int					check_door(t_config *data, int x, int y);
-t_door *get_door_state(t_config *data, int x, int y);
 void				ft_lstadd_back(t_list **lst, t_list *new);
 int					ft_strcmp(const char *s1, const char *s2);
 void				handle_texture(char *str, t_config *data);
+mlx_texture_t		*get_texture(t_config *data, int y, int x);
 char				*ft_strtrim(char const *s1, char const *set);
+t_door				*get_door_state(t_config *data, int x, int y);
 void				check_map(char *str, t_config *data, t_list **map);
 void				ft_strcpy(char *dest, const char *src, size_t len);
 void				flood_fill(char **map, int x, int y, t_map *map_data);
 char				*ft_substr(const char *s, unsigned int start, size_t len);
+uint32_t			get_texture_color(mlx_texture_t *texture, int tex_x, int tex_y);
 
 // ### ayaarab's functions ###
 
