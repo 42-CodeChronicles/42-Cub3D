@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:19:33 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/06 18:14:17 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/08 10:19:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	cube(char *str)
 	parse_map(fd, &data);
 	process_map_validation(&data);
 	init_doors(&data);
+	sprite_init(&data);
 	init_minimap(data);
 	close(fd);
 	free_config(&data);
