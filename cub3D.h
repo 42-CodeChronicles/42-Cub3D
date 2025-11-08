@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/08 09:59:46 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/08 11:29:20 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
+#include <sys/time.h>
 # include <unistd.h>
 
 typedef struct s_sprite
@@ -57,7 +58,7 @@ typedef struct s_sprite
 	int				current_frame;
 	double			frame_time;
 	double			last_update;
-}			t_sprite;
+}					t_sprite;
 
 typedef struct s_tex_data
 {
@@ -191,7 +192,7 @@ char				*ft_strdup(const char *s1);
 size_t				ft_strlen(const char *str);
 void				free_map_list(t_list **map);
 int					check_config(t_flags flags);
-void    			sprite_init(t_config *data);
+void				sprite_init(t_config *data);
 void				free_config(t_config *data);
 void				load_texture(t_config *data);
 int					validate_map(t_config *data);
@@ -215,13 +216,16 @@ char				*ft_strtrim(char const *s1, char const *set);
 t_door				*get_door_state(t_config *data, int x, int y);
 void				check_map(char *str, t_config *data, t_list **map);
 void				ft_strcpy(char *dest, const char *src, size_t len);
-void				flood_fill(char **map, int x, int y, t_map *map_data);
-void    			update_all_sprites(t_config *data, double current_time);
-char				*ft_substr(const char *s, unsigned int start, size_t len);
 uint32_t			get_texture_color(mlx_texture_t *texture, int tex_x,
-void    			update_sprite_frame(t_sprite *sprite, double current_time));
-t_sprite    		*created_sprite(double x, double y, char **frame_path, int count);
-	int tex_y);
+						int tex_y);
+void				flood_fill(char **map, int x, int y, t_map *map_data);
+double				get_sprite_distance(t_config *data, t_sprite *sprite);
+t_sprite			*created_sprite(double x, double y, char **frame_path,
+						int count);
+void				update_all_sprites(t_config *data, double current_time);
+char				*ft_substr(const char *s, unsigned int start, size_t len);
+void				update_sprite_frame(t_sprite *sprite, double current_time);
+void 				draw_sprite(mlx_image_t *img, t_config *data, t_sprite *sprite);
 
 // ### ayaarab's functions ###
 

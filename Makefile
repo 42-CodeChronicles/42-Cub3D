@@ -11,8 +11,8 @@ SRCS = \
 	./utils/ft_split.c ./utils/ft_strdup.c ./utils/ft_strcmp.c ./utils/ft_strtrim.c ./utils/ft_isspace.c ./utils/ft_split2.c ./utils/ft_isdigit.c \
 	./utils/ft_atoi.c ./utils/get_next_line.c ./utils/ft_memset.c ./utils/ft_strchr.c ./utils/ft_lstnew.c ./utils/ft_lstaddback.c ./parser/texture_helper.c\
 	./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/ft_substr.c ./utils/ft_lstsize.c ./utils/ft_strcpy.c ./parser/texture.c\
-	./parser/flood_fill.c \
-	src/minimap.c src/minimap_utils.c src/minimap_draw.c src/minimap_init.c src/rays.c src/3d.c
+	./parser/flood_fill.c ./parser/sprite_animation.c ./parser/sprite_init.c ./parser/sprite_render.c\
+	src/minimap.c src/minimap_utils.c src/minimap_draw.c src/minimap_init.c src/rays.c src/3d.c\
 
 OBJS = $(SRCS:.c=.o)
 
