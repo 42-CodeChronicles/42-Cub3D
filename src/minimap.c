@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/05 17:23:15 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/08 10:16:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@ void	handle_key(void *param)
 	double		rotation_speed;
 	double		new_x;
 	double		new_y;
-
+	struct		timeval tv;
+	double 		current_time;
+	
+	gettimeofday(&tv, NULL);
+	current_time = tv.tv_sec + tv.tv_usec / 1000000.0;
+	update_all_sprites(data, current_time);
+	render_3d_view(data->view_3d, data);
+	for(int i = 0; i < data->sprite_count; i++)
+		draw_sprite(data->view_3d, data, &data->sprites[i]);
 	data = (t_config *)param;
 	move_speed = 2.0;
 	rotation_speed = 0.05;
