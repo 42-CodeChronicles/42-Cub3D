@@ -85,9 +85,9 @@ void	draw_weapon(mlx_image_t *img, t_config *data)
 
 	texture = data->weapon.frames[data->weapon.current_frame];
 	
-	// Scale weapon to smaller size - adjust scale factor here (0.8 = 80% of original)
-	weapon_width = texture->width * 0.8;
-	weapon_height = texture->height * 0.8;
+	// Scale weapon to smaller size - adjust scale factor here (0.4 = 40% of original)
+	weapon_width = texture->width * 0.4;
+	weapon_height = texture->height * 0.4;
 	
 	// Position weapon at bottom-right corner (with small margin)
 	start_x = SCREEN_WIDTH - weapon_width - 50;  // 50px margin from right
