@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/09 09:48:08 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 16:52:13 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
-#include <sys/time.h>
+# include <sys/time.h>
 # include <unistd.h>
 
 typedef struct s_sprite
@@ -236,7 +236,8 @@ t_sprite			*created_sprite(double x, double y, char **frame_path,
 void				update_all_sprites(t_config *data, double current_time);
 char				*ft_substr(const char *s, unsigned int start, size_t len);
 void				update_sprite_frame(t_sprite *sprite, double current_time);
-void 				draw_sprite(mlx_image_t *img, t_config *data, t_sprite *sprite);
+void				draw_sprite(mlx_image_t *img, t_config *data,
+						t_sprite *sprite);
 void				weapon_init(t_config *data);
 void				draw_weapon(mlx_image_t *img, t_config *data);
 void				update_weapon_frame(t_weapon *weapon, double current_time);

@@ -6,22 +6,37 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 10:00:00 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 11:03:55 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:50:31 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
+typedef struct s_weapon_draw
+{
+	int		weapon_width;
+	int		weapon_height;
+	int		start_x;
+	int		start_y;
+	int		x;
+	int		y;
+}			t_weapon_draw;
+
 void	weapon_init(t_config *data)
 {
-	char	*frames[6] = {"weapon/0.png", "weapon/1.png", "weapon/2.png",
-			"weapon/3.png", "weapon/4.png", "weapon/5.png"};
+	char	*frames[6];
 	int		i;
 
+	frames[0] = "weapon/0.png";
+	frames[1] = "weapon/1.png";
+	frames[2] = "weapon/2.png";
+	frames[3] = "weapon/3.png";
+	frames[4] = "weapon/4.png";
+	frames[5] = "weapon/5.png";
 	data->weapon.frame_count = 6;
 	data->weapon.current_frame = 0;
 	data->weapon.is_shooting = 0;
-	data->weapon.frame_time = 0.05; // 50ms per frame for shooting animation
+	data->weapon.frame_time = 0.05;
 	data->weapon.last_update = 0;
 	data->weapon.frames = malloc(sizeof(mlx_texture_t *) * 6);
 	if (!data->weapon.frames)
@@ -51,7 +66,7 @@ void	update_weapon_frame(t_weapon *weapon, double current_time)
 {
 	if (!weapon->is_shooting)
 	{
-		weapon->current_frame = 0; // Idle frame
+		weapon->current_frame = 0;
 		return ;
 	}
 	if (current_time - weapon->last_update >= weapon->frame_time)
@@ -60,61 +75,69 @@ void	update_weapon_frame(t_weapon *weapon, double current_time)
 		if (weapon->current_frame >= weapon->frame_count)
 		{
 			weapon->current_frame = 0;
-			weapon->is_shooting = 0; // Animation complete
+			weapon->is_shooting = 0;
 		}
 		weapon->last_update = current_time;
 	}
 }
 
+static void	get_weapon_dimensions(mlx_texture_t *texture, int *w, int *h)
+{
+	*w = texture->width * 0.4;
+	*h = texture->height * 0.4;
+}
+
+static void	get_weapon_position(int weapon_width, int weapon_height,
+		int *start_x, int *start_y)
+{
+	*start_x = SCREEN_WIDTH - weapon_width - 50;
+	*start_y = SCREEN_HEIGHT - weapon_height - 20;
+}
+
+static void	draw_weapon_pixel(mlx_image_t *img, t_weapon_draw *wd,
+		mlx_texture_t *texture)
+{
+	int			tex_x;
+	int			tex_y;
+	uint32_t	color;
+	int			screen_x;
+	int			screen_y;
+
+	tex_x = (wd->x * texture->width) / wd->weapon_width;
+	tex_y = (wd->y * texture->height) / wd->weapon_height;
+	if (tex_x >= 0 && tex_x < (int)texture->width && tex_y >= 0
+		&& tex_y < (int)texture->height)
+	{
+		color = get_texture_color(texture, tex_x, tex_y);
+		if ((color & 0xFF) > 0)
+		{
+			screen_x = wd->start_x + wd->x;
+			screen_y = wd->start_y + wd->y;
+			if (screen_x >= 0 && screen_x < SCREEN_WIDTH && screen_y >= 0
+				&& screen_y < SCREEN_HEIGHT)
+				mlx_put_pixel(img, screen_x, screen_y, color);
+		}
+	}
+}
+
 void	draw_weapon(mlx_image_t *img, t_config *data)
 {
+	t_weapon_draw	wd;
 	mlx_texture_t	*texture;
-	int				weapon_width;
-	int				weapon_height;
-	int				start_x;
-	int				start_y;
-	int				x;
-	int				y;
-	int				tex_x;
-	int				tex_y;
-	uint32_t		color;
-	int				screen_x;
-	int				screen_y;
 
 	texture = data->weapon.frames[data->weapon.current_frame];
-	// Scale weapon to smaller size
-		- adjust scale factor here (0.4 = 40% of original)
-	weapon_width = texture->width * 0.4;
-	weapon_height = texture->height * 0.4;
-	// Position weapon at bottom-right corner (with small margin)
-	start_x = SCREEN_WIDTH - weapon_width - 50;   // 50px margin from right
-	start_y = SCREEN_HEIGHT - weapon_height - 20; // 20px margin from bottom
-	// Draw weapon pixel by pixel
-	y = 0;
-	while (y < weapon_height)
+	get_weapon_dimensions(texture, &wd.weapon_width, &wd.weapon_height);
+	get_weapon_position(wd.weapon_width, wd.weapon_height, &wd.start_x,
+		&wd.start_y);
+	wd.y = 0;
+	while (wd.y < wd.weapon_height)
 	{
-		x = 0;
-		while (x < weapon_width)
+		wd.x = 0;
+		while (wd.x < wd.weapon_width)
 		{
-			// Map screen coordinates to texture coordinates
-			tex_x = (x * texture->width) / weapon_width;
-			tex_y = (y * texture->height) / weapon_height;
-			if (tex_x >= 0 && tex_x < (int)texture->width && tex_y >= 0
-				&& tex_y < (int)texture->height)
-			{
-				color = get_texture_color(texture, tex_x, tex_y);
-				// Don't draw transparent pixels (alpha channel check)
-				if ((color & 0xFF) > 0)
-				{
-					screen_x = start_x + x;
-					screen_y = start_y + y;
-					if (screen_x >= 0 && screen_x < SCREEN_WIDTH
-						&& screen_y >= 0 && screen_y < SCREEN_HEIGHT)
-						mlx_put_pixel(img, screen_x, screen_y, color);
-				}
-			}
-			x++;
+			draw_weapon_pixel(img, &wd, texture);
+			wd.x++;
 		}
-		y++;
+		wd.y++;
 	}
 }
