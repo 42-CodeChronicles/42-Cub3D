@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 08:48:53 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 08:35:45 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 08:46:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_sprite    *created_sprite(double x, double y, char **frame_path, int count)
 
 void    sprite_init(t_config *data)
 {
-    char        *frames[3] = {"textures/fire1.png", "textures/fire2.png", "textures/fire3.png"};
+    char        *frames[3] = {"flame3/png/flame_00.png", "flame3/png/flame_01.png", "flame3/png/flame_03.png"};
     t_sprite    *sprite;
 
     data->sprite_count = 0;

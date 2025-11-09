@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/08 10:16:33 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 08:50:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	handle_key(void *param)
 	struct		timeval tv;
 	double 		current_time;
 	
+	data = (t_config *)param;
 	gettimeofday(&tv, NULL);
 	current_time = tv.tv_sec + tv.tv_usec / 1000000.0;
 	update_all_sprites(data, current_time);
 	render_3d_view(data->view_3d, data);
 	for(int i = 0; i < data->sprite_count; i++)
 		draw_sprite(data->view_3d, data, &data->sprites[i]);
-	data = (t_config *)param;
 	move_speed = 2.0;
 	rotation_speed = 0.05;
 	new_x = data->map.player_pos.x;
@@ -85,7 +85,7 @@ void load_texture(t_config *data)
 	}
 }
 
-void	init_minimap(t_config data)
+void	init_minimap(t_config *data)
 {
 	mlx_t		*mlx_ptr;
 	mlx_image_t	*view_3d;
@@ -104,25 +104,25 @@ void	init_minimap(t_config data)
 		mlx_terminate(mlx_ptr);
 		exit(1);
 	}
-	minimap_image = mlx_new_image(mlx_ptr, data.map.width * TILE_SIZE,
-			data.map.height * TILE_SIZE);
+	minimap_image = mlx_new_image(mlx_ptr, data->map.width * TILE_SIZE,
+			data->map.height * TILE_SIZE);
 	if (!minimap_image)
 	{
 		printf("Error creating minimap image\n");
 		mlx_terminate(mlx_ptr);
 		exit(1);
 	}
-	data.view_3d = view_3d;
-	data.minimap_image = minimap_image;
-	data.mlx_ptr = mlx_ptr;
-	load_texture(&data);
-	init_values(&data);
-	init_angle(&data);
-	render_3d_view(view_3d, &data);
-	// draw_minimap(minimap_image, &data);
+	data->view_3d = view_3d;
+	data->minimap_image = minimap_image;
+	data->mlx_ptr = mlx_ptr;
+	load_texture(data);
+	init_values(data);
+	init_angle(data);
+	render_3d_view(view_3d, data);
+	// draw_minimap(minimap_image, data);
 	mlx_image_to_window(mlx_ptr, view_3d, 0, 0);
 	mlx_image_to_window(mlx_ptr, minimap_image, 10, 10);
-	mlx_loop_hook(mlx_ptr, &handle_key, &data);
+	mlx_loop_hook(mlx_ptr, &handle_key, data);
 	mlx_loop(mlx_ptr);
 	mlx_terminate(mlx_ptr);
 }

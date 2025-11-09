@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/08 11:29:20 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/09 08:48:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ void 				draw_sprite(mlx_image_t *img, t_config *data, t_sprite *sprite);
 // ### ayaarab's functions ###
 
 // Minimap core
-void				init_minimap(t_config data);
+void				init_minimap(t_config *data);
 void				handle_key(void *param);
 
 // Minimap utils
