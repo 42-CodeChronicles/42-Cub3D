@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:19:33 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/09 10:56:47 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/09 09:59:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,29 +78,36 @@ static void	process_map_validation(t_config *data)
 	free_map_copy(map_copy, data->map.height);
 }
 
-int	cube(char *str)
+static int	init_file_data(char *str, int *fd, t_config *data)
 {
-	int			fd;
-	t_config	data;
-
 	if (!validate_file_extension(str))
 	{
 		printf("Error: File must have .cub extension\n");
 		return (0);
 	}
-	ft_memset(&data, 0, sizeof(t_config));
-	fd = open(str, O_RDONLY);
-	if (fd == -1)
+	ft_memset(data, 0, sizeof(t_config));
+	*fd = open(str, O_RDONLY);
+	if (*fd == -1)
 	{
 		perror("Error opening file");
 		return (0);
 	}
+	return (1);
+}
+
+int	cube(char *str)
+{
+	int			fd;
+	t_config	data;
+
+	if (!init_file_data(str, &fd, &data))
+		return (0);
 	if (!parse_config(fd, &data))
 		return (0);
 	parse_map(fd, &data);
 	process_map_validation(&data);
 	init_doors(&data);
-	srand(time(NULL)); // Initialize random seed for sprite placement
+	srand(time(NULL));
 	sprite_init(&data);
 	init_minimap(&data);
 	close(fd);

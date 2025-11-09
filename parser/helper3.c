@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:23:52 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/06 18:23:38 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/09 09:59:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,10 @@ void	print_error_map(void)
 	exit(1);
 }
 
-// static int check_texture_file(char *path)
-// {
-//     int fd = open(path, O_RDONLY);
-//     if (fd == -1)
-//         return (0);
-//     close(fd);
-//     return (1);
-// }
-
 static void	set_texture(char **texture, int *flag, char *path)
 {
 	if (*flag)
 		print_error();
-	// if (!check_texture_file(path))
-	// {
-	//     printf("Error: Cannot access texture file: %s\n", path);
-	//     exit(1);
-	// }
 	*texture = ft_strdup(path);
 	*flag = 1;
 }
