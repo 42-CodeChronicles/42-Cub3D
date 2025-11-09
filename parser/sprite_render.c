@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 10:00:16 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 09:20:18 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 09:33:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,42 +21,88 @@ double get_sprite_distance(t_config *data, t_sprite *sprite)
     return (sqrt(dx * dx + dy * dy));
 }
 
-// Draw weapon/punch sprite as HUD element (first-person view)
+// Draw sprite in 3D world space (not as HUD)
 void draw_sprite(mlx_image_t *img, t_config *data, t_sprite *sprite)
 {
+    double dx;
+    double dy;
+    double distance;
+    double angle_to_sprite;
+    double sprite_angle;
+    int screen_x;
+    double sprite_height;
+    double sprite_width;
+    int start_y;
+    int start_x;
+    int end_x;
+    mlx_texture_t *texture;
+    
     // Get current animation frame
-    mlx_texture_t *texture = sprite->frames[sprite->current_frame];
+    texture = sprite->frames[sprite->current_frame];
     
-    // Scale the weapon sprite (adjust these values to your liking)
-    int weapon_height = SCREEN_HEIGHT * 0.6;  // 60% of screen height
-    int weapon_width = (texture->width * weapon_height) / texture->height; // Maintain aspect ratio
+    // Calculate relative position to player
+    dx = sprite->x - (data->map.player_pos.x / TILE_SIZE);
+    dy = sprite->y - (data->map.player_pos.y / TILE_SIZE);
+    distance = sqrt(dx * dx + dy * dy);
     
-    // Position at bottom-center of screen (like FPS weapon view)
-    int start_x = (SCREEN_WIDTH - weapon_width) / 2;
-    int start_y = SCREEN_HEIGHT - weapon_height;
+    // Don't draw if too far or too close
+    if (distance < 0.5 || distance > 20.0)
+        return;
     
-    // Draw the weapon sprite pixel by pixel
-    for (int y = 0; y < weapon_height; y++)
+    // Calculate angle to sprite from player
+    angle_to_sprite = atan2(dy, dx);
+    
+    // Calculate relative angle (difference from player's view direction)
+    sprite_angle = angle_to_sprite - data->map.player_pos.angle;
+    
+    // Normalize angle to [-PI, PI]
+    while (sprite_angle > M_PI) sprite_angle -= 2 * M_PI;
+    while (sprite_angle < -M_PI) sprite_angle += 2 * M_PI;
+    
+    // Check if sprite is in field of view (FOV is 60 degrees = ~1.047 radians)
+    if (fabs(sprite_angle) > (FOV * M_PI / 180.0) / 2.0 + 0.3)
+        return;
+    
+    // Calculate screen position
+    screen_x = (int)((SCREEN_WIDTH / 2) * (1.0 + tan(sprite_angle) / tan((FOV * M_PI / 180.0) / 2.0)));
+    
+    // Calculate sprite size based on distance (perspective)
+    sprite_height = (SCREEN_HEIGHT / distance) * 0.8;
+    sprite_width = (texture->width * sprite_height) / texture->height;
+    
+    // Calculate screen positions
+    start_y = (SCREEN_HEIGHT - sprite_height) / 2;
+    start_x = screen_x - (sprite_width / 2);
+    end_x = start_x + sprite_width;
+    
+    // Draw sprite column by column
+    int x = start_x;
+    while (x < end_x)
     {
-        for (int x = 0; x < weapon_width; x++)
+        if (x >= 0 && x < SCREEN_WIDTH)
         {
-            int screen_y = start_y + y;
-            int screen_x_pos = start_x + x;
-            
-            // Make sure we're drawing inside the screen
-            if (screen_x_pos >= 0 && screen_x_pos < SCREEN_WIDTH &&
-                screen_y >= 0 && screen_y < SCREEN_HEIGHT)
+            int y = start_y;
+            while (y < start_y + sprite_height)
             {
-                // Get color from texture (map sprite coordinates to texture)
-                int tex_x = (x * texture->width) / weapon_width;
-                int tex_y = (y * texture->height) / weapon_height;
-                
-                uint32_t color = get_texture_color(texture, tex_x, tex_y);
-                
-                // Don't draw transparent pixels (alpha channel check)
-                if ((color & 0xFF) > 0)
-                    mlx_put_pixel(img, screen_x_pos, screen_y, color);
+                if (y >= 0 && y < SCREEN_HEIGHT)
+                {
+                    // Map screen coordinates to texture coordinates
+                    int tex_x = ((x - start_x) * texture->width) / sprite_width;
+                    int tex_y = ((y - start_y) * texture->height) / sprite_height;
+                    
+                    if (tex_x >= 0 && tex_x < (int)texture->width &&
+                        tex_y >= 0 && tex_y < (int)texture->height)
+                    {
+                        uint32_t color = get_texture_color(texture, tex_x, tex_y);
+                        
+                        // Don't draw transparent pixels (alpha channel check)
+                        if ((color & 0xFF) > 0)
+                            mlx_put_pixel(img, x, y, color);
+                    }
+                }
+                y++;
             }
         }
+        x++;
     }
 }

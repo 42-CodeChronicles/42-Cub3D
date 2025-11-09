@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 08:48:53 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 09:20:34 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 09:33:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,41 +51,146 @@ t_sprite    *created_sprite(double x, double y, char **frame_path, int count)
     return sprite;
 }
 
+static int is_empty_tile(t_config *data, int x, int y)
+{
+    if (y < 0 || y >= data->map.height || x < 0 || x >= data->map.width)
+        return (0);
+    if (data->map.array_map[y][x] == '0')
+        return (1);
+    return (0);
+}
+
+static void find_random_positions(t_config *data, int num_sprites, int *positions)
+{
+    int attempts;
+    int x;
+    int y;
+    int i;
+    int j;
+    int duplicate;
+
+    i = 0;
+    while (i < num_sprites)
+    {
+        attempts = 0;
+        while (attempts < 1000)
+        {
+            x = rand() % data->map.width;
+            y = rand() % data->map.height;
+            
+            // Check if it's an empty tile and not too close to player
+            if (is_empty_tile(data, x, y))
+            {
+                double dx = x + 0.5 - (data->map.player_pos.x / TILE_SIZE);
+                double dy = y + 0.5 - (data->map.player_pos.y / TILE_SIZE);
+                double dist = sqrt(dx * dx + dy * dy);
+                
+                // Not too close to player (at least 3 tiles away)
+                if (dist > 3.0)
+                {
+                    // Check for duplicates
+                    duplicate = 0;
+                    j = 0;
+                    while (j < i)
+                    {
+                        if (positions[j * 2] == x && positions[j * 2 + 1] == y)
+                        {
+                            duplicate = 1;
+                            break;
+                        }
+                        j++;
+                    }
+                    
+                    if (!duplicate)
+                    {
+                        positions[i * 2] = x;
+                        positions[i * 2 + 1] = y;
+                        break;
+                    }
+                }
+            }
+            attempts++;
+        }
+        i++;
+    }
+}
+
 void    sprite_init(t_config *data)
 {
     char        *frames[41] = {
-		"flame3/PNG/00.png", "flame3/PNG/01.png", "flame3/PNG/02.png",
-        "flame3/PNG/03.png", "flame3/PNG/04.png", "flame3/PNG/05.png",
-        "flame3/PNG/06.png", "flame3/PNG/07.png", "flame3/PNG/08.png",
-        "flame3/PNG/09.png", "flame3/PNG/10.png", "flame3/PNG/11.png",
-        "flame3/PNG/12.png", "flame3/PNG/13.png", "flame3/PNG/14.png",
-        "flame3/PNG/15.png", "flame3/PNG/16.png", "flame3/PNG/17.png",
-        "flame3/PNG/18.png", "flame3/PNG/19.png", "flame3/PNG/20.png",
-        "flame3/PNG/21.png", "flame3/PNG/22.png", "flame3/PNG/23.png",
-        "flame3/PNG/24.png", "flame3/PNG/25.png", "flame3/PNG/26.png",
-        "flame3/PNG/27.png", "flame3/PNG/28.png", "flame3/PNG/29.png",
-        "flame3/PNG/30.png", "flame3/PNG/31.png", "flame3/PNG/32.png",
-        "flame3/PNG/33.png", "flame3/PNG/34.png", "flame3/PNG/35.png",
-        "flame3/PNG/36.png", "flame3/PNG/37.png", "flame3/PNG/38.png",
-        "flame3/PNG/39.png", "flame3/PNG/40.png"
+		"flame4/png/00.png", "flame4/png/01.png", "flame4/png/02.png",
+        "flame4/png/03.png", "flame4/png/04.png", "flame4/png/05.png",
+        "flame4/png/06.png", "flame4/png/07.png", "flame4/png/08.png",
+        "flame4/png/09.png", "flame4/png/10.png", "flame4/png/11.png",
+        "flame4/png/12.png", "flame4/png/13.png", "flame4/png/14.png",
+        "flame4/png/15.png", "flame4/png/16.png", "flame4/png/17.png",
+        "flame4/png/18.png", "flame4/png/19.png", "flame4/png/20.png",
+        "flame4/png/21.png", "flame4/png/22.png", "flame4/png/23.png",
+        "flame4/png/24.png", "flame4/png/25.png", "flame4/png/26.png",
+        "flame4/png/27.png", "flame4/png/28.png", "flame4/png/29.png",
+        "flame4/png/30.png", "flame4/png/31.png", "flame4/png/32.png",
+        "flame4/png/33.png", "flame4/png/34.png", "flame4/png/35.png",
+        "flame4/png/36.png", "flame4/png/37.png", "flame4/png/38.png",
+        "flame4/png/39.png", "flame4/png/40.png"
     };
+    int         num_sprites;
+    int         *positions;
     t_sprite    *sprite;
+    int         i;
 
     data->sprite_count = 0;
     data->sprites = NULL;
     
-    // Create weapon sprite (position doesn't matter for HUD weapon)
-    sprite = created_sprite(0.0, 0.0, frames, 41);
-    if (sprite)
+    // Create 5-10 flame sprites in random empty locations
+    num_sprites = 5 + (rand() % 6); // Random number between 5 and 10
+    positions = malloc(sizeof(int) * num_sprites * 2);
+    if (!positions)
     {
-        data->sprite_count = 1;
-        data->sprites = malloc(sizeof(t_sprite) * 1);
-        if (data->sprites)
-            data->sprites[0] = *sprite;
-        free(sprite);
+        printf("Error: Failed to allocate memory for sprite positions\n");
+        return;
+    }
+    
+    // Find random positions
+    find_random_positions(data, num_sprites, positions);
+    
+    // Create sprites array
+    data->sprites = malloc(sizeof(t_sprite) * num_sprites);
+    if (!data->sprites)
+    {
+        free(positions);
+        printf("Error: Failed to allocate memory for sprites\n");
+        return;
+    }
+    
+    // Create each sprite at its random position
+    i = 0;
+    while (i < num_sprites)
+    {
+        int x = positions[i * 2];
+        int y = positions[i * 2 + 1];
+        
+        // Position sprite at center of tile (adding 0.5 for center)
+        sprite = created_sprite(x + 0.5, y + 0.5, frames, 41);
+        if (sprite)
+        {
+            data->sprites[data->sprite_count] = *sprite;
+            data->sprite_count++;
+            free(sprite);
+            printf("Flame sprite placed at map position (%d, %d)\n", x, y);
+        }
+        i++;
+    }
+    
+    free(positions);
+    
+    if (data->sprite_count == 0)
+    {
+        printf("Info: No flame sprites loaded (textures not found)\n");
+        free(data->sprites);
+        data->sprites = NULL;
     }
     else
     {
-        printf("Info: No weapon sprite loaded (textures not found)\n");
+        printf("Total flame sprites created: %d\n", data->sprite_count);
     }
 }

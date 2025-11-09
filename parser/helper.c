@@ -6,11 +6,12 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:19:33 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/09 08:48:38 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 09:34:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+#include <time.h>
 
 // void	print_array(t_config data)
 // {
@@ -99,6 +100,7 @@ int	cube(char *str)
 	parse_map(fd, &data);
 	process_map_validation(&data);
 	init_doors(&data);
+	srand(time(NULL));  // Initialize random seed for sprite placement
 	sprite_init(&data);
 	init_minimap(&data);
 	close(fd);
