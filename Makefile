@@ -12,7 +12,7 @@ SRCS = \
 	./utils/ft_atoi.c ./utils/get_next_line.c ./utils/ft_memset.c ./utils/ft_strchr.c ./utils/ft_lstnew.c ./utils/ft_lstaddback.c ./parser/texture_helper.c\
 	./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/ft_substr.c ./utils/ft_lstsize.c ./utils/ft_strcpy.c ./parser/texture.c\
 	./parser/flood_fill.c ./parser/sprite_animation.c ./parser/sprite_init.c ./parser/sprite_render.c\
-	./weapon/weapon.c\
+	./parser/weapon.c\
 	src/minimap.c src/minimap_utils.c src/minimap_draw.c src/minimap_init.c src/rays.c src/3d.c\
 
 OBJS = $(SRCS:.c=.o)
