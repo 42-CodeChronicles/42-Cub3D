@@ -6,11 +6,30 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/09 08:54:42 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 09:49:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+
+void	mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
+{
+	t_config	*data;
+	
+	(void)mods;
+	data = (t_config *)param;
+	
+	// Handle left mouse button click
+	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
+	{
+		if (!data->weapon.is_shooting)
+		{
+			data->weapon.is_shooting = 1;
+			data->weapon.current_frame = 0;
+			printf("Shooting!\n");
+		}
+	}
+}
 
 void	handle_key(void *param)
 {
@@ -26,6 +45,7 @@ void	handle_key(void *param)
 	gettimeofday(&tv, NULL);
 	current_time = tv.tv_sec + tv.tv_usec / 1000000.0;
 	update_all_sprites(data, current_time);
+	update_weapon_frame(&data->weapon, current_time);
 	move_speed = 2.0;
 	rotation_speed = 0.05;
 	new_x = data->map.player_pos.x;
@@ -70,6 +90,8 @@ void	handle_key(void *param)
 	// Then draw sprites on top
 	for(int i = 0; i < data->sprite_count; i++)
 		draw_sprite(data->view_3d, data, &data->sprites[i]);
+	// Draw weapon HUD on top of everything
+	draw_weapon(data->view_3d, data);
 	// draw_minimap(data->minimap_image, data);
 }
 
@@ -117,12 +139,14 @@ void	init_minimap(t_config *data)
 	data->minimap_image = minimap_image;
 	data->mlx_ptr = mlx_ptr;
 	load_texture(data);
+	weapon_init(data);
 	init_values(data);
 	init_angle(data);
 	render_3d_view(view_3d, data);
 	// draw_minimap(minimap_image, data);
 	mlx_image_to_window(mlx_ptr, view_3d, 0, 0);
 	mlx_image_to_window(mlx_ptr, minimap_image, 10, 10);
+	mlx_mouse_hook(mlx_ptr, &mouse_click_handler, data);
 	mlx_loop_hook(mlx_ptr, &handle_key, data);
 	mlx_loop(mlx_ptr);
 	mlx_terminate(mlx_ptr);

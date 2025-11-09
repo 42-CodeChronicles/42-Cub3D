@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 08:48:53 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 09:45:54 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 09:48:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,67 +117,8 @@ static void find_random_positions(t_config *data, int num_sprites, int *position
 
 void    sprite_init(t_config *data)
 {
-    char        *frames[6] = {
-		"weapon/0.png", "weapon/1.png", "weapon/2.png",
-        "weapon/3.png", "weapon/4.png", "weapon/5.png"};
-    int         num_sprites;
-    int         *positions;
-    t_sprite    *sprite;
-    int         i;
-
     data->sprite_count = 0;
     data->sprites = NULL;
     
-    // Create 5-10 weapon sprites in random empty locations
-    num_sprites = 5 + (rand() % 6); // Random number between 5 and 10
-    positions = malloc(sizeof(int) * num_sprites * 2);
-    if (!positions)
-    {
-        printf("Error: Failed to allocate memory for sprite positions\n");
-        return;
-    }
-    
-    // Find random positions
-    find_random_positions(data, num_sprites, positions);
-    
-    // Create sprites array
-    data->sprites = malloc(sizeof(t_sprite) * num_sprites);
-    if (!data->sprites)
-    {
-        free(positions);
-        printf("Error: Failed to allocate memory for sprites\n");
-        return;
-    }
-    
-    // Create each sprite at its random position
-    i = 0;
-    while (i < num_sprites)
-    {
-        int x = positions[i * 2];
-        int y = positions[i * 2 + 1];
-        
-        // Position sprite at center of tile (adding 0.5 for center)
-        sprite = created_sprite(x + 0.5, y + 0.5, frames, 6);
-        if (sprite)
-        {
-            data->sprites[data->sprite_count] = *sprite;
-            data->sprite_count++;
-            free(sprite);
-            printf("Weapon sprite placed at map position (%d, %d)\n", x, y);
-        }
-        i++;
-    }
-    
-    free(positions);
-    
-    if (data->sprite_count == 0)
-    {
-        printf("Info: No weapon sprites loaded (textures not found)\n");
-        free(data->sprites);
-        data->sprites = NULL;
-    }
-    else
-    {
-        printf("Total weapon sprites created: %d\n", data->sprite_count);
-    }
+    printf("Info: Sprite system initialized (no world sprites)\n");
 }

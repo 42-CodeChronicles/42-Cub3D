@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/09 08:48:39 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 09:48:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,16 @@ typedef struct s_sprite
 	double			frame_time;
 	double			last_update;
 }					t_sprite;
+
+typedef struct s_weapon
+{
+	mlx_texture_t	**frames;
+	int				frame_count;
+	int				current_frame;
+	int				is_shooting;
+	double			frame_time;
+	double			last_update;
+}					t_weapon;
 
 typedef struct s_tex_data
 {
@@ -162,6 +172,7 @@ typedef struct s_config
 	mlx_texture_t	*door_texture;
 	t_sprite		*sprites;
 	int				sprite_count;
+	t_weapon		weapon;
 }					t_config;
 
 typedef struct s_draw_params
@@ -226,6 +237,9 @@ void				update_all_sprites(t_config *data, double current_time);
 char				*ft_substr(const char *s, unsigned int start, size_t len);
 void				update_sprite_frame(t_sprite *sprite, double current_time);
 void 				draw_sprite(mlx_image_t *img, t_config *data, t_sprite *sprite);
+void				weapon_init(t_config *data);
+void				draw_weapon(mlx_image_t *img, t_config *data);
+void				update_weapon_frame(t_weapon *weapon, double current_time);
 
 // ### ayaarab's functions ###
 
