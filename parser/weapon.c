@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 10:00:00 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 09:48:34 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 09:51:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ void	draw_weapon(mlx_image_t *img, t_config *data)
 
 	texture = data->weapon.frames[data->weapon.current_frame];
 	
-	// Scale weapon to appropriate size (you can adjust these values)
-	weapon_width = texture->width * 2;  // Scale 2x
-	weapon_height = texture->height * 2;
+	// Scale weapon to smaller size - adjust scale factor here (0.8 = 80% of original)
+	weapon_width = texture->width * 0.8;
+	weapon_height = texture->height * 0.8;
 	
-	// Position weapon at bottom-center of screen
-	start_x = (SCREEN_WIDTH - weapon_width) / 2;
-	start_y = SCREEN_HEIGHT - weapon_height;
+	// Position weapon at bottom-right corner (with small margin)
+	start_x = SCREEN_WIDTH - weapon_width - 50;  // 50px margin from right
+	start_y = SCREEN_HEIGHT - weapon_height - 20;  // 20px margin from bottom
 	
 	// Draw weapon pixel by pixel
 	y = 0;
