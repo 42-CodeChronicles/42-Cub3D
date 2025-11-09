@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/09 08:50:15 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 08:54:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ void	handle_key(void *param)
 	gettimeofday(&tv, NULL);
 	current_time = tv.tv_sec + tv.tv_usec / 1000000.0;
 	update_all_sprites(data, current_time);
-	render_3d_view(data->view_3d, data);
-	for(int i = 0; i < data->sprite_count; i++)
-		draw_sprite(data->view_3d, data, &data->sprites[i]);
 	move_speed = 2.0;
 	rotation_speed = 0.05;
 	new_x = data->map.player_pos.x;
@@ -68,7 +65,11 @@ void	handle_key(void *param)
 		data->map.player_pos.x = new_x;
 		data->map.player_pos.y = new_y;
 	}
+	// Render 3D view with walls first
 	render_3d_view(data->view_3d, data);
+	// Then draw sprites on top
+	for(int i = 0; i < data->sprite_count; i++)
+		draw_sprite(data->view_3d, data, &data->sprites[i]);
 	// draw_minimap(data->minimap_image, data);
 }
 
