@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 08:48:53 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/08 10:18:38 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 08:35:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,23 @@ t_sprite    *created_sprite(double x, double y, char **frame_path, int count)
     sprite->frame_time = 0.1; 
     sprite->last_update = 0;
     sprite->frames = malloc(sizeof(mlx_texture_t *) * count);
+    if (!sprite->frames)
+    {
+        free(sprite);
+        return NULL;
+    }
     i = 0;
     while (i < count)
     {
         sprite->frames[i] = mlx_load_png(frame_path[i]);
         if(!sprite->frames[i])
         {
-            printf("Error: Can't load sprite frame!\n");
+            printf("Warning: Can't load sprite frame '%s', skipping sprite\n", frame_path[i]);
+            // Free previously loaded frames
+            while (--i >= 0)
+                mlx_delete_texture(sprite->frames[i]);
+            free(sprite->frames);
+            free(sprite);
             return NULL;
         }
         i++;
@@ -43,8 +53,24 @@ t_sprite    *created_sprite(double x, double y, char **frame_path, int count)
 
 void    sprite_init(t_config *data)
 {
-    char *frames[3] = {"texture/fire1.png", "texture/fire2.png", "texture/fire3.png"};
-    data->sprite_count = 1;
-    data->sprites = malloc(sizeof(t_sprite) * 1);
-    data->sprites[0] = *created_sprite(5.5, 5.5, frames, 3);
+    char        *frames[3] = {"textures/fire1.png", "textures/fire2.png", "textures/fire3.png"};
+    t_sprite    *sprite;
+
+    data->sprite_count = 0;
+    data->sprites = NULL;
+    
+    // Try to create sprite, but don't fail if textures don't exist
+    sprite = created_sprite(5.5, 5.5, frames, 3);
+    if (sprite)
+    {
+        data->sprite_count = 1;
+        data->sprites = malloc(sizeof(t_sprite) * 1);
+        if (data->sprites)
+            data->sprites[0] = *sprite;
+        free(sprite);
+    }
+    else
+    {
+        printf("Info: No sprites loaded (sprite textures not found)\n");
+    }
 }

@@ -17,6 +17,8 @@ SRCS = \
 OBJS = $(SRCS:.c=.o)
 
 ARCH := $(shell uname -m)
+UNAME_S := $(shell uname -s)
+
 ifeq ($(ARCH),arm64)
 	BREW_PATH = /opt/homebrew
 else
@@ -29,20 +31,24 @@ MLX_BUILD = $(MLX_DIR)/build
 MLX_LIB = $(MLX_BUILD)/libmlx42.a
 MLX_INC = -I$(MLX_DIR)/include
 
-# GLFW detection - check if it exists in brew location
-GLFW_PATH = $(BREW_PATH)/opt/glfw
-ifeq ($(wildcard $(GLFW_PATH)/lib/libglfw.*),)
-	# GLFW not found in expected location, try pkg-config
+# OS-specific settings
+ifeq ($(UNAME_S),Linux)
+	# Linux settings
 	GLFW_FLAGS = $(shell pkg-config --libs glfw3 2>/dev/null || echo "-lglfw")
 	GLFW_INC = $(shell pkg-config --cflags glfw3 2>/dev/null)
-else
-	# GLFW found in brew location
-	GLFW_FLAGS = -L$(GLFW_PATH)/lib -lglfw
-	GLFW_INC = -I$(GLFW_PATH)/include
+	MLX_FLAGS = $(GLFW_FLAGS) -ldl -pthread -lm
+else ifeq ($(UNAME_S),Darwin)
+	# macOS settings
+	GLFW_PATH = $(BREW_PATH)/opt/glfw
+	ifeq ($(wildcard $(GLFW_PATH)/lib/libglfw.*),)
+		GLFW_FLAGS = $(shell pkg-config --libs glfw3 2>/dev/null || echo "-lglfw")
+		GLFW_INC = $(shell pkg-config --cflags glfw3 2>/dev/null)
+	else
+		GLFW_FLAGS = -L$(GLFW_PATH)/lib -lglfw
+		GLFW_INC = -I$(GLFW_PATH)/include
+	endif
+	MLX_FLAGS = $(GLFW_FLAGS) -framework Cocoa -framework OpenGL -framework IOKit
 endif
-
-# Final linking flags
-MLX_FLAGS = $(GLFW_FLAGS) -framework Cocoa -framework OpenGL -framework IOKit
 
 all: $(MLX_LIB) $(NAME)
 
