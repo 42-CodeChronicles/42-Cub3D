@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/09 09:49:17 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 17:00:34 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,13 @@ void	mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mod
 	
 	(void)mods;
 	data = (t_config *)param;
-	
-	// Handle left mouse button click
+
 	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
 	{
 		if (!data->weapon.is_shooting)
 		{
 			data->weapon.is_shooting = 1;
 			data->weapon.current_frame = 0;
-			printf("Shooting!\n");
 		}
 	}
 }

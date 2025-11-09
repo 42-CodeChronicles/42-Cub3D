@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapon.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 10:00:00 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 15:55:38 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 17:01:18 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,27 +70,6 @@ void	weapon_init(t_config *data)
 		exit(1);
 	}
 	load_weapon_frames(data, frames);
-	printf("Weapon loaded successfully with %d frames\n",
-		data->weapon.frame_count);
-}
-
-void	update_weapon_frame(t_weapon *weapon, double current_time)
-{
-	if (!weapon->is_shooting)
-	{
-		weapon->current_frame = 0;
-		return ;
-	}
-	if (current_time - weapon->last_update >= weapon->frame_time)
-	{
-		weapon->current_frame++;
-		if (weapon->current_frame >= weapon->frame_count)
-		{
-			weapon->current_frame = 0;
-			weapon->is_shooting = 0;
-		}
-		weapon->last_update = current_time;
-	}
 }
 
 static void	draw_weapon_pixel(mlx_image_t *img, t_weapon_draw *wd,

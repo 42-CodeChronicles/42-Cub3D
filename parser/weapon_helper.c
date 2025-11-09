@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapon_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 10:00:00 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 15:54:55 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 16:59:12 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,23 @@ void	get_weapon_position(int weapon_width, int weapon_height,
 {
 	*start_x = SCREEN_WIDTH - weapon_width - 50;
 	*start_y = SCREEN_HEIGHT - weapon_height - 20;
+}
+
+void	update_weapon_frame(t_weapon *weapon, double current_time)
+{
+	if (!weapon->is_shooting)
+	{
+		weapon->current_frame = 0;
+		return ;
+	}
+	if (current_time - weapon->last_update >= weapon->frame_time)
+	{
+		weapon->current_frame++;
+		if (weapon->current_frame >= weapon->frame_count)
+		{
+			weapon->current_frame = 0;
+			weapon->is_shooting = 0;
+		}
+		weapon->last_update = current_time;
+	}
 }

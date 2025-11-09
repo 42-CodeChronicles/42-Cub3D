@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/09 16:52:13 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:58:41 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,11 +229,15 @@ void				check_map(char *str, t_config *data, t_list **map);
 void				ft_strcpy(char *dest, const char *src, size_t len);
 uint32_t			get_texture_color(mlx_texture_t *texture, int tex_x,
 						int tex_y);
+void				get_weapon_dimensions(mlx_texture_t *texture, int *w,
+						int *h);
 void				flood_fill(char **map, int x, int y, t_map *map_data);
 double				get_sprite_distance(t_config *data, t_sprite *sprite);
 t_sprite			*created_sprite(double x, double y, char **frame_path,
 						int count);
 void				update_all_sprites(t_config *data, double current_time);
+void				get_weapon_position(int weapon_width, int weapon_height,
+						int *start_x, int *start_y);
 char				*ft_substr(const char *s, unsigned int start, size_t len);
 void				update_sprite_frame(t_sprite *sprite, double current_time);
 void				draw_sprite(mlx_image_t *img, t_config *data,
