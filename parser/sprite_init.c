@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 08:48:53 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 09:33:01 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 10:41:17 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,22 +117,9 @@ static void find_random_positions(t_config *data, int num_sprites, int *position
 
 void    sprite_init(t_config *data)
 {
-    char        *frames[41] = {
-		"flame4/png/00.png", "flame4/png/01.png", "flame4/png/02.png",
-        "flame4/png/03.png", "flame4/png/04.png", "flame4/png/05.png",
-        "flame4/png/06.png", "flame4/png/07.png", "flame4/png/08.png",
-        "flame4/png/09.png", "flame4/png/10.png", "flame4/png/11.png",
-        "flame4/png/12.png", "flame4/png/13.png", "flame4/png/14.png",
-        "flame4/png/15.png", "flame4/png/16.png", "flame4/png/17.png",
-        "flame4/png/18.png", "flame4/png/19.png", "flame4/png/20.png",
-        "flame4/png/21.png", "flame4/png/22.png", "flame4/png/23.png",
-        "flame4/png/24.png", "flame4/png/25.png", "flame4/png/26.png",
-        "flame4/png/27.png", "flame4/png/28.png", "flame4/png/29.png",
-        "flame4/png/30.png", "flame4/png/31.png", "flame4/png/32.png",
-        "flame4/png/33.png", "flame4/png/34.png", "flame4/png/35.png",
-        "flame4/png/36.png", "flame4/png/37.png", "flame4/png/38.png",
-        "flame4/png/39.png", "flame4/png/40.png"
-    };
+    char        *frames[7] = {
+		"weapon/0.png", "weapon/1.png", "weapon/2.png",
+        "weapon/3.png", "weapon/4.png", "weapon/5.png"};
     int         num_sprites;
     int         *positions;
     t_sprite    *sprite;
