@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 08:48:53 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 10:11:27 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/09 09:17:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_sprite    *created_sprite(double x, double y, char **frame_path, int count)
 
 void    sprite_init(t_config *data)
 {
-    char        *frames[49] = {
+    char        *frames[41] = {
 		"flame3/PNG/00.png", "flame3/PNG/01.png", "flame3/PNG/02.png",
         "flame3/PNG/03.png", "flame3/PNG/04.png", "flame3/PNG/05.png",
         "flame3/PNG/06.png", "flame3/PNG/07.png", "flame3/PNG/08.png",
@@ -68,24 +68,6 @@ void    sprite_init(t_config *data)
         "flame3/PNG/33.png", "flame3/PNG/34.png", "flame3/PNG/35.png",
         "flame3/PNG/36.png", "flame3/PNG/37.png", "flame3/PNG/38.png",
         "flame3/PNG/39.png", "flame3/PNG/40.png"
-        // "flame3/png/flame_00.png", "flame3/png/flame_01.png", "flame3/png/flame_02.png",
-        // "flame3/png/flame_03.png", "flame3/png/flame_04.png", "flame3/png/flame_05.png",
-        // "flame3/png/flame_06.png", "flame3/png/flame_07.png", "flame3/png/flame_08.png",
-        // "flame3/png/flame_09.png", "flame3/png/flame_10.png", "flame3/png/flame_11.png",
-        // "flame3/png/flame_12.png", "flame3/png/flame_13.png", "flame3/png/flame_14.png",
-        // "flame3/png/flame_15.png", "flame3/png/flame_16.png", "flame3/png/flame_17.png",
-        // "flame3/png/flame_18.png", "flame3/png/flame_19.png", "flame3/png/flame_20.png",
-        // "flame3/png/flame_21.png", "flame3/png/flame_22.png", "flame3/png/flame_23.png",
-        // "flame3/png/flame_24.png", "flame3/png/flame_25.png", "flame3/png/flame_26.png",
-        // "flame3/png/flame_27.png", "flame3/png/flame_28.png", "flame3/png/flame_29.png",
-        // "flame3/png/flame_30.png", "flame3/png/flame_31.png", "flame3/png/flame_32.png",
-        // "flame3/png/flame_33.png", "flame3/png/flame_34.png", "flame3/png/flame_35.png",
-        // "flame3/png/flame_36.png", "flame3/png/flame_37.png", "flame3/png/flame_38.png",
-        // "flame3/png/flame_39.png", "flame3/png/flame_40.png", 
-		// "flame3/png/flame_41.png",
-        // "flame3/png/flame_42.png", "flame3/png/flame_43.png", "flame3/png/flame_44.png",
-        // "flame3/png/flame_45.png", "flame3/png/flame_46.png", "flame3/png/flame_47.png",
-        // "flame3/png/flame_48.png"
     };
     t_sprite    *sprite;
 
@@ -93,7 +75,7 @@ void    sprite_init(t_config *data)
     data->sprites = NULL;
     
     // Try to create sprite, but don't fail if textures don't exist
-    sprite = created_sprite(5.5, 5.5, frames, 49);
+    sprite = created_sprite(5.5, 5.5, frames, 41);
     if (sprite)
     {
         data->sprite_count = 1;
