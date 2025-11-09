@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapon.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 10:00:00 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 16:50:31 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/09 15:55:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,19 @@ typedef struct s_weapon_draw
 	int		y;
 }			t_weapon_draw;
 
-void	weapon_init(t_config *data)
+static void	init_weapon_fields(t_config *data)
 {
-	char	*frames[6];
-	int		i;
-
-	frames[0] = "weapon/0.png";
-	frames[1] = "weapon/1.png";
-	frames[2] = "weapon/2.png";
-	frames[3] = "weapon/3.png";
-	frames[4] = "weapon/4.png";
-	frames[5] = "weapon/5.png";
 	data->weapon.frame_count = 6;
 	data->weapon.current_frame = 0;
 	data->weapon.is_shooting = 0;
 	data->weapon.frame_time = 0.05;
 	data->weapon.last_update = 0;
-	data->weapon.frames = malloc(sizeof(mlx_texture_t *) * 6);
-	if (!data->weapon.frames)
-	{
-		printf("Error: Failed to allocate memory for weapon frames\n");
-		exit(1);
-	}
+}
+
+static int	load_weapon_frames(t_config *data, char **frames)
+{
+	int	i;
+
 	i = 0;
 	while (i < 6)
 	{
@@ -58,6 +49,27 @@ void	weapon_init(t_config *data)
 		}
 		i++;
 	}
+	return (1);
+}
+
+void	weapon_init(t_config *data)
+{
+	char	*frames[6];
+
+	frames[0] = "weapon/0.png";
+	frames[1] = "weapon/1.png";
+	frames[2] = "weapon/2.png";
+	frames[3] = "weapon/3.png";
+	frames[4] = "weapon/4.png";
+	frames[5] = "weapon/5.png";
+	init_weapon_fields(data);
+	data->weapon.frames = malloc(sizeof(mlx_texture_t *) * 6);
+	if (!data->weapon.frames)
+	{
+		printf("Error: Failed to allocate memory for weapon frames\n");
+		exit(1);
+	}
+	load_weapon_frames(data, frames);
 	printf("Weapon loaded successfully with %d frames\n",
 		data->weapon.frame_count);
 }
@@ -79,19 +91,6 @@ void	update_weapon_frame(t_weapon *weapon, double current_time)
 		}
 		weapon->last_update = current_time;
 	}
-}
-
-static void	get_weapon_dimensions(mlx_texture_t *texture, int *w, int *h)
-{
-	*w = texture->width * 0.4;
-	*h = texture->height * 0.4;
-}
-
-static void	get_weapon_position(int weapon_width, int weapon_height,
-		int *start_x, int *start_y)
-{
-	*start_x = SCREEN_WIDTH - weapon_width - 50;
-	*start_y = SCREEN_HEIGHT - weapon_height - 20;
 }
 
 static void	draw_weapon_pixel(mlx_image_t *img, t_weapon_draw *wd,
