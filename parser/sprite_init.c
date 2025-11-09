@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 08:48:53 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 09:17:05 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/09 09:20:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void    sprite_init(t_config *data)
     data->sprite_count = 0;
     data->sprites = NULL;
     
-    // Try to create sprite, but don't fail if textures don't exist
-    sprite = created_sprite(5.5, 5.5, frames, 41);
+    // Create weapon sprite (position doesn't matter for HUD weapon)
+    sprite = created_sprite(0.0, 0.0, frames, 41);
     if (sprite)
     {
         data->sprite_count = 1;
@@ -86,6 +86,6 @@ void    sprite_init(t_config *data)
     }
     else
     {
-        printf("Info: No sprites loaded (sprite textures not found)\n");
+        printf("Info: No weapon sprite loaded (textures not found)\n");
     }
 }
