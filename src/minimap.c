@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/09 17:00:34 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/10 02:25:08 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	handle_key(void *param)
 		draw_sprite(data->view_3d, data, &data->sprites[i]);
 	// Draw weapon HUD on top of everything
 	draw_weapon(data->view_3d, data);
-	// draw_minimap(data->minimap_image, data);
+	draw_minimap(data->minimap_image, data);
 }
 
 void load_texture(t_config *data)
@@ -106,33 +106,41 @@ void load_texture(t_config *data)
 	}
 }
 
+static int	setup_mlx(mlx_t **mlx_ptr, mlx_image_t **view_3d,
+		mlx_image_t **minimap_image, t_config *data)
+{
+	*mlx_ptr = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D - 3D View", true);
+	if (!*mlx_ptr)
+	{
+		printf("Error initializing MLX\n");
+		return (0);
+	}
+	*view_3d = mlx_new_image(*mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!*view_3d)
+	{
+		printf("Error creating 3D view image\n");
+		mlx_terminate(*mlx_ptr);
+		return (0);
+	}
+	*minimap_image = mlx_new_image(*mlx_ptr, data->map.width * TILE_SIZE,
+			data->map.height * TILE_SIZE);
+	if (!*minimap_image)
+	{
+		printf("Error creating minimap image\n");
+		mlx_terminate(*mlx_ptr);
+		return (0);
+	}
+	return (1);
+}
+
 void	init_minimap(t_config *data)
 {
 	mlx_t		*mlx_ptr;
 	mlx_image_t	*view_3d;
 	mlx_image_t	*minimap_image;
 
-	mlx_ptr = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D - 3D View", true);
-	if (!mlx_ptr)
-	{
-		printf("Error initializing MLX\n");
+	if (!setup_mlx(&mlx_ptr, &view_3d, &minimap_image, data))
 		exit(1);
-	}
-	view_3d = mlx_new_image(mlx_ptr, SCREEN_WIDTH, SCREEN_HEIGHT);
-	if (!view_3d)
-	{
-		printf("Error creating 3D view image\n");
-		mlx_terminate(mlx_ptr);
-		exit(1);
-	}
-	minimap_image = mlx_new_image(mlx_ptr, data->map.width * TILE_SIZE,
-			data->map.height * TILE_SIZE);
-	if (!minimap_image)
-	{
-		printf("Error creating minimap image\n");
-		mlx_terminate(mlx_ptr);
-		exit(1);
-	}
 	data->view_3d = view_3d;
 	data->minimap_image = minimap_image;
 	data->mlx_ptr = mlx_ptr;
@@ -141,7 +149,7 @@ void	init_minimap(t_config *data)
 	init_values(data);
 	init_angle(data);
 	render_3d_view(view_3d, data);
-	// draw_minimap(minimap_image, data);
+	draw_minimap(minimap_image, data);
 	mlx_image_to_window(mlx_ptr, view_3d, 0, 0);
 	mlx_image_to_window(mlx_ptr, minimap_image, 10, 10);
 	mlx_mouse_hook(mlx_ptr, &mouse_click_handler, data);

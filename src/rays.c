@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:51 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/06 09:42:36 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/10 02:25:59 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,6 @@ void	cast_all_rays(mlx_image_t *img, t_config *data)
 		int map_x, map_y;
 		ray_angle = start_angle + (i * angle_step);
 		distance = cast_ray(data, ray_angle, &hit_vertical , &wall_x, &map_x, &map_y);
-		draw_line_dda(img, data, ray_angle, distance, 0xF0FF);
+		draw_line_dda(img, data, ray_angle, distance);
 	}
 }

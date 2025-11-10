@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/10 01:28:14 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/10 02:26:25 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ void				normalize_angle(double *angle);
 // Minimap draw
 void				draw_player_dot(mlx_image_t *img, int x, int y);
 void				draw_line_dda(mlx_image_t *img, t_config *data,
-						double angle, double distance, int color);
+						double angle, double distance);
 void				draw_direction_line(mlx_image_t *img, t_config *data);
 void				draw_minimap(mlx_image_t *minimap_image, t_config *data);
 
