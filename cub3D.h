@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/09 16:58:41 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/10 01:28:14 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define W_WIDTH 800
 # define W_HEIGHT 600
 
-# define TILE_SIZE 32
+# define TILE_SIZE 64
 # define MINIMAP_TILES 17
 # define MINIMAP_SIZE (MINIMAP_TILES * TILE_SIZE)
 // #define TILE_SIZE 10
