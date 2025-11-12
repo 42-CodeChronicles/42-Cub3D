@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:39 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/10 02:26:38 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/12 12:38:23 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ static void	draw_map_tiles(mlx_image_t *minimap_image, t_config *data)
 			if (data->map.array_map[y][x] == '1')
 				draw_tile(minimap_image, x * TILE_SIZE, y * TILE_SIZE,
 					0x000000FF);
+			else if (data->map.array_map[y][x] == 'D')
+				draw_tile(minimap_image, x * TILE_SIZE, y * TILE_SIZE,
+					0x00FF00FF);
 			else
 				draw_tile(minimap_image, x * TILE_SIZE, y * TILE_SIZE,
 					0xFFFFFFFF);

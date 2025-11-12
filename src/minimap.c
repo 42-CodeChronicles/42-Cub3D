@@ -6,13 +6,13 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/10 02:25:08 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/12 12:37:36 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-void	mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
+void mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mods, void *param)
 {
 	t_config	*data;
 	
@@ -27,6 +27,38 @@ void	mouse_click_handler(mouse_key_t button, action_t action, modifier_key_t mod
 			data->weapon.current_frame = 0;
 		}
 	}
+	if (button == MLX_MOUSE_BUTTON_RIGHT && action == MLX_PRESS)
+		open_door_in_front((t_config *)param);
+}
+
+void open_door_in_front(t_config *data)
+{
+	int tx;
+	int ty;
+	double reach;
+
+	reach = TILE_SIZE * 1.5;
+	tx = (int)((data->map.player_pos.x + cos(data->map.player_pos.angle) * reach) / TILE_SIZE);
+	ty = (int)((data->map.player_pos.y + sin(data->map.player_pos.angle) * reach) / TILE_SIZE);
+
+	if (!is_valid_pos(data, tx, ty))
+		return ;
+	if (data->map.array_map[ty][tx] == 'D')
+		data->map.array_map[ty][tx] = '0';
+}
+
+void mouse_move_handler(double xpos, double ypos, void *param)
+{
+	t_config *data = (t_config *)param;
+	double center_x = (double)(SCREEN_WIDTH / 2);
+	double center_y = (double)(SCREEN_HEIGHT / 2);
+	double dx;
+	double sensitivity = 0.0025;
+	dx = xpos - center_x;
+
+	data->map.player_pos.angle += dx * sensitivity;
+	normalize_angle(&data->map.player_pos.angle);
+	mlx_set_mouse_pos(data->mlx_ptr, (int)center_x, (int)center_y);
 }
 
 void	handle_key(void *param)
@@ -90,7 +122,7 @@ void	handle_key(void *param)
 		draw_sprite(data->view_3d, data, &data->sprites[i]);
 	// Draw weapon HUD on top of everything
 	draw_weapon(data->view_3d, data);
-	draw_minimap(data->minimap_image, data);
+	// draw_minimap(data->minimap_image, data);
 }
 
 void load_texture(t_config *data)
@@ -107,7 +139,7 @@ void load_texture(t_config *data)
 }
 
 static int	setup_mlx(mlx_t **mlx_ptr, mlx_image_t **view_3d,
-		mlx_image_t **minimap_image, t_config *data)
+			mlx_image_t **minimap_image, t_config *data)
 {
 	*mlx_ptr = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D - 3D View", true);
 	if (!*mlx_ptr)
@@ -149,10 +181,15 @@ void	init_minimap(t_config *data)
 	init_values(data);
 	init_angle(data);
 	render_3d_view(view_3d, data);
-	draw_minimap(minimap_image, data);
+	// draw_minimap(minimap_image, data);
 	mlx_image_to_window(mlx_ptr, view_3d, 0, 0);
 	mlx_image_to_window(mlx_ptr, minimap_image, 10, 10);
+	// mouse click (shoot / interact)
 	mlx_mouse_hook(mlx_ptr, &mouse_click_handler, data);
+	// cursor movement for smooth look around
+	mlx_cursor_hook(mlx_ptr, &mouse_move_handler, data);
+	// center the mouse once at start
+	mlx_set_mouse_pos(mlx_ptr, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	mlx_loop_hook(mlx_ptr, &handle_key, data);
 	mlx_loop(mlx_ptr);
 	mlx_terminate(mlx_ptr);

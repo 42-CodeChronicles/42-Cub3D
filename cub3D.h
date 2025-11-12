@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/10 02:26:25 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/12 12:40:02 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,6 @@ void				calculate_wall_height(t_wall *wall, double distance,
 						double ray_angle, t_config *data);
 void				draw_wall_slice_texture(mlx_image_t *img,
 						t_draw_params *params);
-
+void				open_door_in_front(t_config *data);
 // ##########################
 #endif
