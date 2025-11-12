@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/12 12:37:36 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/12 12:50:29 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void open_door_in_front(t_config *data)
 	int tx;
 	int ty;
 	double reach;
+	// int is_open;
 
 	reach = TILE_SIZE * 1.5;
 	tx = (int)((data->map.player_pos.x + cos(data->map.player_pos.angle) * reach) / TILE_SIZE);
@@ -44,7 +45,16 @@ void open_door_in_front(t_config *data)
 	if (!is_valid_pos(data, tx, ty))
 		return ;
 	if (data->map.array_map[ty][tx] == 'D')
+	{
 		data->map.array_map[ty][tx] = '0';
+		// is_open = 1;
+	}
+	// else if (data->map.array_map[ty][tx] == '0' && is_open == 1)
+	// {
+	// 	data->map.array_map[ty][tx] = 'D';
+	// 	is_open = 0;
+	// }
+	
 }
 
 void mouse_move_handler(double xpos, double ypos, void *param)
