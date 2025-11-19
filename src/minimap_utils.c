@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:43:04 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/12 12:29:45 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/19 14:35:43 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,15 @@ int	check_collision(t_config *data, int new_x, int new_y)
 		|| !is_valid_pos(data, right, bottom))
 		return (1);
 	if (data->map.array_map[top][left] == '1'
-		|| data->map.array_map[top][right] == '1')
+		|| data->map.array_map[top][right] == '1'
+		|| data->map.array_map[top][left] == 'D'
+		|| data->map.array_map[top][right] == 'D')
 		return (1);
 	if (data->map.array_map[bottom][left] == '1'
-		|| data->map.array_map[bottom][right] == '1')
+		|| data->map.array_map[bottom][right] == '1'
+		||	data->map.array_map[bottom][left] == 'D'
+		|| data->map.array_map[bottom][right] == 'D'
+	)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/12 12:50:29 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/19 16:08:49 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void open_door_in_front(t_config *data)
 	int tx;
 	int ty;
 	double reach;
-	// int is_open;
 
 	reach = TILE_SIZE * 1.5;
 	tx = (int)((data->map.player_pos.x + cos(data->map.player_pos.angle) * reach) / TILE_SIZE);
@@ -47,13 +46,13 @@ void open_door_in_front(t_config *data)
 	if (data->map.array_map[ty][tx] == 'D')
 	{
 		data->map.array_map[ty][tx] = '0';
-		// is_open = 1;
+		data->doors->is_open = 1;
 	}
-	// else if (data->map.array_map[ty][tx] == '0' && is_open == 1)
-	// {
-	// 	data->map.array_map[ty][tx] = 'D';
-	// 	is_open = 0;
-	// }
+	else if (data->map.array_map[ty][tx] == '0' && data->doors->is_open == 1 && data->doors->is_open == 1)
+	{
+		data->map.array_map[ty][tx] = 'D';
+		data->doors->is_open = 0;
+	}
 	
 }
 
@@ -194,11 +193,8 @@ void	init_minimap(t_config *data)
 	// draw_minimap(minimap_image, data);
 	mlx_image_to_window(mlx_ptr, view_3d, 0, 0);
 	mlx_image_to_window(mlx_ptr, minimap_image, 10, 10);
-	// mouse click (shoot / interact)
 	mlx_mouse_hook(mlx_ptr, &mouse_click_handler, data);
-	// cursor movement for smooth look around
 	mlx_cursor_hook(mlx_ptr, &mouse_move_handler, data);
-	// center the mouse once at start
 	mlx_set_mouse_pos(mlx_ptr, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	mlx_loop_hook(mlx_ptr, &handle_key, data);
 	mlx_loop(mlx_ptr);

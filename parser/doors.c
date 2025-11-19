@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 14:37:17 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/06 18:18:38 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:06:25 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	populate_doors(t_config *data)
 				data->doors[door_index].x = x;
 				data->doors[door_index].y = y;
 				data->doors[door_index].is_open = 0;
-				data->doors[door_index].open_amount = 0.0;
+				data->doors[door_index].is_door = 1;
 				door_index++;
 			}
 			x++;

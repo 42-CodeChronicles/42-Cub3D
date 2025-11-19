@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/12 12:40:02 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/19 16:05:22 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_door
 	int				x;
 	int				y;
 	int				is_open;
-	double			open_amount;
+	int			is_door;
 }					t_door;
 
 typedef struct s_flags
@@ -257,6 +257,10 @@ void				draw_tile(mlx_image_t *img, int x, int y, int color);
 int					is_valid_pos(t_config *data, int x, int y);
 int					check_collision(t_config *data, int new_x, int new_y);
 void				normalize_angle(double *angle);
+// Scaled/minimap helpers
+void			draw_tile_minimap(mlx_image_t *img, int x, int y, int tile_size, int color);
+void			draw_player_dot_minimap(mlx_image_t *img, t_config *data);
+void			draw_line_dda_minimap(mlx_image_t *img, t_config *data, double angle, double distance);
 
 // Minimap draw
 void				draw_player_dot(mlx_image_t *img, int x, int y);

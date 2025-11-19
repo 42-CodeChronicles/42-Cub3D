@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:21:19 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/09 10:01:48 by codespace        ###   ########.fr       */
+/*   Updated: 2025/11/19 16:09:57 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	init_tex_data(t_tex_data *tex, t_config *data, t_wall_pos *pos)
 	if (data->map.array_map[pos->map_y][pos->map_x] == 'D')
 	{
 		door = get_door_state(data, pos->map_x, pos->map_y);
-		if (door)
-			door_offset = door->open_amount;
+		//if (door)
+			//door_offset = door->open_amount;
 	}
 	pos->wall_x += door_offset;
 	if (pos->wall_x > 1.0)
