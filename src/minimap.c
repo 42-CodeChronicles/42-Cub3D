@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/19 16:08:49 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/20 23:42:39 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,70 +70,6 @@ void mouse_move_handler(double xpos, double ypos, void *param)
 	mlx_set_mouse_pos(data->mlx_ptr, (int)center_x, (int)center_y);
 }
 
-void	handle_key(void *param)
-{
-	t_config	*data;
-	double		move_speed;
-	double		rotation_speed;
-	double		new_x;
-	double		new_y;
-	struct		timeval tv;
-	double 		current_time;
-	
-	data = (t_config *)param;
-	gettimeofday(&tv, NULL);
-	current_time = tv.tv_sec + tv.tv_usec / 1000000.0;
-	update_all_sprites(data, current_time);
-	update_weapon_frame(&data->weapon, current_time);
-	move_speed = 2.0;
-	rotation_speed = 0.05;
-	new_x = data->map.player_pos.x;
-	new_y = data->map.player_pos.y;
-	normalize_angle(&data->map.player_pos.angle);
-	if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_ESCAPE))
-	{
-		mlx_close_window(data->mlx_ptr);
-		exit(0);
-	}
-	if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_LEFT))
-		data->map.player_pos.angle -= rotation_speed;
-	if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_RIGHT))
-		data->map.player_pos.angle += rotation_speed;
-	if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_W))
-	{
-		new_x += cos(data->map.player_pos.angle) * move_speed;
-		new_y += sin(data->map.player_pos.angle) * move_speed;
-	}
-	if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_S))
-	{
-		new_x -= cos(data->map.player_pos.angle) * move_speed;
-		new_y -= sin(data->map.player_pos.angle) * move_speed;
-	}
-	if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_A))
-	{
-		new_x += cos(data->map.player_pos.angle - M_PI / 2) * move_speed;
-		new_y += sin(data->map.player_pos.angle - M_PI / 2) * move_speed;
-	}
-	if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_D))
-	{
-		new_x += cos(data->map.player_pos.angle + M_PI / 2) * move_speed;
-		new_y += sin(data->map.player_pos.angle + M_PI / 2) * move_speed;
-	}
-	if (!check_collision(data, new_x, new_y))
-	{
-		data->map.player_pos.x = new_x;
-		data->map.player_pos.y = new_y;
-	}
-	// Render 3D view with walls first
-	render_3d_view(data->view_3d, data);
-	// Then draw sprites on top
-	for(int i = 0; i < data->sprite_count; i++)
-		draw_sprite(data->view_3d, data, &data->sprites[i]);
-	// Draw weapon HUD on top of everything
-	draw_weapon(data->view_3d, data);
-	// draw_minimap(data->minimap_image, data);
-}
-
 void load_texture(t_config *data)
 {
 	data->no_texture = mlx_load_png(data->no);
@@ -148,8 +84,11 @@ void load_texture(t_config *data)
 }
 
 static int	setup_mlx(mlx_t **mlx_ptr, mlx_image_t **view_3d,
-			mlx_image_t **minimap_image, t_config *data)
+					mlx_image_t **minimap_image, t_config *data)
 {
+	int	minimap_size;
+
+	minimap_size = 300;
 	*mlx_ptr = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D - 3D View", true);
 	if (!*mlx_ptr)
 	{
@@ -163,8 +102,7 @@ static int	setup_mlx(mlx_t **mlx_ptr, mlx_image_t **view_3d,
 		mlx_terminate(*mlx_ptr);
 		return (0);
 	}
-	*minimap_image = mlx_new_image(*mlx_ptr, data->map.width * TILE_SIZE,
-			data->map.height * TILE_SIZE);
+	*minimap_image = mlx_new_image(*mlx_ptr, minimap_size, minimap_size);
 	if (!*minimap_image)
 	{
 		printf("Error creating minimap image\n");
@@ -190,9 +128,8 @@ void	init_minimap(t_config *data)
 	init_values(data);
 	init_angle(data);
 	render_3d_view(view_3d, data);
-	// draw_minimap(minimap_image, data);
 	mlx_image_to_window(mlx_ptr, view_3d, 0, 0);
-	mlx_image_to_window(mlx_ptr, minimap_image, 10, 10);
+	mlx_image_to_window(mlx_ptr, minimap_image, SCREEN_WIDTH - 300, 10);
 	mlx_mouse_hook(mlx_ptr, &mouse_click_handler, data);
 	mlx_cursor_hook(mlx_ptr, &mouse_move_handler, data);
 	mlx_set_mouse_pos(mlx_ptr, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);

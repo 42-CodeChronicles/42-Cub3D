@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   weapon_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 10:00:00 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 16:59:12 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/11/19 17:07:09 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	get_weapon_dimensions(mlx_texture_t *texture, int *w, int *h)
 void	get_weapon_position(int weapon_width, int weapon_height,
 		int *start_x, int *start_y)
 {
-	*start_x = SCREEN_WIDTH - weapon_width - 50;
-	*start_y = SCREEN_HEIGHT - weapon_height - 20;
+	*start_x = SCREEN_WIDTH - weapon_width - 400 ;
+	*start_y = SCREEN_HEIGHT - weapon_height ;
 }
 
 void	update_weapon_frame(t_weapon *weapon, double current_time)

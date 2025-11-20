@@ -1,12 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cub3D.h                // Rays - Ray casting functions
+double				cast_ray(t_config *data, double ray_angle,
+						int *hit_vertical, double *wall_x, int *map_x,
+						int *map_y);
+void				cast_all_rays(mlx_image_t *img, t_config *data);
+
+// 3D View                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/19 16:05:22 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/20 23:26:37 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,10 +263,6 @@ void				draw_tile(mlx_image_t *img, int x, int y, int color);
 int					is_valid_pos(t_config *data, int x, int y);
 int					check_collision(t_config *data, int new_x, int new_y);
 void				normalize_angle(double *angle);
-// Scaled/minimap helpers
-void			draw_tile_minimap(mlx_image_t *img, int x, int y, int tile_size, int color);
-void			draw_player_dot_minimap(mlx_image_t *img, t_config *data);
-void			draw_line_dda_minimap(mlx_image_t *img, t_config *data, double angle, double distance);
 
 // Minimap draw
 void				draw_player_dot(mlx_image_t *img, int x, int y);
@@ -270,14 +272,16 @@ void				draw_direction_line(mlx_image_t *img, t_config *data);
 void				draw_minimap(mlx_image_t *minimap_image, t_config *data);
 
 // Minimap init
-void				init_angle(t_config *data);
-void				init_values(t_config *data);
+void			init_angle(t_config *data);
+void			init_values(t_config *data);
 
 // Rays - Ray casting functions
-double				cast_ray(t_config *data, double ray_angle,
-						int *hit_vertical, double *wall_x, int *map_x,
-						int *map_y);
-void				cast_all_rays(mlx_image_t *img, t_config *data);
+double			cast_ray(t_config *data, double ray_angle,
+					int *hit_vertical, double *wall_x, int *map_x,
+					int *map_y);
+/* Disabled: minimap-only full-cast helper
+void			cast_all_rays(mlx_image_t *img, t_config *data);
+*/
 // 3D View
 void				render_3d_view(mlx_image_t *img, t_config *data);
 void				calculate_wall_height(t_wall *wall, double distance,

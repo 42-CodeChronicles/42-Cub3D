@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:51 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/12 04:01:33 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/20 15:45:53 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,22 +164,6 @@ double	cast_ray(t_config *data, double ray_angle, int *hit_vertical,
 
 void	cast_all_rays(mlx_image_t *img, t_config *data)
 {
-	double	fov_rad;
-	double	angle_step;
-	double	start_angle;
-	double	ray_angle;
-	int		hit_vertical;
-	double	distance;
-
-	fov_rad = (FOV * M_PI) / 180.0;
-	angle_step = fov_rad / NUM_RAYS;
-	start_angle = data->map.player_pos.angle - (fov_rad / 2);
-	for (int i = 0; i < NUM_RAYS; i++)
-	{
-		double wall_x;
-		int map_x, map_y;
-		ray_angle = start_angle + (i * angle_step);
-		distance = cast_ray(data, ray_angle, &hit_vertical , &wall_x, &map_x, &map_y);
-		draw_line_dda(img, data, ray_angle, distance);
-	}
+	(void)img;
+	(void)data;
 }
