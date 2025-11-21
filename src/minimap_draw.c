@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:39 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/21 00:01:27 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/21 15:26:38 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	draw_player_dot(mlx_image_t *img, int x, int y)
 	int	dot_size;
 	int	i;
 	int	j;
-	int pixel_x;
-	int pixel_y;
-	
+	int	pixel_x;
+	int	pixel_y;
+
 	dot_size = 6;
 	i = 0;
 	while (i < dot_size)
@@ -29,41 +29,25 @@ void	draw_player_dot(mlx_image_t *img, int x, int y)
 		{
 			pixel_x = x + i - dot_size / 2;
 			pixel_y = y + j - dot_size / 2;
-			
-			 if (pixel_x >= 0 && pixel_x < (int)img->width &&
-                pixel_y >= 0 && pixel_y < (int)img->height)
-                mlx_put_pixel(img, pixel_x, pixel_y, 0xFF0000FF);
+			if (pixel_x >= 0 && pixel_x < (int)img->width && pixel_y >= 0
+				&& pixel_y < (int)img->height)
+				mlx_put_pixel(img, pixel_x, pixel_y, 0xFF0000FF);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_line_dda(mlx_image_t *img, t_config *data, double angle,
-		double distance)
-{
-	(void)img;
-	(void)data;
-	(void)angle;
-	(void)distance;
-}
-
-void	draw_direction_line(mlx_image_t *img, t_config *data)
-{
-	(void)img;
-	(void)data;
-}
-
-static void	draw_scaled_tile(mlx_image_t *img, int x, int y, int size, int color)
+static void	draw_scaled_tile(mlx_image_t *img, int x, int y, int color)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < size && x + i < (int)img->width)
+	while (i < 7 && x + i < (int)img->width)
 	{
 		j = 0;
-		while (j < size && y + j < (int)img->height)
+		while (j < 7 && y + j < (int)img->height)
 		{
 			if (x + i >= 0 && y + j >= 0)
 				mlx_put_pixel(img, x + i, y + j, color);
@@ -75,10 +59,10 @@ static void	draw_scaled_tile(mlx_image_t *img, int x, int y, int size, int color
 
 static void	draw_map_tiles(mlx_image_t *minimap_image, t_config *data)
 {
-	int		x;
-	int		y;
-	int		map_x;
-	int		map_y;
+	int	x;
+	int	y;
+	int	map_x;
+	int	map_y;
 
 	y = 0;
 	while (y < data->map.height)
@@ -89,11 +73,11 @@ static void	draw_map_tiles(mlx_image_t *minimap_image, t_config *data)
 			map_x = x * 7;
 			map_y = y * 7;
 			if (data->map.array_map[y][x] == '1')
-				draw_scaled_tile(minimap_image, map_x, map_y, 7, 0x808080FF);
+				draw_scaled_tile(minimap_image, map_x, map_y, 0x808080FF);
 			else if (data->map.array_map[y][x] == 'D')
-				draw_scaled_tile(minimap_image, map_x, map_y, 7, 0x00FF00FF);
+				draw_scaled_tile(minimap_image, map_x, map_y, 0x00FF00FF);
 			else
-				draw_scaled_tile(minimap_image, map_x, map_y, 7, 0x000000FF);
+				draw_scaled_tile(minimap_image, map_x, map_y, 0x000000FF);
 			x++;
 		}
 		y++;
@@ -104,7 +88,7 @@ void	draw_minimap(mlx_image_t *minimap_image, t_config *data)
 {
 	int	player_x;
 	int	player_y;
-	
+
 	draw_map_tiles(minimap_image, data);
 	player_x = (int)((data->map.player_pos.x / TILE_SIZE) * 7);
 	player_y = (int)((data->map.player_pos.y / TILE_SIZE) * 7);

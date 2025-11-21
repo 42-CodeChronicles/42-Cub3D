@@ -6,14 +6,14 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:54:50 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/20 23:30:01 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/21 15:26:13 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-
-static void player_move1(t_config *data , double move_speed, double *new_x , double *new_y)
+static void	player_move1(t_config *data, double move_speed, double *new_x,
+		double *new_y)
 {
 	if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_W))
 	{
@@ -37,11 +37,12 @@ static void player_move1(t_config *data , double move_speed, double *new_x , dou
 	}
 }
 
-static void player_move(t_config *data , double rotation_speed, double move_speed)
+static void	player_move(t_config *data, double rotation_speed,
+		double move_speed)
 {
-	double		new_x;
-	double		new_y;
-	
+	double	new_x;
+	double	new_y;
+
 	new_x = data->map.player_pos.x;
 	new_y = data->map.player_pos.y;
 	if (mlx_is_key_down(data->mlx_ptr, MLX_KEY_ESCAPE))
@@ -63,13 +64,12 @@ static void player_move(t_config *data , double rotation_speed, double move_spee
 
 void	handle_key(void *param)
 {
-	t_config	*data;
-	double		move_speed;
-	double		rotation_speed;
+	t_config		*data;
+	double			move_speed;
+	double			rotation_speed;
+	struct timeval	tv;
+	double			current_time;
 
-	struct		timeval tv;
-	double 		current_time;
-	
 	data = (t_config *)param;
 	gettimeofday(&tv, NULL);
 	current_time = tv.tv_sec + tv.tv_usec / 1000000.0;
@@ -80,9 +80,8 @@ void	handle_key(void *param)
 	player_move(data, rotation_speed, move_speed);
 	normalize_angle(&data->map.player_pos.angle);
 	render_3d_view(data->view_3d, data);
-	for(int i = 0; i < data->sprite_count; i++)
+	for (int i = 0; i < data->sprite_count; i++)
 		draw_sprite(data->view_3d, data, &data->sprites[i]);
 	draw_weapon(data->view_3d, data);
 	draw_minimap(data->minimap_image, data);
 }
-

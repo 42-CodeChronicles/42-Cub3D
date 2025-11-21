@@ -1,18 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                // Rays - Ray casting functions
-double				cast_ray(t_config *data, double ray_angle,
-						int *hit_vertical, double *wall_x, int *map_x,
-						int *map_y);
-void				cast_all_rays(mlx_image_t *img, t_config *data);
-
-// 3D View                    :+:      :+:    :+:   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/04 12:09:59 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/11/20 23:26:37 by ayaarab          ###   ########.fr       */
+/*   Created: 2025/11/21 15:12:59 by ayaarab           #+#    #+#             */
+/*   Updated: 2025/11/21 15:29:21 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +23,7 @@ void				cast_all_rays(mlx_image_t *img, t_config *data);
 
 # define TILE_SIZE 64
 # define MINIMAP_TILES 17
-# define MINIMAP_SIZE (MINIMAP_TILES * TILE_SIZE)
+# define MINIMAP_SIZE 1088 // 64 * 17
 // #define TILE_SIZE 10
 // #define DOT_SIZE 4
 // #define MINIMAP_TILES 9
@@ -111,7 +105,7 @@ typedef struct s_door
 	int				x;
 	int				y;
 	int				is_open;
-	int			is_door;
+	int				is_door;
 }					t_door;
 
 typedef struct s_flags
@@ -188,6 +182,23 @@ typedef struct s_draw_params
 	t_config		*data;
 	t_wall_pos		*pos;
 }					t_draw_params;
+
+// norminette forcing struct
+typedef struct s_rayscast
+{
+	double			x;
+	double			y;
+	double			dir_x;
+	double			dir_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	int				map_x;
+	int				map_y;
+	int				step_x;
+	int				step_y;
+	double			side_dist_x;
+	double			side_dist_y;
+}					t_rayscast;
 
 int					cube(char *str);
 int					ft_isspace(int c);
@@ -266,22 +277,16 @@ void				normalize_angle(double *angle);
 
 // Minimap draw
 void				draw_player_dot(mlx_image_t *img, int x, int y);
-void				draw_line_dda(mlx_image_t *img, t_config *data,
-						double angle, double distance);
-void				draw_direction_line(mlx_image_t *img, t_config *data);
 void				draw_minimap(mlx_image_t *minimap_image, t_config *data);
 
 // Minimap init
-void			init_angle(t_config *data);
-void			init_values(t_config *data);
+void				init_angle(t_config *data);
+void				init_values(t_config *data);
 
 // Rays - Ray casting functions
-double			cast_ray(t_config *data, double ray_angle,
-					int *hit_vertical, double *wall_x, int *map_x,
-					int *map_y);
-/* Disabled: minimap-only full-cast helper
-void			cast_all_rays(mlx_image_t *img, t_config *data);
-*/
+double				cast_ray(t_config *data, double ray_angle,
+						int *hit_vertical, double *wall_x, int *map_x,
+						int *map_y);
 // 3D View
 void				render_3d_view(mlx_image_t *img, t_config *data);
 void				calculate_wall_height(t_wall *wall, double distance,
@@ -289,5 +294,8 @@ void				calculate_wall_height(t_wall *wall, double distance,
 void				draw_wall_slice_texture(mlx_image_t *img,
 						t_draw_params *params);
 void				open_door_in_front(t_config *data);
+void				mouse_click_handler(mouse_key_t button, action_t action,
+						modifier_key_t mods, void *param);
+void				mouse_move_handler(double xpos, double ypos, void *param);
 // ##########################
 #endif
