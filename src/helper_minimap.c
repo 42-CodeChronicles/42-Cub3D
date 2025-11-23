@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:54:50 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/21 15:26:13 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/23 13:45:22 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,24 @@ void	handle_key(void *param)
 	for (int i = 0; i < data->sprite_count; i++)
 		draw_sprite(data->view_3d, data, &data->sprites[i]);
 	draw_weapon(data->view_3d, data);
+	clear_minimap(data->minimap_image);
 	draw_minimap(data->minimap_image, data);
+}
+
+void	clear_minimap(mlx_image_t *minimap_image)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < (int)minimap_image->height)
+	{
+		x = 0;
+		while (x < (int)minimap_image->width)
+		{
+			mlx_put_pixel(minimap_image, x, y, 0x00000000);
+			x++;
+		}
+		y++;
+	}
 }

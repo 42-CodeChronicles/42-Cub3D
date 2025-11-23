@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:40:10 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/21 00:14:38 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/22 15:45:44 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,27 @@ void	calculate_wall_height(t_wall *wall, double distance, double ray_angle,
 
 void	render_3d_view(mlx_image_t *img, t_config *data)
 {
-	double			fov_rad;
-	double			angle_step;
-	double			start_angle;
-	double			ray_angle;
-	int				hit_vertical;
-	double			distance;
+	t_3d			three_d;
 	t_wall			wall;
 	t_wall_pos		pos;
 	t_draw_params	params;
-	int				x;
 
-	fov_rad = (FOV * M_PI) / 180.0;
-	angle_step = fov_rad / SCREEN_WIDTH;
-	start_angle = data->map.player_pos.angle - (fov_rad / 2);
-	x = 0;
-	while (x < SCREEN_WIDTH)
+	three_d.fov_rad = (FOV * M_PI) / 180.0;
+	three_d.angle_step = three_d.fov_rad / SCREEN_WIDTH;
+	three_d.start_angle = data->map.player_pos.angle - (three_d.fov_rad / 2);
+	three_d.x = 0;
+	while (three_d.x < SCREEN_WIDTH)
 	{
-		ray_angle = start_angle + (x * angle_step);
-		distance = cast_ray(data, ray_angle, &hit_vertical, &pos.wall_x,
-				&pos.map_x, &pos.map_y);
-		calculate_wall_height(&wall, distance, ray_angle, data);
-		params.x = x;
+		three_d.ray_angle = three_d.start_angle + (three_d.x
+				* three_d.angle_step);
+		three_d.distance = cast_ray(data, three_d.ray_angle,
+				&three_d.hit_vertical, &pos.wall_x, &pos.map_x, &pos.map_y);
+		calculate_wall_height(&wall, three_d.distance, three_d.ray_angle, data);
+		params.x = three_d.x;
 		params.wall = &wall;
 		params.data = data;
 		params.pos = &pos;
 		draw_wall_slice_texture(img, &params);
-		x++;
+		three_d.x++;
 	}
 }
