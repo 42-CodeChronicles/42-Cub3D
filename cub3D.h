@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 15:12:59 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/21 15:29:21 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/23 13:24:13 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define TILE_SIZE 64
 # define MINIMAP_TILES 17
-# define MINIMAP_SIZE 1088 // 64 * 17
+# define MINIMAP_SIZE 200
 // #define TILE_SIZE 10
 // #define DOT_SIZE 4
 // #define MINIMAP_TILES 9
@@ -200,6 +200,17 @@ typedef struct s_rayscast
 	double			side_dist_y;
 }					t_rayscast;
 
+typedef struct s_3d
+{
+	double			fov_rad;
+	double			angle_step;
+	double			start_angle;
+	double			ray_angle;
+	int				hit_vertical;
+	double			distance;
+	int				x;
+}					t_3d;
+
 int					cube(char *str);
 int					ft_isspace(int c);
 void				print_error(void);
@@ -278,6 +289,7 @@ void				normalize_angle(double *angle);
 // Minimap draw
 void				draw_player_dot(mlx_image_t *img, int x, int y);
 void				draw_minimap(mlx_image_t *minimap_image, t_config *data);
+void				clear_minimap(mlx_image_t *minimap_image);
 
 // Minimap init
 void				init_angle(t_config *data);
@@ -297,5 +309,8 @@ void				open_door_in_front(t_config *data);
 void				mouse_click_handler(mouse_key_t button, action_t action,
 						modifier_key_t mods, void *param);
 void				mouse_move_handler(double xpos, double ypos, void *param);
+int					get_wall_side(t_rayscast *ray, int side);
+void				init_ray(t_rayscast *ray, t_config *data, double angle);
+
 // ##########################
 #endif
