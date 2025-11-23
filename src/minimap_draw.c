@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:39 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/21 15:26:38 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/23 13:35:12 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_player_dot(mlx_image_t *img, int x, int y)
 	int	pixel_x;
 	int	pixel_y;
 
-	dot_size = 6;
+	dot_size = 8;
 	i = 0;
 	while (i < dot_size)
 	{
@@ -44,10 +44,10 @@ static void	draw_scaled_tile(mlx_image_t *img, int x, int y, int color)
 	int	j;
 
 	i = 0;
-	while (i < 7 && x + i < (int)img->width)
+	while (i < 20 && x + i < (int)img->width)
 	{
 		j = 0;
-		while (j < 7 && y + j < (int)img->height)
+		while (j < 20 && y + j < (int)img->height)
 		{
 			if (x + i >= 0 && y + j >= 0)
 				mlx_put_pixel(img, x + i, y + j, color);
@@ -61,23 +61,37 @@ static void	draw_map_tiles(mlx_image_t *minimap_image, t_config *data)
 {
 	int	x;
 	int	y;
-	int	map_x;
-	int	map_y;
+	int	screen_x;
+	int	screen_y;
+	int	tile_size;
+	int	player_tile_x;
+	int	player_tile_y;
+	int	tiles_radius;
 
-	y = 0;
-	while (y < data->map.height)
+	tile_size = 7;
+	tiles_radius = (MINIMAP_SIZE / tile_size) / 2;
+	player_tile_x = (int)(data->map.player_pos.x / TILE_SIZE);
+	player_tile_y = (int)(data->map.player_pos.y / TILE_SIZE);
+	y = player_tile_y - tiles_radius;
+	while (y <= player_tile_y + tiles_radius)
 	{
-		x = 0;
-		while (x < data->map.width)
+		x = player_tile_x - tiles_radius;
+		while (x <= player_tile_x + tiles_radius)
 		{
-			map_x = x * 7;
-			map_y = y * 7;
-			if (data->map.array_map[y][x] == '1')
-				draw_scaled_tile(minimap_image, map_x, map_y, 0x808080FF);
-			else if (data->map.array_map[y][x] == 'D')
-				draw_scaled_tile(minimap_image, map_x, map_y, 0x00FF00FF);
-			else
-				draw_scaled_tile(minimap_image, map_x, map_y, 0x000000FF);
+			screen_x = (x - (player_tile_x - tiles_radius)) * tile_size;
+			screen_y = (y - (player_tile_y - tiles_radius)) * tile_size;
+			if (x >= 0 && x < data->map.width && y >= 0 && y < data->map.height)
+			{
+				if (data->map.array_map[y][x] == '1')
+					draw_scaled_tile(minimap_image, screen_x, screen_y,
+						0x808080FF);
+				else if (data->map.array_map[y][x] == 'D')
+					draw_scaled_tile(minimap_image, screen_x, screen_y,
+						0x00FF00FF);
+				else
+					draw_scaled_tile(minimap_image, screen_x, screen_y,
+						0x000000FF);
+			}
 			x++;
 		}
 		y++;
@@ -86,11 +100,6 @@ static void	draw_map_tiles(mlx_image_t *minimap_image, t_config *data)
 
 void	draw_minimap(mlx_image_t *minimap_image, t_config *data)
 {
-	int	player_x;
-	int	player_y;
-
 	draw_map_tiles(minimap_image, data);
-	player_x = (int)((data->map.player_pos.x / TILE_SIZE) * 7);
-	player_y = (int)((data->map.player_pos.y / TILE_SIZE) * 7);
-	draw_player_dot(minimap_image, player_x, player_y);
+	draw_player_dot(minimap_image, MINIMAP_SIZE / 2, MINIMAP_SIZE / 2);
 }

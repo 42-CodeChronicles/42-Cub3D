@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:43:04 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/21 15:22:23 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/21 16:11:15 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,28 @@ int	is_valid_pos(t_config *data, int tx, int ty)
 int	check_collision(t_config *data, int new_x, int new_y)
 {
 	int	dot_size;
-	int	left;
-	int	right;
-	int	top;
-	int	bottom;
+	int	l;
+	int	r;
+	int	t;
+	int	b;
 
 	dot_size = TILE_SIZE / 8;
-	left = (new_x - dot_size) / TILE_SIZE;
-	right = (new_x + dot_size) / TILE_SIZE;
-	top = (new_y - dot_size) / TILE_SIZE;
-	bottom = (new_y + dot_size) / TILE_SIZE;
-	if (!is_valid_pos(data, left, top) || !is_valid_pos(data, right, top)
-		|| !is_valid_pos(data, left, bottom) || !is_valid_pos(data, right,
-			bottom))
+	l = (new_x - dot_size) / TILE_SIZE;
+	r = (new_x + dot_size) / TILE_SIZE;
+	t = (new_y - dot_size) / TILE_SIZE;
+	b = (new_y + dot_size) / TILE_SIZE;
+	if (!is_valid_pos(data, l, t) || !is_valid_pos(data, r, t)
+		|| !is_valid_pos(data, l, b) || !is_valid_pos(data, r, b))
 		return (1);
-	if (data->map.array_map[top][left] == '1'
-		|| data->map.array_map[top][right] == '1'
-		|| data->map.array_map[top][left] == 'D'
-		|| data->map.array_map[top][right] == 'D')
+	if (data->map.array_map[t][l] == '1'
+		|| data->map.array_map[t][r] == '1'
+		|| data->map.array_map[t][l] == 'D'
+		|| data->map.array_map[t][r] == 'D')
 		return (1);
-	if (data->map.array_map[bottom][left] == '1'
-		|| data->map.array_map[bottom][right] == '1'
-		|| data->map.array_map[bottom][left] == 'D'
-		|| data->map.array_map[bottom][right] == 'D')
+	if (data->map.array_map[b][l] == '1'
+		|| data->map.array_map[b][r] == '1'
+		|| data->map.array_map[b][l] == 'D'
+		|| data->map.array_map[b][r] == 'D')
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/21 15:25:09 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/11/23 13:33:44 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ void	load_texture(t_config *data)
 static int	setup_mlx(mlx_t **mlx_ptr, mlx_image_t **view_3d,
 		mlx_image_t **minimap_image, t_config *data)
 {
-	int	minimap_size;
-
-	minimap_size = 300;
 	*mlx_ptr = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D - 3D View", true);
 	if (!*mlx_ptr)
 	{
@@ -45,7 +42,7 @@ static int	setup_mlx(mlx_t **mlx_ptr, mlx_image_t **view_3d,
 		mlx_terminate(*mlx_ptr);
 		return (0);
 	}
-	*minimap_image = mlx_new_image(*mlx_ptr, minimap_size, minimap_size);
+	*minimap_image = mlx_new_image(*mlx_ptr, MINIMAP_SIZE, MINIMAP_SIZE );
 	if (!*minimap_image)
 	{
 		printf("Error creating minimap image\n");
@@ -72,7 +69,7 @@ void	init_minimap(t_config *data)
 	init_angle(data);
 	render_3d_view(view_3d, data);
 	mlx_image_to_window(mlx_ptr, view_3d, 0, 0);
-	mlx_image_to_window(mlx_ptr, minimap_image, SCREEN_WIDTH - 300, 10);
+	mlx_image_to_window(mlx_ptr, minimap_image, MINIMAP_SIZE + 800, 20);
 	mlx_mouse_hook(mlx_ptr, &mouse_click_handler, data);
 	mlx_cursor_hook(mlx_ptr, &mouse_move_handler, data);
 	mlx_set_mouse_pos(mlx_ptr, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
