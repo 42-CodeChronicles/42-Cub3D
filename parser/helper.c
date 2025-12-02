@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:19:33 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/12/01 10:25:49 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/12/02 10:13:02 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,34 +118,3 @@ int	cube(char *str)
 }
 
 // print_array(data);
-// void	cube(char *str)
-// {
-// 	int			fd;
-// 	t_config	data;
-// 	char		**map_copy;
-
-// 	if (!str || ft_strlen(str) < 4 || ft_strcmp(str + ft_strlen(str) - 4,
-// 			".cub"))
-// 	{
-// 		printf("Error: File must have .cub extension\n");
-// 		return ;
-// 	}
-// 	ft_memset(&data, 0, sizeof(t_config));
-// 	fd = open(str, O_RDONLY);
-// 	if (fd == -1)
-// 	{
-// 		perror("Error opening file");
-// 		return ;
-// 	}
-// 	if (!parse_config(fd, &data))
-// 		return ;
-// 	parse_map(fd, &data);
-// 	if (!validate_map(&data))
-// 		print_error();
-// 	map_copy = create_map_copy(&data);
-// 	flood_fill(map_copy, data.map.player_pos.x, data.map.player_pos.y,
-// 		data.map.height, data.map.width);
-// 	free_map_copy(map_copy, data.map.height);
-// 	close(fd);
-// 	free_config(&data);
-// }

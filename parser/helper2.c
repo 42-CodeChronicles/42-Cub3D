@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:15:22 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/09/06 11:01:26 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/12/02 10:13:21 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,71 +88,3 @@ void	handle_rgb(char *str, t_config *data)
 		i++;
 	}
 }
-
-// static void	ft_edit_array(char **array)
-// {
-// 	char	*tmp;
-// 	int		i;
-
-// 	i = 0;
-// 	while (array[i])
-// 	{
-// 		tmp = ft_strtrim(array[i], " \t\n");
-// 		free(array[i]);
-// 		array[i] = tmp;
-// 		i++;
-// 	}
-// }
-//
-// void	handle_rgb(char *str, t_config *data, t_flags *flags)
-// {
-// 	char	**array;
-// 	int		i;
-// 	int		j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == 'F' && ft_isspace(str[i + 1]))
-// 		{
-// 			if (flags->f)
-// 				print_error();
-// 			i++;
-// 			array = ft_split2(str + i, ',');
-// 			if (array_len(array) != 3)
-// 				print_error();
-// 			ft_edit_array(array);
-// 			j = 0;
-// 			while (j < 3)
-// 			{
-// 				if (atoi(array[j]) < 0 || atoi(array[j]) > 255
-// 					|| !check_num(array[j]))
-// 					print_error();
-// 				data->f[j] = ft_atoi(array[j]);
-// 				j++;
-// 			}
-// 			flags->f = 1;
-// 		}
-// 		if (str[i] == 'C' && ft_isspace(str[i + 1]))
-// 		{
-// 			if (flags->c)
-// 				print_error();
-// 			i++;
-// 			array = ft_split2(str + i, ',');
-// 			if (array_len(array) != 3)
-// 				print_error();
-// 			j = 0;
-// 			while (j < 3)
-// 			{
-// 				if (atoi(array[j]) < 0 || atoi(array[j]) > 255
-// 					|| !check_num(array[j]))
-// 					print_error();
-// 				data->c[j] = ft_atoi(array[j]);
-// 				j++;
-// 			}
-// 			flags->c = 1;
-// 		}
-// 		i++;
-// 	}
-// }

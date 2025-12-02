@@ -1,7 +1,7 @@
-NO ./textures/Bricks.png
-SO ./textures/Stone.png
-WE ./textures/Bark.png
-EA ./textures/Iron.png
+NO ./textures/Ballas.png
+SO ./textures/Ballas.png
+WE ./textures/Ballas.png
+EA ./textures/Ballas.png
 
 
                     F                              220, 100,                         0                    
