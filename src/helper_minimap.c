@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:54:50 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/23 13:45:22 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/02 12:49:07 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	handle_key(void *param)
 	current_time = tv.tv_sec + tv.tv_usec / 1000000.0;
 	update_all_sprites(data, current_time);
 	update_weapon_frame(&data->weapon, current_time);
-	move_speed = 2.0;
+	move_speed = 5.0;
 	rotation_speed = 0.05;
 	player_move(data, rotation_speed, move_speed);
 	normalize_angle(&data->map.player_pos.angle);

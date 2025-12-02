@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 12:19:33 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/12/02 20:46:44 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/12/02 20:50:38 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	process_map_validation(t_config *data)
 	if (data->map.height > 1000 || data->map.width > 1000)
 	{
 		printf("invalid dimension!");
-		exit(1);	
+		exit(1);
 	}
 	map_copy = create_map_copy(data);
 	flood_fill(map_copy, data->map.player_pos.x, data->map.player_pos.y,

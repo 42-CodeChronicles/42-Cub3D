@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:39 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/23 13:35:12 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/02 15:31:18 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,16 @@ static void	draw_scaled_tile(mlx_image_t *img, int x, int y, int color)
 	}
 }
 
-static void	draw_map_tiles(mlx_image_t *minimap_image, t_config *data)
+static void	draw_map_tiles(mlx_image_t *minimap_image, t_config *data,
+		int tile_size, int tiles_radius)
 {
 	int	x;
 	int	y;
 	int	screen_x;
 	int	screen_y;
-	int	tile_size;
 	int	player_tile_x;
 	int	player_tile_y;
-	int	tiles_radius;
 
-	tile_size = 7;
-	tiles_radius = (MINIMAP_SIZE / tile_size) / 2;
 	player_tile_x = (int)(data->map.player_pos.x / TILE_SIZE);
 	player_tile_y = (int)(data->map.player_pos.y / TILE_SIZE);
 	y = player_tile_y - tiles_radius;
@@ -100,6 +97,11 @@ static void	draw_map_tiles(mlx_image_t *minimap_image, t_config *data)
 
 void	draw_minimap(mlx_image_t *minimap_image, t_config *data)
 {
-	draw_map_tiles(minimap_image, data);
+	int	tile_size;
+	int	tiles_radius;
+
+	tile_size = 7;
+	tiles_radius = (MINIMAP_SIZE / tile_size) / 2;
+	draw_map_tiles(minimap_image, data, tile_size, tiles_radius);
 	draw_player_dot(minimap_image, MINIMAP_SIZE / 2, MINIMAP_SIZE / 2);
 }
