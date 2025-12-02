@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 15:25:16 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/21 15:25:26 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/03 00:42:31 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ void	open_door_in_front(t_config *data)
 	{
 		data->map.array_map[ty][tx] = '0';
 		data->doors->is_open = 1;
+		data->doors->x = tx;
+		data->doors->y = ty;
 	}
 	else if (data->map.array_map[ty][tx] == '0' && data->doors->is_open == 1
-		&& data->doors->is_open == 1)
+		&& data->doors->x == tx && data->doors->y == ty)
 	{
 		data->map.array_map[ty][tx] = 'D';
 		data->doors->is_open = 0;

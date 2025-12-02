@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:39 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/12/02 15:31:18 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/03 00:46:26 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,18 @@ static void	draw_scaled_tile(mlx_image_t *img, int x, int y, int color)
 		i++;
 	}
 }
+
+// static void	draw_map_tiles_helper(t_config *data,
+// mlx_image_t *minimap_image,
+// 		int x, int y, int screen_x, int screen_y)
+// {
+// 	if (data->map.array_map[y][x] == '1')
+// 		draw_scaled_tile(minimap_image, screen_x, screen_y, 0x808080FF);
+// 	else if (data->map.array_map[y][x] == 'D')
+// 		draw_scaled_tile(minimap_image, screen_x, screen_y, 0x00FF00FF);
+// 	else
+// 		draw_scaled_tile(minimap_image, screen_x, screen_y, 0x000000FF);
+// }
 
 static void	draw_map_tiles(mlx_image_t *minimap_image, t_config *data,
 		int tile_size, int tiles_radius)
