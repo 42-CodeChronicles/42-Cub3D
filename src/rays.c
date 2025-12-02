@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:51 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/23 01:03:15 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/02 12:53:53 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ void	setup_ray_steps(t_rayscast *ray)
 	}
 }
 
+static int	perform_dda_help(t_config *data, t_rayscast *ray)
+{
+	if (data->map.array_map[ray->map_y][ray->map_x] == '1'
+		|| data->map.array_map[ray->map_y][ray->map_x] == 'D')
+		return (1);
+	return (0);
+}
+
 int	perform_dda(t_rayscast *ray, t_config *data)
 {
 	int	hit;
@@ -64,9 +72,7 @@ int	perform_dda(t_rayscast *ray, t_config *data)
 		if (ray->map_x < 0 || ray->map_x >= data->map.width || ray->map_y < 0
 			|| ray->map_y >= data->map.height)
 			break ;
-		if (data->map.array_map[ray->map_y][ray->map_x] == '1'
-			|| data->map.array_map[ray->map_y][ray->map_x] == 'D')
-			hit = 1;
+		hit = perform_dda_help(data, ray);
 	}
 	return (side);
 }

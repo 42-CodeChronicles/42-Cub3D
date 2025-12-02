@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:42:48 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/23 13:33:44 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/02 12:19:42 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	setup_mlx(mlx_t **mlx_ptr, mlx_image_t **view_3d,
 		mlx_terminate(*mlx_ptr);
 		return (0);
 	}
-	*minimap_image = mlx_new_image(*mlx_ptr, MINIMAP_SIZE, MINIMAP_SIZE );
+	*minimap_image = mlx_new_image(*mlx_ptr, MINIMAP_SIZE, MINIMAP_SIZE);
 	if (!*minimap_image)
 	{
 		printf("Error creating minimap image\n");
