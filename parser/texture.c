@@ -6,7 +6,7 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:21:19 by aychikhi          #+#    #+#             */
-/*   Updated: 2025/12/01 10:34:37 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/12/02 20:52:04 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static void	init_tex_data(t_tex_data *tex, t_config *data, t_wall_pos *pos)
 	if (data->map.array_map[pos->map_y][pos->map_x] == 'D')
 	{
 		door = get_door_state(data, pos->map_x, pos->map_y);
-		//if (door)
-			//door_offset = door->open_amount;
 	}
 	pos->wall_x += door_offset;
 	if (pos->wall_x > 1.0)
 		pos->wall_x -= 1.0;
 	tex->tex_x = (int)(pos->wall_x * tex->texture->width);
-	tex->ceiling_color = (data->c[0] << 24) | (data->c[1] << 16) | (data->c[2] << 8) | 0xFF;
-	tex->floor_color = (data->f[0] << 24) | (data->f[1] << 16) | (data->f[2] << 8) | 0xFF;
+	tex->ceiling_color = (data->c[0] << 24) | (data->c[1] << 16) 
+		| (data->c[2] << 8) | 0xFF;
+	tex->floor_color = (data->f[0] << 24) | (data->f[1] << 16) 
+		| (data->f[2] << 8) | 0xFF;
 }
 
 static void	draw_ceiling(mlx_image_t *img, int x, int end, uint32_t color)
