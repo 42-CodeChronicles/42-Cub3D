@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 16:54:50 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/12/02 12:49:07 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/03 14:44:22 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ static void	player_move(t_config *data, double rotation_speed,
 	}
 }
 
+static void	handle_key_helper(t_config *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->sprite_count)
+	{
+		draw_sprite(data->view_3d, data, &data->sprites[i]);
+		i++;
+	}
+}
+
 void	handle_key(void *param)
 {
 	t_config		*data;
@@ -80,8 +92,7 @@ void	handle_key(void *param)
 	player_move(data, rotation_speed, move_speed);
 	normalize_angle(&data->map.player_pos.angle);
 	render_3d_view(data->view_3d, data);
-	for (int i = 0; i < data->sprite_count; i++)
-		draw_sprite(data->view_3d, data, &data->sprites[i]);
+	handle_key_helper(data);
 	draw_weapon(data->view_3d, data);
 	clear_minimap(data->minimap_image);
 	draw_minimap(data->minimap_image, data);

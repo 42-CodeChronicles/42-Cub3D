@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 15:12:59 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/11/23 13:24:13 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/03 14:42:52 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,17 @@ typedef struct s_draw_params
 }					t_draw_params;
 
 // norminette forcing struct
+
+typedef struct s_minimap_draw
+{
+	int		tile_size;
+	int		tiles_radius;
+	int		x;
+	int		y;
+	int		screen_x;
+	int		screen_y;
+}			t_minimap_draw;
+
 typedef struct s_rayscast
 {
 	double			x;
