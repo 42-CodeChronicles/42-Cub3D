@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 15:12:59 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/12/03 14:42:52 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/03 19:49:13 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,13 +187,13 @@ typedef struct s_draw_params
 
 typedef struct s_minimap_draw
 {
-	int		tile_size;
-	int		tiles_radius;
-	int		x;
-	int		y;
-	int		screen_x;
-	int		screen_y;
-}			t_minimap_draw;
+	int				tile_size;
+	int				tiles_radius;
+	int				x;
+	int				y;
+	int				screen_x;
+	int				screen_y;
+}					t_minimap_draw;
 
 typedef struct s_rayscast
 {
@@ -221,6 +221,14 @@ typedef struct s_3d
 	double			distance;
 	int				x;
 }					t_3d;
+
+typedef struct s_ray_hit
+{
+	int				side;
+	double			distance;
+	int				*hit_vertical;
+	t_wall_pos		*pos;
+}					t_ray_hit;
 
 int					cube(char *str);
 int					ft_isspace(int c);
@@ -308,8 +316,10 @@ void				init_values(t_config *data);
 
 // Rays - Ray casting functions
 double				cast_ray(t_config *data, double ray_angle,
-						int *hit_vertical, double *wall_x, int *map_x,
-						int *map_y);
+						int *hit_vertical, t_wall_pos *pos);
+void				set_hit_info(t_config *data, t_rayscast *ray,
+						t_ray_hit *hit);
+
 // 3D View
 void				render_3d_view(mlx_image_t *img, t_config *data);
 void				calculate_wall_height(t_wall *wall, double distance,

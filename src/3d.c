@@ -6,7 +6,7 @@
 /*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 00:40:10 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/22 15:45:44 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/03 19:44:28 by ayaarab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	render_3d_view(mlx_image_t *img, t_config *data)
 		three_d.ray_angle = three_d.start_angle + (three_d.x
 				* three_d.angle_step);
 		three_d.distance = cast_ray(data, three_d.ray_angle,
-				&three_d.hit_vertical, &pos.wall_x, &pos.map_x, &pos.map_y);
+				&three_d.hit_vertical, &pos);
 		calculate_wall_height(&wall, three_d.distance, three_d.ray_angle, data);
 		params.x = three_d.x;
 		params.wall = &wall;
