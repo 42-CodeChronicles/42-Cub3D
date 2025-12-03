@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayaarab <ayaarab@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 15:12:59 by ayaarab           #+#    #+#             */
-/*   Updated: 2025/12/03 19:49:13 by ayaarab          ###   ########.fr       */
+/*   Updated: 2025/12/03 19:53:04 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,21 @@ typedef struct s_3d
 	double			distance;
 	int				x;
 }					t_3d;
+
+typedef struct s_sprite_params
+{
+	double	dx;
+	double	dy;
+	double	distance;
+	double	angle_to_sprite;
+	double	sprite_angle;
+	int		screen_x;
+	double	sprite_height;
+	double	sprite_width;
+	int		start_y;
+	int		start_x;
+	int		end_x;
+}			t_sprite_params;
 
 typedef struct s_ray_hit
 {

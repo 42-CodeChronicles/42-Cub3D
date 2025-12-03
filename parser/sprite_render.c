@@ -6,26 +6,11 @@
 /*   By: aychikhi <aychikhi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 10:00:16 by codespace         #+#    #+#             */
-/*   Updated: 2025/11/09 16:51:02 by aychikhi         ###   ########.fr       */
+/*   Updated: 2025/12/03 19:52:42 by aychikhi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-typedef struct s_sprite_params
-{
-	double	dx;
-	double	dy;
-	double	distance;
-	double	angle_to_sprite;
-	double	sprite_angle;
-	int		screen_x;
-	double	sprite_height;
-	double	sprite_width;
-	int		start_y;
-	int		start_x;
-	int		end_x;
-}			t_sprite_params;
 
 double	get_sprite_distance(t_config *data, t_sprite *sprite)
 {
